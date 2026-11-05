@@ -517,28 +517,55 @@ metrics:
 - AI-generated illustrations
 - corporate-consultancy look
 - anything resembling a church/ministry site
+- the generic dark developer aesthetic; terminal-style interfaces that sacrifice readability
+- oversized monograms, random floating cards, excessive rounded corners
+- decorative animation without meaning
 
-**Foundation (proposal):**
-- **Colour:** charcoal (`~#141414`) on off-white (`~#F5F3EE`), with a dark mode that inverts sensibly. **One** restrained accent, used sparingly for links, status markers, and the vinculum motif. Suggestions: a deep signal-orange or an oxide red. Final choice in the spec. Contrast must pass WCAG AA in both modes.
+**Foundation: visual identity reset (Timmy, 4 Nov 2026).** This replaces the original charcoal/off-white proposal. Direction: an experimental, editorial, *computational research* environment. Not a developer-portfolio template, terminal UI or SaaS page.
+- **Colour:**
+  - Default theme is **dark**: a near-black with a green/graphite undertone (`#080B09`), with foreground `#E4E9E1`.
+  - One signal colour, **chartreuse** (`#C9F24B`). It is reserved for data, the current position, and interaction.
+  - A light "paper" theme is available through the toggle. There the signal colour becomes deep olive (`#4A6600`) so it stays readable as text.
+  - Every text colour passes WCAG AA in both themes, including the annotation colour.
 - **Typography:**
-  - a serif for headings and long reading (editorial voice)
-  - a clean sans for UI
-  - a monospace for metadata, status labels, dates, and technical callouts
-  - a strong size scale with generous measure (~65–75 characters per line)
-  - KaTeX for maths
-- **Signature motif: the vinculum.** In mathematical notation, a vinculum is the horizontal bar over an expression (as in a repeating decimal or a square root). It works as a quiet, native visual mark of "connecting things": section rules, overlines on section headings, active-nav indicators, and the link between the three threads.
-  - It is purely typographic, needs no brand reference, and leaves room to tie in Vinculum Implexa later.
+  - **Instrument Sans** for interface and all reading text.
+  - **Instrument Serif** as selective editorial display, at large sizes only. It no longer sets long reading text.
+  - **IBM Plex Mono** for labels, coordinates, data and notation.
+  - Mathematical variables are set in italic serif, as in typeset notation. KaTeX is still used for maths in content.
+  - Measure ≈ 65–75 characters.
+- **Composition: "Manuscript, with figure".** The site borrows the conventions of a typeset research paper:
+  - a visible 12-column grid with column indices
+  - margin line numbers
+  - numbered figures with captions
+  - footnotes that carry evidence
+  - "Abstract" and "Notes" blocks
+  - coordinate annotations (Lagos 6.52° N 3.38° E)
+- **Home hero:**
+  - The three threads are set as a staircase of display lines: *Engineering, Research, & Creation.*
+  - Each line carries its own source signal:
+    - Engineering: square wave (Fourier partial sum)
+    - Research: Gabor wave packet
+    - Creation: frequency modulation
+  - **Fig. 1** draws their sum, x(t). This is a deliberate echo of source separation, the subject of the Dechorder thesis.
+  - Footnotes give one approved example per thread (FairMoney / HAUV / Xealtha).
+  - No portrait card, monogram or decorative underline.
+- **Vinculum motif (reinterpreted):**
+  - The bar that binds terms is now Fig. 1's sum line, which binds the three threads.
+  - It also appears as the short signal-coloured bar over the active navigation item and over section numbers.
+  - It is never a brand mark.
+- **Figures:**
+  - Computational visualisations must be real mathematics and meaningful.
+  - They are computed at build time as static SVG, using hairlines (non-scaling 1px strokes).
+  - They are never decorative noise and never fabricated research imagery.
 - **Layout:**
+  - asymmetric 12-column grid
+  - text-first sections
+  - fine linework instead of cards
+  - square corners
   - generous whitespace
-  - asymmetric editorial grid
-  - text-first sections instead of card piles
-  - numbered sections / figure captions in a paper-like style
-  - metadata rails (date · status · affiliation · stack) in monospace
-- **Imagery:**
-  - authentic photos only (plain backgrounds, natural, lightly edited; dramatic but tasteful for expressive shots)
-  - clean diagrams for research and engineering (SVG, monochrome + accent)
-  - until photos arrive, use typographic placeholders, never stock photos
-- **Motion:** subtle only (fade/translate on route change, link underline transitions). Respect `prefers-reduced-motion`.
+  - metadata rails in monospace
+- **Imagery:** authentic photos only (plain backgrounds, natural, lightly edited). Until they arrive, nothing stands in for a photo; the typography and figures carry the page.
+- **Motion:** small transitions only (nav marker, link colour), none decorative. Respect `prefers-reduced-motion`.
 - **Status language:** small monospace labels such as `ACTIVE`, `COMPLETED`, `IN DEVELOPMENT`, `EXPLORATION`, `EXPECTED IMPACT`, consistent across the site.
 
 ---

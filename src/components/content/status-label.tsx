@@ -42,7 +42,7 @@ export function StatusLabel({ status, className }: StatusLabelProps) {
   return (
     <span
       className={cn(
-        "meta inline-flex items-center gap-1.5 border px-1.5 py-0.5 whitespace-nowrap",
+        "label inline-flex items-center gap-1.5 border px-1.5 py-0.5 whitespace-nowrap",
         emphasised ? "border-accent text-accent" : "border-border text-muted-foreground",
         status === "hidden" && "bg-accent text-accent-foreground",
         className,

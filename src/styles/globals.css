@@ -15,7 +15,7 @@
  * Contrast against background (WCAG 2.2):
  *   dark   foreground 16.0 · muted-foreground 6.4 · accent 15.3
  *   light  foreground 16.7 · muted-foreground 6.2 · accent 5.7
- *   `faint` is for decorative, aria-hidden annotation only (≥ 3:1).
+ *   faint (annotation) 4.9 dark · 5.1 light: still AA, one step below muted.
  */
 
 :root {
@@ -25,7 +25,7 @@
   --muted: #121813;
   --foreground: #e4e9e1;
   --muted-foreground: #8a958c;
-  --faint: #647066;
+  --faint: #768178;
   --grid: #131a15;
   --border: #222b24;
   --border-strong: #3a463c;
@@ -41,7 +41,7 @@
   --muted: #dde1d7;
   --foreground: #0a0e0b;
   --muted-foreground: #4f5a51;
-  --faint: #6f7a70;
+  --faint: #5c665d;
   --grid: #dde1d8;
   --border: #c5ccc2;
   --border-strong: #8d978c;

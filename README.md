@@ -6,7 +6,7 @@ Personal website and long-term digital home of Timmy (Timilehin) Omolana.
 - **How it is built:** [`IMPLEMENTATION_SPEC.md`](./IMPLEMENTATION_SPEC.md)
 - **Background brief:** [`ABOUT_TIM.md`](./ABOUT_TIM.md)
 
-> Status: **Phase 1 — foundation and design system.** The content engine,
+> Status: **Phase 1 — foundation and design system (visual identity reset).** The content engine,
 > guardrails, pages, SEO and full documentation arrive in later phases
 > (see `IMPLEMENTATION_SPEC.md` §15).
 
@@ -56,21 +56,28 @@ src/
   styles/           globals.css — design tokens and base styles
 ```
 
-## Design system (Phase 1)
+## Design system
+
+The visual identity is "Manuscript, with figure": an editorial, computational
+research environment. The full rationale is in `PLAN.md` §7.
 
 - **Tokens** live in `src/styles/globals.css` as semantic CSS variables
-  (`--background`, `--foreground`, `--surface`, `--muted`,
-  `--muted-foreground`, `--border`, `--accent`, `--accent-foreground`,
-  `--focus-ring`) mapped to Tailwind colours. Components never use literal
-  colours.
-- **Palette:** charcoal `#141414` on warm off-white `#F5F3EE`; one accent,
-  oxide red (`#A23B1E` light / `#E07A55` dark). All text pairs meet WCAG AA
-  (body text ≥ 14:1, muted ≥ 6.2:1, accent ≥ 5.9:1).
-- **Type:** Newsreader (editorial serif, headings and long reading), IBM Plex
-  Sans (UI and body), IBM Plex Mono (metadata, dates, status labels).
-- **Vinculum motif:** the bar drawn over a mathematical expression to bind
-  its terms. It appears as heading overbars, the active-nav marker, section
-  rules, and the single bar spanning the three threads.
-- **Theme:** follows the system by default; the header toggle stores an
-  explicit choice in `localStorage`, applied before first paint.
-- **Motion:** small transitions only; disabled under `prefers-reduced-motion`.
+  (`--background`, `--surface`, `--muted`, `--foreground`,
+  `--muted-foreground`, `--faint`, `--grid`, `--border`, `--border-strong`,
+  `--accent`, `--accent-foreground`, `--focus-ring`). They are mapped to
+  Tailwind colours, and components never use literal colours.
+- **Palette:** the default dark theme is a near-black with a green/graphite
+  undertone (`#080B09`), with one chartreuse signal colour (`#C9F24B`). The
+  light "paper" theme uses a deep olive signal colour (`#4A6600`). Every text
+  colour passes WCAG AA in both themes, including the faint annotation colour.
+- **Type:** Instrument Sans (interface and reading text), Instrument Serif
+  (display only, large sizes), and IBM Plex Mono (labels, coordinates,
+  notation). Utilities: `label`, `annot`, `display`, `math`, `link`.
+- **Figures:** `src/lib/signals.ts` generates real signals (Fourier partial
+  sum, Gabor wave packet, FM) as SVG paths at build time, and
+  `<SignalTrace>` draws them as 1px hairlines.
+- **Grid:** `<ColumnGuides>` draws the 12-column grid with column indices. On
+  large screens it lines up exactly with `lg:grid-cols-12 gap-x-6` content.
+- **Theme:** dark by default. The header toggle switches to the paper theme
+  and remembers the choice in `localStorage`, applied before first paint.
+- **Motion:** small transitions only, disabled under `prefers-reduced-motion`.

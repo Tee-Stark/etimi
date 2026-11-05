@@ -39,7 +39,7 @@ export function MobileMenu() {
         aria-expanded={open}
         aria-controls={panelId}
         onClick={() => setOpen((value) => !value)}
-        className="meta inline-flex min-h-11 items-center gap-2 px-2 text-foreground hover:text-accent"
+        className="label inline-flex min-h-11 items-center gap-2 px-2 text-foreground hover:text-accent"
       >
         <span>{open ? "Close" : "Menu"}</span>
         <span aria-hidden="true" className="relative block size-3.5">
@@ -62,7 +62,7 @@ export function MobileMenu() {
         id={panelId}
         aria-label="Primary"
         hidden={!open}
-        className="order-last basis-full border-t border-border pt-1 pb-6"
+        className="order-last basis-full pt-2 pb-8"
       >
         <div>
           <NavList

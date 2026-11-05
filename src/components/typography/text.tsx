@@ -5,12 +5,12 @@ type TextProps = { children: ReactNode; className?: string };
 
 /** Monospace uppercase label for metadata above headings. */
 export function Eyebrow({ children, className }: TextProps) {
-  return <p className={cn("meta text-muted-foreground", className)}>{children}</p>;
+  return <p className={cn("label text-muted-foreground", className)}>{children}</p>;
 }
 
 /** Introductory paragraph in the editorial serif. */
 export function Lede({ children, className }: TextProps) {
-  return <p className={cn("max-w-measure font-serif text-lede", className)}>{children}</p>;
+  return <p className={cn("max-w-measure text-lede", className)}>{children}</p>;
 }
 
 /** Plain body copy constrained to a readable measure. */

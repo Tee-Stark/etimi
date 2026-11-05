@@ -2,9 +2,9 @@ import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
 type SectionHeadingProps = {
-  /** Paper-style section number, e.g. "01". Decorative for assistive tech. */
+  /** Paper-style section number, e.g. "§2" or "02". Decorative for assistive tech. */
   index?: string;
-  /** Short monospace label shown beside the number. */
+  /** Short monospace label beside the number. */
   eyebrow?: string;
   children: ReactNode;
   as?: "h1" | "h2" | "h3";
@@ -15,42 +15,28 @@ type SectionHeadingProps = {
 };
 
 /**
- * Numbered section heading. The heading text carries a vinculum: a bar drawn
- * over it, spanning exactly the width of the words.
+ * Section heading in the manuscript style: a full-width hairline, the section
+ * number and label in monospace on the rule, and the heading below. A short
+ * signal-coloured segment over the number marks the start of the section.
  */
-export function SectionHeading({
-  index,
-  eyebrow,
-  children,
-  as: Tag = "h2",
-  id,
-  className,
-  aside,
-}: SectionHeadingProps) {
+export function SectionHeading({ index, eyebrow, children, as: Tag = "h2", id, className, aside }: SectionHeadingProps) {
   return (
-    <div className={cn("flex flex-wrap items-end justify-between gap-x-6 gap-y-3", className)}>
-      <div className="min-w-0">
-        {index || eyebrow ? (
-          <p className="meta mb-4 flex gap-3 text-muted-foreground">
-            {index ? (
-              <span aria-hidden="true" className="text-accent">
-                {index}
-              </span>
-            ) : null}
-            {eyebrow ? <span>{eyebrow}</span> : null}
-          </p>
-        ) : null}
-        <Tag
-          id={id}
-          className={cn(
-            "inline-block border-t-2 border-accent pt-3",
-            Tag === "h1" ? "text-h1" : Tag === "h2" ? "text-h2" : "text-h3",
-          )}
-        >
-          {children}
-        </Tag>
+    <div className={cn("border-t border-border", className)}>
+      <div className="flex flex-wrap items-start justify-between gap-x-6 gap-y-3 pt-3">
+        <p className="label flex gap-3 text-muted-foreground">
+          {index ? (
+            <span aria-hidden="true" className="relative text-foreground">
+              <span className="absolute -top-[13px] left-0 h-[1.5px] w-full bg-accent" />
+              {index}
+            </span>
+          ) : null}
+          {eyebrow ? <span>{eyebrow}</span> : null}
+        </p>
+        {aside ? <div className="shrink-0">{aside}</div> : null}
       </div>
-      {aside ? <div className="shrink-0">{aside}</div> : null}
+      <Tag id={id} className={cn("mt-6", Tag === "h1" ? "text-h1" : Tag === "h2" ? "text-h2" : "text-h3")}>
+        {children}
+      </Tag>
     </div>
   );
 }

@@ -62,7 +62,9 @@ export function ThemeToggle({ className }: { className?: string }) {
         <span className={cn("size-2 border border-current", theme !== "light" && "bg-accent border-accent")} />
         <span className={cn("size-2 border border-current", theme === "light" && "bg-accent border-accent")} />
       </span>
-      <span aria-hidden="true">{theme === "light" ? "Paper" : "Dark"}</span>
+      <span aria-hidden="true" className="hidden sm:inline">
+        {theme === "light" ? "Paper" : "Dark"}
+      </span>
     </button>
   );
 }

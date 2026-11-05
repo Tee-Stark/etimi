@@ -1,26 +1,27 @@
 import { PendingSection } from "@/components/dev/pending-section";
-import { Hero } from "@/components/home/hero";
-import { Threads } from "@/components/home/threads";
+import { ManuscriptHero } from "@/components/home/manuscript-hero";
 import { getSite } from "@/content/site";
 
 /*
- * Home (IMPLEMENTATION_SPEC.md §8.1). Phase 1 skeleton: hero and threads are
- * live; remaining sections are development-only markers until the content
- * engine (Phase 2) and pages (Phase 4) supply them.
+ * Home (IMPLEMENTATION_SPEC.md §8.1). The hero carries the identity, the
+ * positioning line and the three threads. Remaining sections are
+ * development-only markers until the content engine (Phase 2) and pages
+ * (Phase 4) supply them.
  */
 export default function HomePage() {
   const site = getSite();
 
   return (
     <>
-      <Hero
+      <ManuscriptHero
         name={site.name}
         title={site.title}
         location={site.location}
+        coordinates={site.coordinates}
         positioning={site.positioning}
         intro={site.heroIntro}
+        threads={site.threads}
       />
-      <Threads threads={site.threads} />
       <PendingSection title="Current research" note="HAUV highlight with poster status (Phase 4)." />
       <PendingSection title="Selected work" note="3–4 items across engineering, research and projects (Phase 4)." />
       <PendingSection title="Experience at a glance" note="FairMoney → Analytics Intelligence Africa → Naerospace (Phase 4)." />

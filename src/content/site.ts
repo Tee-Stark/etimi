@@ -19,6 +19,7 @@ const siteSchema = z
     fullName: z.string().min(1),
     title: z.string().min(1),
     location: z.string().min(1),
+    coordinates: z.string().min(1),
     positioning: z.string().min(1),
     heroIntro: z.string().min(1),
     threads: z
@@ -28,6 +29,8 @@ const siteSchema = z
             id: z.enum(["engineering", "research", "creation"]),
             label: z.string().min(1),
             description: z.string().min(1),
+            note: z.string().min(1),
+            href: z.string().startsWith("/"),
           })
           .strict(),
       )
@@ -39,6 +42,8 @@ const siteSchema = z
   .strict();
 
 type SiteSource = z.infer<typeof siteSchema>;
+
+export type Thread = SiteSource["threads"][number];
 
 export type PublicProfile = { label: string; url: string };
 

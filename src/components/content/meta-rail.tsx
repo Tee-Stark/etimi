@@ -22,7 +22,7 @@ export function MetaRail({ items, showLabels = false, className }: MetaRailProps
   if (visible.length === 0) return null;
 
   return (
-    <dl className={cn("meta flex flex-wrap items-center gap-x-2 gap-y-1 text-muted-foreground", className)}>
+    <dl className={cn("label flex flex-wrap items-center gap-x-2 gap-y-1 text-muted-foreground", className)}>
       {visible.map((item, i) => (
         <div key={item.label} className="flex items-center gap-x-2">
           <dt className={showLabels ? "text-foreground" : "sr-only"}>

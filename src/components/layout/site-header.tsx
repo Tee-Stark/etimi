@@ -11,17 +11,15 @@ type SiteHeaderProps = { name: string };
 export function SiteHeader({ name }: SiteHeaderProps) {
   return (
     <header className="border-b border-border">
-      <Container className="flex flex-wrap items-center gap-x-4 py-3 sm:py-4">
-        <Link
-          href="/"
-          className="mr-auto inline-flex min-h-11 items-center font-serif text-[1.1875rem] leading-none tracking-tight"
-        >
+      <Container className="flex flex-wrap items-center gap-x-3 py-2">
+        <Link href="/" className="mr-auto inline-flex min-h-11 items-center gap-2.5 text-small font-medium tracking-tight">
+          <span aria-hidden="true" className="size-1.5 bg-accent" />
           {name}
         </Link>
         <Suspense fallback={<PrimaryNavFallback />}>
           <PrimaryNav />
         </Suspense>
-        <ThemeToggle className="-mr-2 lg:mr-0" />
+        <ThemeToggle className="lg:ml-3" />
         <Suspense fallback={null}>
           <MobileMenu />
         </Suspense>

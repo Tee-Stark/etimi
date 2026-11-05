@@ -12,15 +12,16 @@ type NavListProps = {
 };
 
 /**
- * Presentational nav list. The active page is marked with aria-current and a
- * vinculum drawn over its label; hover previews the bar in a quieter tone.
+ * Presentational nav list. The current page carries aria-current and a short
+ * signal-coloured bar over its label (the vinculum, marking position).
+ * Vertical lists are numbered like a table of contents.
  */
 export function NavList({ items, pathname, orientation, onNavigate, className }: NavListProps) {
   const horizontal = orientation === "horizontal";
 
   return (
-    <ul className={cn(horizontal ? "flex items-center gap-x-1" : "flex flex-col", className)}>
-      {items.map((item) => {
+    <ul className={cn(horizontal ? "flex items-center gap-x-0.5" : "flex flex-col", className)}>
+      {items.map((item, i) => {
         const active = isActivePath(pathname, item.href);
         return (
           <li key={item.href}>
@@ -29,17 +30,26 @@ export function NavList({ items, pathname, orientation, onNavigate, className }:
               aria-current={active ? "page" : undefined}
               onClick={onNavigate}
               className={cn(
-                "group relative inline-flex items-center text-small transition-colors duration-150",
-                horizontal ? "min-h-11 px-2.5" : "min-h-12 w-full border-b border-border py-3 text-body",
+                "group relative inline-flex items-center transition-colors duration-150",
+                horizontal
+                  ? "min-h-11 px-2.5 text-small"
+                  : "min-h-12 w-full items-baseline gap-4 border-b border-border py-3 text-lede",
                 active ? "text-foreground" : "text-muted-foreground hover:text-foreground",
               )}
             >
-              <span
-                className={cn(
-                  "border-t-2 pt-1 transition-colors duration-150",
-                  active ? "border-accent" : "border-transparent group-hover:border-border",
-                )}
-              >
+              {!horizontal ? (
+                <span aria-hidden="true" className="annot w-6 text-faint">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+              ) : null}
+              <span className="relative">
+                <span
+                  aria-hidden="true"
+                  className={cn(
+                    "absolute -top-1.5 left-0 h-[1.5px] transition-[width,background-color] duration-200 ease-out-quiet",
+                    active ? "w-full bg-accent" : "w-0 bg-border-strong group-hover:w-full",
+                  )}
+                />
                 {item.label}
               </span>
             </Link>

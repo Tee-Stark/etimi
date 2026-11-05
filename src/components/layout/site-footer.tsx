@@ -8,6 +8,7 @@ type SiteFooterProps = {
   name: string;
   positioning: string;
   location: string;
+  coordinates: string;
   /** Confirmed, public profiles only. Empty means nothing is rendered. */
   profiles: PublicProfile[];
 };
@@ -19,57 +20,74 @@ async function CurrentYear() {
   return <>{new Date().getFullYear()}</>;
 }
 
-export function SiteFooter({ name, positioning, location, profiles }: SiteFooterProps) {
+/** Footer as a colophon: identity, contents, and how the pages are made. */
+export function SiteFooter({ name, positioning, location, coordinates, profiles }: SiteFooterProps) {
   return (
     <footer className="mt-auto border-t border-border">
-      <Container className="grid gap-12 py-14 sm:py-16 md:grid-cols-12">
-        <div className="md:col-span-5 lg:col-span-6">
-          <p className="inline-block border-t-2 border-accent pt-3 font-serif text-h3">{name}</p>
+      <Container className="grid gap-x-6 gap-y-12 py-14 sm:py-16 lg:grid-cols-12">
+        <div className="lg:col-span-5">
+          <p className="display text-h2">{name}</p>
           <p className="mt-4 max-w-sm text-small text-muted-foreground">{positioning}</p>
-          <p className="meta mt-4 text-muted-foreground">{location}</p>
+          <p className="label mt-6 text-muted-foreground">
+            {location} <span className="text-faint">·</span> {coordinates}
+          </p>
         </div>
 
-        <nav aria-label="Footer" className="md:col-span-4 lg:col-span-3">
-          <p className="meta mb-4 text-muted-foreground">Sections</p>
-          <ul className="grid grid-cols-2 gap-x-6 gap-y-1">
-            {primaryNav.map((item) => (
+        <nav aria-label="Footer" className="lg:col-span-3 lg:col-start-7">
+          <p className="label mb-3 text-muted-foreground">Contents</p>
+          <ol className="grid grid-cols-2 gap-x-6">
+            {primaryNav.map((item, i) => (
               <li key={item.href}>
                 <Link
                   href={item.href}
-                  className="inline-flex min-h-9 items-center text-small text-foreground hover:text-accent"
+                  className="group inline-flex min-h-9 items-baseline gap-2.5 text-small text-foreground hover:text-accent"
                 >
+                  <span aria-hidden="true" className="annot text-faint group-hover:text-accent">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
                   {item.label}
                 </Link>
               </li>
             ))}
-          </ul>
+          </ol>
         </nav>
 
-        {profiles.length > 0 ? (
-          <div className="md:col-span-3">
-            <p className="meta mb-4 text-muted-foreground">Elsewhere</p>
-            <ul className="space-y-1">
-              {profiles.map((profile) => (
-                <li key={profile.url}>
-                  <a
-                    href={profile.url}
-                    rel="me noopener noreferrer"
-                    className="inline-flex min-h-9 items-center text-small text-foreground hover:text-accent"
-                  >
-                    {profile.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
+        <div className="space-y-8 lg:col-span-3 lg:col-start-10">
+          {profiles.length > 0 ? (
+            <div>
+              <p className="label mb-3 text-muted-foreground">Elsewhere</p>
+              <ul>
+                {profiles.map((profile) => (
+                  <li key={profile.url}>
+                    <a
+                      href={profile.url}
+                      rel="me noopener noreferrer"
+                      className="inline-flex min-h-9 items-center text-small text-foreground hover:text-accent"
+                    >
+                      {profile.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
+          <div>
+            <p className="label mb-3 text-muted-foreground">Colophon</p>
+            <p className="text-small text-muted-foreground">
+              Set in Instrument Sans, Instrument Serif and IBM Plex Mono. Figures are computed when the site is built.
+            </p>
           </div>
-        ) : null}
+        </div>
       </Container>
 
       <div className="border-t border-border">
-        <Container className="py-6">
-          <p className="meta text-muted-foreground">
+        <Container className="flex flex-wrap justify-between gap-4 py-5">
+          <p className="label text-muted-foreground">
             © <CurrentYear /> {name}
           </p>
+          <a href="#content" className="label text-muted-foreground hover:text-foreground">
+            Back to top ↑
+          </a>
         </Container>
       </div>
     </footer>

@@ -17,6 +17,7 @@ export default function SiteLayout({ children }: LayoutProps<"/">) {
         name={site.name}
         positioning={site.positioning}
         location={site.location}
+        coordinates={site.coordinates}
         profiles={site.profiles}
       />
     </>
