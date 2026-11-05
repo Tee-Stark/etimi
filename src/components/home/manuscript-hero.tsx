@@ -88,7 +88,14 @@ export function ManuscriptHero({ name, title, location, coordinates, positioning
                       </span>
                     </span>
                     <span className={cn("relative min-w-0 flex-1", place.traceFirst && "lg:order-first lg:mr-[0.18em]")}>
-                      <span aria-hidden="true" className="annot absolute bottom-full left-0 mb-1 leading-none text-muted-foreground not-italic">
+                      {/* Symbol sits at the far end of the trace, away from the footnote marker. */}
+                      <span
+                        aria-hidden="true"
+                        className={cn(
+                          "annot absolute bottom-full mb-1.5 leading-none text-muted-foreground not-italic",
+                          place.traceFirst ? "right-0 lg:right-auto lg:left-0" : "right-0",
+                        )}
+                      >
                         <span className="math text-[1.15em] text-foreground">s</span>
                         <sub>{signal.symbol}</sub>
                       </span>
