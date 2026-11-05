@@ -2,7 +2,7 @@ import { collectionNames, type CollectionName } from "./collections";
 import { ContentValidationError } from "./issues";
 import { loadAllContent, type LoadedContent } from "./loader";
 import { validateContent } from "./validation";
-import { projectSite, publishedIds, selectEntries, type PublicEntry, type PublicSite } from "./visibility";
+import { projectAbout, projectSite, publishedIds, selectEntries, type PublicAbout, type PublicEntry, type PublicSite } from "./visibility";
 
 /*
  * The content repository: load → validate → project. Framework-agnostic
@@ -13,6 +13,7 @@ import { projectSite, publishedIds, selectEntries, type PublicEntry, type Public
 
 export type Repository = {
   site: PublicSite;
+  about: PublicAbout;
   /** Published entries only. Use for sitemap, feeds, metadata and structured data. */
   published: { [N in CollectionName]: PublicEntry<N>[] };
   /** Published entries, plus hidden/draft entries (flagged) when preview is on. Use for page rendering. */
@@ -21,7 +22,7 @@ export type Repository = {
 
 export function buildRepository(content: LoadedContent, { preview = false }: { preview?: boolean } = {}): Repository {
   const issues = validateContent(content);
-  if (issues.length > 0 || !content.site) throw new ContentValidationError(issues);
+  if (issues.length > 0 || !content.site || !content.about) throw new ContentValidationError(issues);
 
   const ctx = { publishedIds: publishedIds(content.entries) };
   const published = {} as Repository["published"];
@@ -31,7 +32,7 @@ export function buildRepository(content: LoadedContent, { preview = false }: { p
     (published as Record<CollectionName, PublicEntry[]>)[name] = selectEntries(entries, ctx);
     (pages as Record<CollectionName, PublicEntry[]>)[name] = preview ? selectEntries(entries, ctx, { preview: true }) : published[name];
   }
-  return { site: projectSite(content.site), published, pages };
+  return { site: projectSite(content.site), about: projectAbout(content.about, ctx), published, pages };
 }
 
 export function loadRepository(contentRoot: string, opts: { preview?: boolean } = {}): Repository {

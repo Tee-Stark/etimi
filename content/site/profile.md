@@ -25,8 +25,7 @@ threads:
     label: Research
     description: Investigating hard problems and their mathematical foundations.
     note: "HAUV: keeping a hybrid aerial–underwater vehicle stable as it crosses the air–water boundary."
-    # Points to the HAUV case study (/research/hauv) once that entry is published (Phase 3).
-    href: /research
+    href: /research/hauv
   - id: creation
     label: Creation
     description: Turning ideas into products, experiments, and tangible things.

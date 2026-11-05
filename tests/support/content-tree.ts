@@ -31,6 +31,15 @@ export const baseSite = {
   profiles: [],
 };
 
+export const baseAbout = {
+  education: [],
+  academicInterests: [],
+  interests: [],
+  philosophy: { statement: "Example statement.", connections: [] },
+  music: [],
+  skills: [],
+};
+
 export const base = (slug: string, extra: Record<string, unknown> = {}) => ({
   title: `Example ${slug}`,
   slug,
@@ -41,9 +50,17 @@ export const base = (slug: string, extra: Record<string, unknown> = {}) => ({
 });
 
 /** Create a content root. Keys are paths under content/, values are file text. */
-export function makeTree(files: Record<string, string>, site: Record<string, unknown> | null = baseSite): string {
+export function makeTree(
+  files: Record<string, string>,
+  site: Record<string, unknown> | null = baseSite,
+  about: Record<string, unknown> | null = baseAbout,
+): string {
   const root = path.join(mkdtempSync(path.join(tmpdir(), "content-test-")), "content");
-  const all = { ...(site ? { "site/profile.md": fm(site) } : {}), ...files };
+  const all = {
+    ...(site ? { "site/profile.md": fm(site) } : {}),
+    ...(about ? { "site/about.md": fm(about, "Example biography.") } : {}),
+    ...files,
+  };
   for (const [rel, text] of Object.entries(all)) {
     const abs = path.join(root, rel);
     mkdirSync(path.dirname(abs), { recursive: true });

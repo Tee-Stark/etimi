@@ -182,6 +182,24 @@ function checkPublicSurface(content: LoadedContent, site: SiteData | null): Cont
     publicSite.profiles.forEach((p, i) => issues.push(...checkUrl(p.url, { file, field: `profiles.${i}.url` }, urlCtx)));
   }
 
+  if (content.about) {
+    const about = content.about;
+    const file = about.sourcePath;
+    issues.push(...checkPlaceholders(JSON.stringify(about.data), { file, raw: about.raw }));
+    issues.push(...checkPlaceholders(about.body, { file, raw: about.raw, field: "body" }));
+    for (const url of extractBodyLinks(about.body)) {
+      issues.push(...checkUrl(url, { file, field: "body", line: lineOf(about.raw, url) }, urlCtx));
+    }
+    const researchSlugs = new Map(content.entries.research.map((e) => [e.data.slug, e]));
+    about.data.education.forEach((edu, i) => {
+      if (!edu.thesis) return;
+      // A hidden thesis is allowed: its link is simply dropped from the public projection.
+      if (!researchSlugs.has(edu.thesis)) {
+        issues.push({ file, field: `education.${i}.thesis`, rule: "reference", message: `No research entry with slug "${edu.thesis}" exists` });
+      }
+    });
+  }
+
   for (const entry of allEntries(content)) {
     if (!isPublished(entry)) continue;
     const projected = projectEntry(entry, ctxIds);
@@ -218,6 +236,7 @@ function checkBannedText(content: LoadedContent): ContentIssue[] {
   const issues: ContentIssue[] = [];
   const files: Array<{ file: string; raw: string; entry?: Entry }> = [
     { file: SITE_SOURCE_PATH, raw: content.siteRaw },
+    ...(content.about ? [{ file: content.about.sourcePath, raw: content.about.raw }] : []),
     ...allEntries(content).map((entry) => ({ file: entry.sourcePath, raw: entry.raw, entry })),
   ];
 

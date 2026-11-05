@@ -60,6 +60,60 @@ export const siteSchema = z
   })
   .strict();
 
+// ── About (singleton) ──────────────────────────────────────────────────
+// Structured facts for the About page. The long biography is the file body.
+
+const skillItemSchema = z.union([
+  nonEmpty("skill"),
+  z
+    .object({
+      name: nonEmpty("name"),
+      /** The only markers allowed: no ratings, percentages or levels. */
+      note: z.enum(["primary", "learning"]),
+    })
+    .strict(),
+]);
+
+export const aboutSchema = z
+  .object({
+    education: z
+      .array(
+        z
+          .object({
+            institution: nonEmpty("institution"),
+            qualification: nonEmpty("qualification"),
+            /** Completion date at the precision known (e.g. 2026-08). */
+            completed: partialDateSchema.optional(),
+            /** Slug of the thesis in content/research/. */
+            thesis: slugSchema.optional(),
+          })
+          .strict(),
+      )
+      .default([]),
+    /** Subjects studied and enjoyed: training and interests, not claimed expertise. */
+    academicInterests: z.array(nonEmpty("academic interest")).default([]),
+    interests: z.array(nonEmpty("interest")).default([]),
+    learningStyle: z.string().trim().optional(),
+    philosophy: z
+      .object({
+        statement: nonEmpty("statement"),
+        connections: z.array(nonEmpty("connection")).default([]),
+      })
+      .strict(),
+    music: z.array(nonEmpty("music item")).default([]),
+    skills: z
+      .array(
+        z
+          .object({
+            domain: nonEmpty("domain"),
+            items: z.array(skillItemSchema).min(1, "A skill group needs at least one item"),
+          })
+          .strict(),
+      )
+      .default([]),
+  })
+  .strict();
+
 // ── Roles ───────────────────────────────────────────────────────────────
 
 export const roleSchema = z
@@ -78,6 +132,8 @@ export const roleSchema = z
     location: z.string().trim().optional(),
     mode: z.enum(["remote", "on-site", "hybrid"]).optional(),
     highlights: z.array(nonEmpty("highlight")).default([]),
+    /** Smaller pieces of work, listed compactly (no detail pages). */
+    otherWork: z.array(nonEmpty("item")).default([]),
   })
   .strict();
 
@@ -253,6 +309,7 @@ export const communitySchema = z
   .strict();
 
 export type SiteData = z.infer<typeof siteSchema>;
+export type AboutData = z.infer<typeof aboutSchema>;
 export type RoleData = z.infer<typeof roleSchema>;
 export type CaseStudyData = z.infer<typeof caseStudySchema>;
 export type ResearchData = z.infer<typeof researchSchema>;

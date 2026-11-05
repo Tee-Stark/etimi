@@ -32,6 +32,7 @@ export const REMOVED_TERMS: readonly BannedTerm[] = [
   { id: "agentic-finance", pattern: /\bagentic financial infrastructure\b/i, reason: "Removed with Enquoir (PLAN.md §3.5)" },
   { id: "cgpa", pattern: /\b(c?gpa|class of degree)\b/i, reason: "Grades are never published (PLAN.md §9.6)" },
   { id: "matric", pattern: /\bmatric(ulation)?\s*(no\.?|number)\b/i, reason: "Student identifiers are never published (PLAN.md §9.6)" },
+  { id: "name-tim", pattern: /\bTim\b/, reason: 'The site uses "Timmy Omolana" (alternate: "Timilehin Omolana"), never "Tim" (PLAN.md Q26)' },
   { id: "makeuseof-current", pattern: /\b(i|currently)\s+write\s+for\s+makeuseof\b/i, reason: "MakeUseOf is a past role (until 2023)" },
 ];
 

@@ -3,12 +3,13 @@ import "server-only";
 import type { CollectionName } from "./collections";
 import { DEFAULT_CONTENT_ROOT } from "./loader";
 import { loadRepository, type Repository } from "./repository";
-import { isPreviewEnabled, type PublicEntry, type PublicSite } from "./visibility";
+import { isPreviewEnabled, type PublicAbout, type PublicEntry, type PublicSite } from "./visibility";
 
 /*
  * The only content API for routes and components (server-only).
  *
  *   getSite()                 site identity, hidden contact details removed
+ *   getAbout()                About page facts and biography
  *   getCollection(name)       entries to render on pages; includes flagged
  *                             hidden entries only in development preview
  *   getEntry(name, slug)      one entry for a detail page, or undefined
@@ -33,6 +34,10 @@ export function getSite(): PublicSite {
   return repository().site;
 }
 
+export function getAbout(): PublicAbout {
+  return repository().about;
+}
+
 export function getCollection<N extends CollectionName>(name: N): PublicEntry<N>[] {
   return repository().pages[name] as PublicEntry<N>[];
 }
@@ -50,6 +55,6 @@ export function getStaticSlugs(name: CollectionName): Array<{ slug: string }> {
 }
 
 export type { CollectionName } from "./collections";
-export type { PublicEntry, PublicSite } from "./visibility";
+export type { PublicAbout, PublicEntry, PublicSite } from "./visibility";
 export type { PublicMetric } from "./metrics";
 export { EXPECTED_IMPACT_LABEL } from "./metrics";

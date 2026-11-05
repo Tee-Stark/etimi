@@ -3,7 +3,9 @@ import { collections } from "./collections";
 import { publicLinks, publicUrl, type PublicLink } from "./links";
 import type { Entry } from "./loader";
 import { publicMetrics, type PublicMetric } from "./metrics";
+import type { Singleton } from "./loader";
 import type {
+  AboutData,
   CaseStudyData,
   CommunityData,
   NoteData,
@@ -97,6 +99,16 @@ export type PublicEntry<N extends CollectionName = CollectionName> = {
   preview: boolean;
 };
 
+export type PublicSkill = { name: string; note?: "primary" | "learning" };
+
+export type PublicAbout = Omit<AboutData, "skills" | "education"> & {
+  skills: Array<{ domain: string; items: PublicSkill[] }>;
+  /** Thesis slug kept only if that research entry is published. */
+  education: Array<Omit<AboutData["education"][number], "thesis"> & { thesis?: string }>;
+  body: string;
+  format: Entry["format"];
+};
+
 export type PublicSite = Omit<SiteData, "email" | "cv" | "profiles"> & {
   email: string | null;
   cv: string | null;
@@ -180,6 +192,20 @@ export function projectSite(site: SiteData): PublicSite {
     email: email.visibility === "public" && email.address ? email.address : null,
     cv: cv.visibility === "public" && cv.path ? cv.path : null,
     profiles: publicLinks(profiles),
+  };
+}
+
+export function projectAbout(about: Singleton<AboutData>, ctx: ProjectionContext): PublicAbout {
+  const { skills, education, ...rest } = about.data;
+  return {
+    ...rest,
+    education: education.map(({ thesis, ...e }) => compact({ ...e, thesis: ref("research", thesis, ctx) })),
+    skills: skills.map((group) => ({
+      domain: group.domain,
+      items: group.items.map((item) => (typeof item === "string" ? { name: item } : { name: item.name, note: item.note })),
+    })),
+    body: about.body,
+    format: about.format,
   };
 }
 

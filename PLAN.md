@@ -1,14 +1,14 @@
-# Tim Omolana: Personal Website Plan
+# Timmy Omolana: Personal Website Plan
 
-> **Purpose of this document:** This is the agreed plan for Tim Omolana's personal website. It brings together `ABOUT_TIM.md`, the "Personal Website: Identity, Background & Development Brief", and Tim's answers to the clarification round (3 Nov 2026). It covers **what the site says, how it is organised, how content is modelled, and how it should look and feel**. It does **not** fix the framework, hosting, or tooling. Those come in the implementation spec.
+> **Purpose of this document:** This is the agreed plan for Timmy Omolana's personal website. It brings together `ABOUT_TIM.md`, the "Personal Website: Identity, Background & Development Brief", and Timmy's answers to the clarification round (3 Nov 2026). It covers **what the site says, how it is organised, how content is modelled, and how it should look and feel**. It does **not** fix the framework, hosting, or tooling. Those come in the implementation spec.
 >
-> **Order of precedence when sources disagree:** (1) Tim's clarification answers (Section 2), then (2) `ABOUT_TIM.md`, then (3) the brief. Anything not settled by these is listed in Section 13 (Open items) and must **not** be invented.
+> **Order of precedence when sources disagree:** (1) Timmy's clarification answers (Section 2), then (2) `ABOUT_TIM.md`, then (3) the brief. Anything not settled by these is listed in Section 13 (Open items) and must **not** be invented.
 
 ---
 
 ## 1. Project summary
 
-This is a personal website and long-term digital home for **Tim Omolana** (full name Timilehin Omolana), a Lagos-based software engineer and researcher.
+This is a personal website and long-term digital home for **Timmy Omolana** (full name Timilehin Omolana), a Lagos-based software engineer and researcher.
 
 The site should let recruiters, engineers, researchers, conference organisers, collaborators, and curious visitors quickly understand:
 
@@ -38,22 +38,22 @@ The brief's alternative ("Building systems, exploring ideas, and finding connect
 
 ---
 
-## 2. Decisions log (from Tim, 3 Nov 2026)
+## 2. Decisions log (from Timmy, 3 Nov 2026)
 
 | # | Topic | Decision |
 |---|---|---|
-| 0a | MakeUseOf | Tim **stopped writing for MakeUseOf in 2023**. Show as a **past** role only. |
-| 0b | Education | Tim **graduated from UNILAG in August 2026**. He is no longer a student. |
+| 0a | MakeUseOf | Timmy **stopped writing for MakeUseOf in 2023**. Show as a **past** role only. |
+| 0b | Education | Timmy **graduated from UNILAG in August 2026**. He is no longer a student. |
 | Q1 | Positioning | The brief's line leads: *"intersections of mathematics, computing, and real-world systems."* |
 | Q2 | Graduate study | **Do not** state any graduate-study goal. Keep **Quantum Computing** and **control & systems engineering** as *interests* only. |
 | Q3 | Dechorder | The B.Sc. thesis is **completed and defended**. **Music recommendation** is a **future-work** direction. |
-| Q4 | Vinculum Implexa | **Leave out** VI, VIRL, and VI Industries, including Tim's founder role. Describe the **research itself** only. These will be added later. |
+| Q4 | Vinculum Implexa | **Leave out** VI, VIRL, and VI Industries, including Timmy's founder role. Describe the **research itself** only. These will be added later. |
 | Q5 | HAUV detail | **Research summary only.** No build specs, roadmap, or funding/commercial plans written on the site. |
 | Q6 | HAUV target venue | **Do not publish** any target venue (ICRA or IROS) until there is an acceptance. |
 | Q7 | "Safe-wait" | Same thing as the **dwell-time condition**. Use the term "dwell-time condition" on the site, explained in plain English. |
 | Q8 | HAUV affiliation | **University of Lagos** for now. |
 | Q9 | Kawe, Enquoir | **Do not publish** either one. |
-| Q10 | Skills | Use the **combined list from both sources**. Rust is a **novice / learning** skill. Tim will prune over time. |
+| Q10 | Skills | Use the **combined list from both sources**. Rust is a **novice / learning** skill. Timmy will prune over time. |
 | Q11 | Navigation | Proposed information architecture **accepted** (Section 4). |
 | Q12 | Removals and additions | **Remove:** APIConf talk, the choir song, Bees Foraging Algorithm. **Document Intelligence Platform** is a personal GitHub project (link coming later). |
 | Q13 | Removals | **Remove:** antimicrobial resistance (AMR) modelling, eBPF anomaly detection, Celcic Media, Octave internship. |
@@ -61,7 +61,7 @@ The brief's alternative ("Building systems, exploring ideas, and finding connect
 | Q15 | Naerospace | Naerospace was the **drones department of Nord Motion**. It was meant to become its own company before the project stopped. |
 | Q16 | GopherCon Africa | **Delivered.** Slides and repo links will come later. |
 | Q17 | DevFest Lagos 2024 | "Beyond CRUD" was given **at DevFest Lagos 2024**. |
-| Q18 | MIRG-ICAIR poster | Presentation is **4 Nov 2026**. The PDF will be supplied afterwards. |
+| Q18 | MIRG-ICAIR poster | Presentation is **4 Nov 2026**. The PDF will be supplied afterwards. *(Presented: see Q27.)* |
 | Q19 | Graduation | August 2026. |
 | Q20 | Music and community | **Follow the brief:** include it as one human dimension. It must not look like a church or ministry site. |
 | Q21 | Voice | **First person.** |
@@ -69,6 +69,8 @@ The brief's alternative ("Building systems, exploring ideas, and finding connect
 | Q23 | Assets | Will be supplied later. **Start building now** with neutral placeholders. |
 | Q24 | HAUV explainer | **Embed** it (https://virl-hauv-research.netlify.app). The URL currently sends no `X-Frame-Options` or CSP frame headers, so an iframe is technically possible. *See open item O1 for a conflict with Q5/Q6.* |
 | Q25 | Ventures | **Only Xealtha** may appear publicly. |
+| Q26 | Name (5 Nov 2026) | **"Timmy Omolana"** is the display name everywhere; **"Timilehin Omolana"** is the only alternate (metadata, JSON-LD `alternateName`). **"Tim" is never used** on the site. This supersedes `IMPLEMENTATION_SPEC.md` §9.5/§9.6, which say "Tim Omolana". |
+| Q27 | MIRG-ICAIR poster (5 Nov 2026) | The poster **was presented** on 4 Nov 2026. Show "poster presented". The PDF and the full conference name are still to come. |
 
 ---
 
@@ -151,7 +153,7 @@ Each item below is written **without numbers by default**. A number shows only w
   - Poster at **MIRG-ICAIR 2026**, University of Lagos.
   - Before 4 Nov 2026 show "poster accepted". After that show "poster presented". Either the content is updated by hand, or it's driven by the event date. The full conference name is pending.
 - **Affiliation:** University of Lagos (Q8). No mention of VI or VIRL (Q4).
-- **Name:** "HAUV" = Hybrid Aerial-Underwater Vehicle (as used on Tim's own public explainer).
+- **Name:** "HAUV" = Hybrid Aerial-Underwater Vehicle (as used on Timmy's own public explainer).
 - **Plain-English summary:** a small autonomous vehicle that can fly to a ship, inspect the hull from the air, enter the water, inspect below the waterline, and come back. The research question is how to keep it stable as it crosses the air–water boundary.
 - **Motivation (public, cited facts only):**
   - Hull fouling raises fuel burn and emissions.
@@ -167,7 +169,7 @@ Each item below is written **without numbers by default**. A number shows only w
   - Stability of the translational (heave) dynamics across the air–water transition.
   - The model is nonlinear and has three zones, with quadratic drag and added mass that scales with how submerged the vehicle is.
   - Stability holds under an explicit **dwell-time condition** on the supervisory switching. In plain English: a minimum time the controller must stay in a mode before switching again.
-- **Results:** HIDDEN until Tim supplies the exact poster/abstract wording:
+- **Results:** HIDDEN until Timmy supplies the exact poster/abstract wording:
   - ~3,140 simulations
   - dwell-time criterion 8–89× above the problematic switching intervals found
 - **Simulation only:** Never imply a physical prototype, field validation, or deployment.
@@ -236,7 +238,7 @@ Bees Foraging Algorithm, AMR modelling, and eBPF anomaly detection are all REMOV
 | Talk | Status | Content |
 |---|---|---|
 | **"The Gopher's Trident"**, GopherCon Africa 2026, Nairobi (October) | PUBLISH (delivered) | Distributed transactions without two-phase commit (2PC): orchestrating the Saga pattern in Go with Temporal and deterministic design, with a fintech loan-disbursement case study and live demo. Themes: idempotency, deterministic workflow execution, workflow IDs and business keys. Slides and repo HIDDEN until supplied. |
-| **"Beyond CRUD: What Real-World Backend Engineering Looks Like"**, DevFest Lagos 2024 | PUBLISH | Student-focused talk on backend engineering beyond basic APIs and CRUD. Tim also volunteered as a backend engineering volunteer. |
+| **"Beyond CRUD: What Real-World Backend Engineering Looks Like"**, DevFest Lagos 2024 | PUBLISH | Student-focused talk on backend engineering beyond basic APIs and CRUD. Timmy also volunteered as a backend engineering volunteer. |
 | **HAUV poster**, MIRG-ICAIR 2026, University of Lagos | PUBLISH | Cross-listed with Research. Status as in 3.4A. |
 | "Covering Grounds", APIConf Lagos | REMOVED | Q12 |
 
@@ -257,7 +259,7 @@ Bees Foraging Algorithm, AMR modelling, and eBPF anomaly detection are all REMOV
 | Item | Status | Content |
 |---|---|---|
 | Own notes/articles | PUBLISH (empty section) | Launches with **zero posts**. Show an honest empty state. No fabricated posts. |
-| Topic backlog | Internal only | Backend beyond CRUD; Temporal and deterministic execution; Saga patterns and idempotency; performance engineering; mathematical thinking in software; signal processing and music; research-driven products. Do **not** render these as articles or "coming soon" titles unless Tim approves. |
+| Topic backlog | Internal only | Backend beyond CRUD; Temporal and deterministic execution; Saga patterns and idempotency; performance engineering; mathematical thinking in software; signal processing and music; research-driven products. Do **not** render these as articles or "coming soon" titles unless Timmy approves. |
 | MakeUseOf (past) | PUBLISH (as past publication) | "Previously wrote for MakeUseOf (until 2023)." Author page link HIDDEN until supplied. Optionally a curated article list later. |
 
 ### 3.10 Interests
@@ -283,7 +285,7 @@ Learning style: through implementation and from first principles.
 
 ### 3.11 Skills (combined list; grouped by domain, no ratings)
 
-No percentages, progress bars, or logo walls. One light marker only: **"Learning"** for novice skills. Go is noted as primary. Tim will prune.
+No percentages, progress bars, or logo walls. One light marker only: **"Learning"** for novice skills. Go is noted as primary. Timmy will prune.
 
 | Domain | Items |
 |---|---|
@@ -300,7 +302,7 @@ No percentages, progress bars, or logo walls. One light marker only: **"Learning
 
 All are **HIDDEN until supplied**: email, GitHub, LinkedIn, X/Twitter, MakeUseOf author page, Google Scholar / ORCID. Do not guess handles.
 
-`linkedin.com/in/timmyomolana` appears on the HAUV explainer, but it is **not to be used until Tim confirms it** (O11).
+`linkedin.com/in/timmyomolana` appears on the HAUV explainer, but it is **not to be used until Timmy confirms it** (O11).
 
 ---
 
@@ -358,7 +360,7 @@ General rules for every page:
 
 ### 5.2 About
 
-- **Long bio, first person.** Draft below for Tim to approve.
+- **Long bio, first person.** Draft below for Timmy to approve.
 - **Education:** degree, graduation, thesis.
 - **Philosophy:** meaningful solutions come from connecting fields. Examples:
   - maths → engineering
@@ -374,8 +376,8 @@ General rules for every page:
 - Photo (placeholder until supplied).
 - CV download (hidden until supplied).
 
-**Draft long bio (first person, for Tim's approval):**
-> I'm Tim Omolana, a software engineer and researcher based in Lagos. I'm interested in how complex systems actually work, and in using mathematics and software to build things that hold up in the real world.
+**Draft long bio (first person, for Timmy's approval):**
+> I'm Timmy Omolana, a software engineer and researcher based in Lagos. I'm interested in how complex systems actually work, and in using mathematics and software to build things that hold up in the real world.
 >
 > At FairMoney, I write Go for backend systems in a high-throughput, event-driven fintech environment. Most of my work involves durable workflows with Temporal, reliable distributed processes using the Saga pattern, and performance and data work that makes systems faster and cheaper to run.
 >
@@ -451,7 +453,7 @@ Each entry shows: title, event, location, date, format (talk/poster), abstract, 
 
 ### 5.9 Contact
 
-- Short invitation, covering what Tim is open to (wording pending, O12).
+- Short invitation, covering what Timmy is open to (wording pending, O12).
 - Email and profile links, shown only once confirmed.
 - No form unless the spec agent adds one.
 
@@ -614,14 +616,14 @@ metrics:
   - sitemap (public entries only)
   - robots.txt
   - Open Graph and Twitter cards with an auto-generated OG image per page
-  - `Person` JSON-LD with `name: "Tim Omolana"`, `alternateName: "Timilehin Omolana"`, `jobTitle`, `alumniOf: University of Lagos`, `address: Lagos, Nigeria`
+  - `Person` JSON-LD with `name: "Timmy Omolana"`, `alternateName: "Timilehin Omolana"`, `jobTitle`, `alumniOf: University of Lagos`, `address: Lagos, Nigeria`
   - `sameAs` contains only confirmed profiles
-  - goal: searching "Tim Omolana" or "Timilehin Omolana" surfaces the site
+  - goal: searching "Timmy Omolana" or "Timilehin Omolana" surfaces the site
 - **RSS** for Writing.
 - **Light/dark mode** (respect system, allow toggle).
 - **Maths rendering:** KaTeX, rendered at build time where possible.
 - **Embed:** HAUV explainer as a lazy-loaded, sandboxed iframe with a fallback link.
-- **Easy updates:** content-only changes for new entries. A short `CONTENT.md` editing guide for Tim.
+- **Easy updates:** content-only changes for new entries. A short `CONTENT.md` editing guide for Timmy.
 - **Hidden-content preview:** hidden entries visible in local dev only.
 - Framework, hosting, domain, analytics, and CI are **left to the implementation spec**. `ABOUT_TIM.md` suggests Astro or Next.js with Markdown content collections. Astro is the planner's suggestion.
 
@@ -659,20 +661,20 @@ metrics:
 
 | ID | Item | Owner |
 |---|---|---|
-| **O1** | **Conflict: embed vs summary-only.** Q24 says embed the HAUV explainer, but the explainer itself shows build specs (3.4 kg, 22 min, 10 m), a hardware/commercial roadmap, NPA field-trial plans, a risk register, and an "IEEE IROS 2027" target. Q5 and Q6 exclude these from the site. **Default:** build the embed as decided, clearly framed as an external companion, but keep it `hidden` until Tim confirms he's comfortable with that content showing on his personal site (or edits the explainer). | Tim |
-| O2 | Exact wording for the HAUV results (~3,140 simulations; dwell-time criterion 8–89× above problematic intervals) | Tim |
-| O3 | Full name of MIRG-ICAIR. Poster PDF (after 4 Nov 2026). Co-author Oluwatolamise Odelola's consent to be named. | Tim |
-| O4 | Dechorder: what the delivered code includes (CMake, libsndfile, FFTW3f, Eigen3, overlap-add); stems separated; publishable results; Afrobeat data source; thesis PDF / repo link | Tim |
-| O5 | FairMoney: which metrics are cleared (Q14); preferred team/area wording | Tim |
-| O6 | Document Intelligence Platform: one-line user-facing description and repo link | Tim |
-| O7 | Multi-chain DEX indexing: does code/repo exist, or is it an idea only? Keep or drop? | Tim |
-| O8 | Xealtha: which milestones are public; link | Tim |
-| O9 | What "CACYOF" stands for | Tim |
-| O10 | Graphic design class: where and for whom | Tim |
-| O11 | All profile links and email (incl. confirming `linkedin.com/in/timmyomolana`), MakeUseOf author page, Scholar/ORCID | Tim |
-| O12 | Contact framing: what Tim is open to (roles, research collaboration, speaking, etc.) | Tim |
-| O13 | Spelling convention (British/Nigerian vs American) | Tim |
-| O14 | Naerospace role title and dates. Whether the UAV metrics (94% / 90% / 15%) can be published. Analytics Intelligence Africa: what "DSCM" stands for. MakeUseOf start date. | Tim |
-| O15 | Photos, CV PDF, OG/headshot assets | Tim |
-| O16 | Approval of the draft hero copy and long bio (Sections 5.1, 5.2) | Tim |
+| **O1** | **Conflict: embed vs summary-only.** Q24 says embed the HAUV explainer, but the explainer itself shows build specs (3.4 kg, 22 min, 10 m), a hardware/commercial roadmap, NPA field-trial plans, a risk register, and an "IEEE IROS 2027" target. Q5 and Q6 exclude these from the site. **Default:** build the embed as decided, clearly framed as an external companion, but keep it `hidden` until Timmy confirms he's comfortable with that content showing on his personal site (or edits the explainer). | Timmy |
+| O2 | Exact wording for the HAUV results (~3,140 simulations; dwell-time criterion 8–89× above problematic intervals) | Timmy |
+| O3 | Full name of MIRG-ICAIR. Poster PDF (after 4 Nov 2026). Co-author Oluwatolamise Odelola's consent to be named. | Timmy |
+| O4 | Dechorder: what the delivered code includes (CMake, libsndfile, FFTW3f, Eigen3, overlap-add); stems separated; publishable results; Afrobeat data source; thesis PDF / repo link | Timmy |
+| O5 | FairMoney: which metrics are cleared (Q14); preferred team/area wording | Timmy |
+| O6 | Document Intelligence Platform: one-line user-facing description and repo link | Timmy |
+| O7 | Multi-chain DEX indexing: does code/repo exist, or is it an idea only? Keep or drop? | Timmy |
+| O8 | Xealtha: which milestones are public; link | Timmy |
+| O9 | What "CACYOF" stands for | Timmy |
+| O10 | Graphic design class: where and for whom | Timmy |
+| O11 | All profile links and email (incl. confirming `linkedin.com/in/timmyomolana`), MakeUseOf author page, Scholar/ORCID | Timmy |
+| O12 | Contact framing: what Timmy is open to (roles, research collaboration, speaking, etc.) | Timmy |
+| O13 | Spelling convention (British/Nigerian vs American) | Timmy |
+| O14 | Naerospace role title and dates. Whether the UAV metrics (94% / 90% / 15%) can be published. Analytics Intelligence Africa: what "DSCM" stands for. MakeUseOf start date. | Timmy |
+| O15 | Photos, CV PDF, OG/headshot assets | Timmy |
+| O16 | Approval of the draft hero copy and long bio (Sections 5.1, 5.2) | Timmy |
 | O17 | Framework, hosting, domain, analytics, accent colour, fonts | Implementation spec |

@@ -6,6 +6,6 @@ export type { CollectionName } from "./collections";
 export type { PublicMetric } from "./metrics";
 export type { PublicLink } from "./links";
 export type { ThreadId, Status } from "./schemas/common";
-export type { PublicData, PublicEntry, PublicSite } from "./visibility";
+export type { PublicAbout, PublicData, PublicEntry, PublicSite, PublicSkill } from "./visibility";
 import type { SiteData } from "./schemas/entities";
 export type Thread = SiteData["threads"][number];

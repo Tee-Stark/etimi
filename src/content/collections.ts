@@ -55,3 +55,4 @@ export const staticRoutes = [
 ] as const;
 
 export const SITE_FILE = "site/profile.md";
+export const ABOUT_FILE = "site/about.md";

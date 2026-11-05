@@ -29,6 +29,7 @@ describe("removed items", () => {
     "CGPA",
     "matric number",
     "I write for MakeUseOf",
+    "Tim Omolana",
   ])("flags %s", (text) => {
     expect(findRemovedTerms(text).length).toBeGreaterThan(0);
   });
@@ -39,6 +40,8 @@ describe("removed items", () => {
     "The vinculum is the bar over an expression.",
     "Agentic systems and LLM integration.",
     "Formulas in GNU Octave for numerical work.",
+    "Timmy Omolana (Timilehin Omolana).",
+    "Timing and time-frequency analysis.",
   ])("does not flag legitimate text: %s", (text) => {
     expect(findRemovedTerms(text)).toEqual([]);
   });
