@@ -28,11 +28,23 @@ function Crosshair({ x, y }: { x: number; y: number }) {
   );
 }
 
-export function MarkFigure({ className }: { className?: string }) {
+type Tone = "plate" | "background";
+
+/** The background tone swaps in fainter values so text over it stays fully readable. */
+const TONE_STYLE: Record<Tone, Record<string, string> | undefined> = {
+  plate: undefined,
+  background: {
+    "--mark-fill": "var(--mark-bg-fill)",
+    "--mark-stroke": "var(--mark-bg-stroke)",
+    "--mark-guide": "var(--mark-bg-guide)",
+  },
+};
+
+export function MarkFigure({ className, tone = "plate" }: { className?: string; tone?: Tone }) {
   const ticks = Array.from({ length: 13 }, (_, i) => x0 + (i * MARK.width) / 12);
 
   return (
-    <div aria-hidden="true" className={cn("pointer-events-none select-none", className)}>
+    <div aria-hidden="true" className={cn("pointer-events-none select-none", className)} style={TONE_STYLE[tone]}>
       <svg viewBox={`0 0 ${W} ${H}`} className="block h-auto w-full overflow-visible" focusable="false">
         {/* Construction: bounding box, ruler, crosshairs */}
         <g stroke="var(--mark-guide)" strokeWidth={1} vectorEffect="non-scaling-stroke" fill="none">

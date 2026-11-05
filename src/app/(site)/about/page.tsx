@@ -1,15 +1,17 @@
 import Link from "next/link";
 import { MarkFigure } from "@/components/brand/mark-figure";
-import { GroupLabel } from "@/components/content/article-parts";
+import { FactList, GroupLabel } from "@/components/content/article-parts";
 import { Prose } from "@/components/content/prose";
+import { Container } from "@/components/layout/container";
 import { PageHeader } from "@/components/layout/page-header";
 import { PageSection } from "@/components/layout/page-section";
 import { graph, JsonLd, personSchema } from "@/components/seo/json-ld";
+import { SectionHeading } from "@/components/typography/section-heading";
 import { getAbout, getCollection, getSite } from "@/content";
 import { formatPartialDate } from "@/lib/dates";
 import { pageMetadata } from "@/lib/metadata";
 import { absoluteUrl } from "@/lib/site-url";
-import { byOrder } from "@/lib/order";
+import { byDateDesc, byOrder } from "@/lib/order";
 
 export const metadata = pageMetadata({
   title: "About",
@@ -42,6 +44,38 @@ export default function AboutPage() {
   const music = community.filter((c) => c.data.category === "music");
   const teaching = community.filter((c) => c.data.category !== "music");
 
+  // "At a glance": every value comes from published content.
+  const current = getCollection("roles").find((r) => r.data.category === "engineering" && r.data.end === null);
+  const activeResearch = [...getCollection("research")].sort(byOrder).find((r) => r.data.status === "active");
+  const degree = about.education[0];
+  const latestTalk = [...getCollection("talks")].filter((t) => t.data.format === "talk").sort(byDateDesc((t) => t.data.date))[0];
+  const glance = [
+    { label: "Based in", value: site.location },
+    { label: "Now", value: current ? `${current.data.role}, ${current.data.organisation}` : null },
+    {
+      label: "Researching",
+      value: activeResearch ? (
+        <Link href={activeResearch.href!} className="link">
+          {activeResearch.data.title}
+        </Link>
+      ) : null,
+    },
+    {
+      label: "Studied",
+      value: degree
+        ? `${degree.qualification}, ${degree.institution}${degree.completed ? ` (${formatPartialDate(degree.completed)})` : ""}`
+        : null,
+    },
+    {
+      label: "Last spoke at",
+      value: latestTalk ? (
+        <Link href={`/speaking#${latestTalk.slug}`} className="link">
+          {latestTalk.data.event}
+        </Link>
+      ) : null,
+    },
+  ];
+
   return (
     <>
       <JsonLd
@@ -53,10 +87,18 @@ export default function AboutPage() {
           mainEntity: personSchema(site, about),
         })}
       />
-      {/* The eTimi mark as a large plate behind the header and biography, in its own layer below the text. */}
+      {/*
+        The eTimi mark, faded, as the backdrop of the page opening. It sits in
+        a layer below the text and stays in view (sticky) while the header and
+        biography scroll over it.
+      */}
       <div className="relative isolate overflow-x-clip">
-        {/* Large screens: behind the header, beside the text. */}
-        <MarkFigure className="absolute top-28 right-[3vw] -z-10 hidden w-[min(55vw,880px)] lg:block" />
+        <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10">
+          <div className="sticky top-0 flex h-dvh items-center justify-center">
+            <MarkFigure tone="background" className="w-[118vw] max-w-none shrink-0 sm:w-[100vw] lg:w-[80vw] lg:max-w-[1320px]" />
+          </div>
+        </div>
+
         <PageHeader
           section="/about"
           title="About"
@@ -69,19 +111,32 @@ export default function AboutPage() {
           }
           lede={<p>{about.philosophy.statement}</p>}
         />
-        {/* Small screens: a full-width plate of its own, never behind text. */}
-        <MarkFigure className="mx-auto w-full max-w-xl px-5 pt-10 sm:px-8 lg:hidden" />
 
-        <PageSection id="biography" index="§1" eyebrow="Biography" title="In brief">
-          <Prose source={about.body} format={about.format} />
-          {site.cv ? (
-            <p className="mt-8">
-              <a href={site.cv} className="link">
-                Download my CV (PDF)
-              </a>
-            </p>
-          ) : null}
-        </PageSection>
+        <section id="biography" aria-labelledby="biography-heading" className="scroll-mt-6 py-14 sm:py-16 lg:py-20">
+          <Container>
+            <SectionHeading id="biography-heading" index="§1" eyebrow="Biography">
+              In brief
+            </SectionHeading>
+            <div className="mt-10 grid gap-x-6 gap-y-12 lg:grid-cols-12">
+              <div className="lg:col-span-7 lg:col-start-6 lg:row-start-1">
+                <Prose source={about.body} format={about.format} className="prose-lede" />
+                {site.cv ? (
+                  <p className="mt-8">
+                    <a href={site.cv} className="link">
+                      Download my CV (PDF)
+                    </a>
+                  </p>
+                ) : null}
+              </div>
+              <aside aria-label="At a glance" className="lg:col-span-4 lg:row-start-1">
+                <div className="border-t border-border pt-4 lg:sticky lg:top-8">
+                  <p className="label text-muted-foreground">At a glance</p>
+                  <FactList className="mt-6" items={glance} />
+                </div>
+              </aside>
+            </div>
+          </Container>
+        </section>
       </div>
 
       <PageSection id="education" index="§2" eyebrow="Education" title="Education">
