@@ -166,7 +166,7 @@ export function ManuscriptHero({ name, title, location, coordinates, positioning
             <ol className="mt-4 divide-y divide-border">
               {threads.map((thread, i) => (
                 <li key={thread.id} id={`note-${thread.id}`} className="grid scroll-mt-6 grid-cols-[1.75rem_1fr] gap-x-2 py-4 first:pt-0">
-                  <span className="annot pt-0.5 text-accent">{i + 1}</span>
+                  <span className="annot pt-0.5 text-muted-foreground">{i + 1}</span>
                   <div>
                     <p className="flex flex-wrap items-baseline justify-between gap-x-4">
                       <Link href={thread.href} className="link font-medium">

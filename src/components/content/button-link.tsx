@@ -11,7 +11,7 @@ type ButtonLinkProps = {
 
 /**
  * Call-to-action link. Square, hairline, no shadow. Primary is outlined in
- * the signal colour and fills with it on hover; secondary is a neutral frame.
+ * cobalt and fills with it on hover; secondary is a neutral frame.
  */
 export function ButtonLink({ href, children, variant = "primary", className }: ButtonLinkProps) {
   return (

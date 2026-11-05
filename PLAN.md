@@ -522,11 +522,18 @@ metrics:
 - decorative animation without meaning
 
 **Foundation: visual identity reset (Timmy, 4 Nov 2026).** This replaces the original charcoal/off-white proposal. Direction: an experimental, editorial, *computational research* environment. Not a developer-portfolio template, terminal UI or SaaS page.
-- **Colour:**
-  - Default theme is **dark**: a near-black with a green/graphite undertone (`#080B09`), with foreground `#E4E9E1`.
-  - One signal colour, **chartreuse** (`#C9F24B`). It is reserved for data, the current position, and interaction.
-  - A light "paper" theme is available through the toggle. There the signal colour becomes deep olive (`#4A6600`) so it stays readable as text.
-  - Every text colour passes WCAG AA in both themes, including the annotation colour.
+- **Colour (owner-specified, 4 Nov 2026):**
+  - Default theme is **dark**:
+    - background `#080B12`
+    - main text `#E8EAF0`
+    - secondary text `#A1A9B8`
+    - grid/borders `#252C3A`
+  - Accent: **Electric Cobalt `#6F91FF`** ("confident, precise, energetic").
+  - Cobalt is used deliberately, not splashed: active navigation, links, important annotations (footnote markers), interactive states (hover, focus, selection), and selected visualisations (Fig. 1's sum).
+  - Status labels, section markers and decorative marks stay neutral.
+  - The full-height background column guides use one quieter step (`#171C28`) so they don't compete with the type. All borders and hairlines use `#252C3A`.
+  - A light "paper" theme is available through the toggle, with cobalt deepened to `#2A4BD0` for text contrast.
+  - Every text colour passes WCAG AA in both themes. Dark: text 16.4:1, secondary 8.3:1, cobalt 6.7:1.
 - **Typography:**
   - **Instrument Sans** for interface and all reading text.
   - **Instrument Serif** as selective editorial display, at large sizes only. It no longer sets long reading text.

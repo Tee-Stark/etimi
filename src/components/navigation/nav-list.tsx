@@ -13,7 +13,7 @@ type NavListProps = {
 
 /**
  * Presentational nav list. The current page carries aria-current and a short
- * signal-coloured bar over its label (the vinculum, marking position).
+ * cobalt bar over its label (the vinculum, marking position).
  * Vertical lists are numbered like a table of contents.
  */
 export function NavList({ items, pathname, orientation, onNavigate, className }: NavListProps) {

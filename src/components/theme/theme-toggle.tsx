@@ -59,8 +59,8 @@ export function ThemeToggle({ className }: { className?: string }) {
     >
       {/* Two-state indicator: filled square marks the active mode. */}
       <span aria-hidden="true" className="inline-flex items-center gap-1">
-        <span className={cn("size-2 border border-current", theme !== "light" && "bg-accent border-accent")} />
-        <span className={cn("size-2 border border-current", theme === "light" && "bg-accent border-accent")} />
+        <span className={cn("size-2 border border-current", theme !== "light" && "bg-current")} />
+        <span className={cn("size-2 border border-current", theme === "light" && "bg-current")} />
       </span>
       <span aria-hidden="true" className="hidden sm:inline">
         {theme === "light" ? "Paper" : "Dark"}

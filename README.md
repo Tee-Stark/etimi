@@ -66,10 +66,11 @@ research environment. The full rationale is in `PLAN.md` §7.
   `--muted-foreground`, `--faint`, `--grid`, `--border`, `--border-strong`,
   `--accent`, `--accent-foreground`, `--focus-ring`). They are mapped to
   Tailwind colours, and components never use literal colours.
-- **Palette:** the default dark theme is a near-black with a green/graphite
-  undertone (`#080B09`), with one chartreuse signal colour (`#C9F24B`). The
-  light "paper" theme uses a deep olive signal colour (`#4A6600`). Every text
-  colour passes WCAG AA in both themes, including the faint annotation colour.
+- **Palette:** the default dark theme is `#080B12` with main text
+  `#E8EAF0`, secondary text `#A1A9B8` and borders `#252C3A`. The single
+  accent is Electric Cobalt `#6F91FF`, used only for active navigation,
+  links, footnote markers, interactive states and selected figures. The
+  light "paper" theme uses `#2A4BD0`. Every text colour passes WCAG AA.
 - **Type:** Instrument Sans (interface and reading text), Instrument Serif
   (display only, large sizes), and IBM Plex Mono (labels, coordinates,
   notation). Utilities: `label`, `annot`, `display`, `math`, `link`.

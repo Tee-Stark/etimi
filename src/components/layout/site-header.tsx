@@ -12,8 +12,7 @@ export function SiteHeader({ name }: SiteHeaderProps) {
   return (
     <header className="border-b border-border">
       <Container className="flex flex-wrap items-center gap-x-3 py-2">
-        <Link href="/" className="mr-auto inline-flex min-h-11 items-center gap-2.5 text-small font-medium tracking-tight">
-          <span aria-hidden="true" className="size-1.5 bg-accent" />
+        <Link href="/" className="mr-auto inline-flex min-h-11 items-center text-small font-medium tracking-tight">
           {name}
         </Link>
         <Suspense fallback={<PrimaryNavFallback />}>

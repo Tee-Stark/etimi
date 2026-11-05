@@ -1,53 +1,55 @@
 @import "tailwindcss";
 
 /*
- * Design tokens: "instrument" palette
+ * Design tokens: "Electric Cobalt"
  * ------------------------------------------------------------------
- * The default theme is dark: a near-black with a green/graphite undertone,
- * like an oscilloscope screen or a darkened lab bench. One signal colour,
- * chartreuse, is reserved for data, the current position and interaction.
- * Nothing else is coloured.
+ * Default theme is dark: a near-black with a cool blue-graphite undertone.
+ * One signal colour, electric cobalt, used deliberately and only for:
+ *   active navigation · links · important annotations (footnote markers)
+ *   · interactive states (hover, focus, selection) · selected figures
+ * Everything else is neutral.
  *
- * A light "paper" theme is available through the toggle (a printed-
- * proceedings feel). In light mode the signal colour shifts to a deep olive
- * so it stays readable as text.
+ * A light "paper" theme is available through the toggle; cobalt deepens
+ * there so it stays readable as text.
+ *
+ * Owner-specified (dark): background #080B12, text #E8EAF0, secondary
+ * #A1A9B8, grid/borders #252C3A, accent #6F91FF. Other steps are derived.
  *
  * Contrast against background (WCAG 2.2):
- *   dark   foreground 16.0 · muted-foreground 6.4 · accent 15.3
- *   light  foreground 16.7 · muted-foreground 6.2 · accent 5.7
- *   faint (annotation) 4.9 dark · 5.1 light: still AA, one step below muted.
+ *   dark   foreground 16.4 · muted-foreground 8.3 · faint 5.2 · accent 6.7
+ *   light  foreground 16.8 · muted-foreground 6.4 · faint 4.9 · accent 6.1
  */
 
 :root {
   color-scheme: dark;
-  --background: #080b09;
-  --surface: #0d110e;
-  --muted: #121813;
-  --foreground: #e4e9e1;
-  --muted-foreground: #8a958c;
-  --faint: #768178;
-  --grid: #131a15;
-  --border: #222b24;
-  --border-strong: #3a463c;
-  --accent: #c9f24b;
-  --accent-foreground: #080b09;
-  --focus-ring: #c9f24b;
+  --background: #080b12;
+  --surface: #0e121b;
+  --muted: #131826;
+  --foreground: #e8eaf0;
+  --muted-foreground: #a1a9b8;
+  --faint: #7b8496;
+  --grid: #171c28; /* column guides only: one step quieter than borders */
+  --border: #252c3a;
+  --border-strong: #3a4356;
+  --accent: #6f91ff;
+  --accent-foreground: #080b12;
+  --focus-ring: #6f91ff;
 }
 
 :root[data-theme="light"] {
   color-scheme: light;
-  --background: #eceee8;
-  --surface: #e4e7df;
-  --muted: #dde1d7;
-  --foreground: #0a0e0b;
-  --muted-foreground: #4f5a51;
-  --faint: #5c665d;
-  --grid: #dde1d8;
-  --border: #c5ccc2;
-  --border-strong: #8d978c;
-  --accent: #4a6600;
-  --accent-foreground: #eceee8;
-  --focus-ring: #4a6600;
+  --background: #edeff4;
+  --surface: #e4e7ee;
+  --muted: #dce0e8;
+  --foreground: #0b0e16;
+  --muted-foreground: #4e5668;
+  --faint: #5f687a;
+  --grid: #dde1e9; /* column guides only */
+  --border: #c9ceda;
+  --border-strong: #8a93a5;
+  --accent: #2a4bd0;
+  --accent-foreground: #edeff4;
+  --focus-ring: #2a4bd0;
 }
 
 @theme inline {
@@ -174,7 +176,7 @@
   letter-spacing: -0.02em;
 }
 
-/* Inline text link: hairline underline in the signal colour. */
+/* Inline text link: hairline cobalt underline; cobalt text on hover. */
 @utility link {
   color: inherit;
   text-decoration-line: underline;

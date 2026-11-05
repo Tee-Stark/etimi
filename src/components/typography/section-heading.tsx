@@ -17,7 +17,7 @@ type SectionHeadingProps = {
 /**
  * Section heading in the manuscript style: a full-width hairline, the section
  * number and label in monospace on the rule, and the heading below. A short
- * signal-coloured segment over the number marks the start of the section.
+ * solid segment over the number marks the start of the section.
  */
 export function SectionHeading({ index, eyebrow, children, as: Tag = "h2", id, className, aside }: SectionHeadingProps) {
   return (
@@ -26,7 +26,7 @@ export function SectionHeading({ index, eyebrow, children, as: Tag = "h2", id, c
         <p className="label flex gap-3 text-muted-foreground">
           {index ? (
             <span aria-hidden="true" className="relative text-foreground">
-              <span className="absolute -top-[13px] left-0 h-[1.5px] w-full bg-accent" />
+              <span className="absolute -top-[13px] left-0 h-[1.5px] w-full bg-foreground" />
               {index}
             </span>
           ) : null}
