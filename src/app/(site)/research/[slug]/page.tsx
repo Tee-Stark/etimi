@@ -26,7 +26,12 @@ export async function generateMetadata({ params }: PageProps<"/research/[slug]">
   const { slug } = await params;
   const r = getEntry("research", slug);
   if (!r) return {};
-  return pageMetadata({ title: r.data.fullTitle ? `${r.data.title}: ${r.data.fullTitle}` : r.data.title, description: r.data.summary, path: r.href! });
+  // Short title for search results; the full paper title is in the description and on the page.
+  return pageMetadata({
+    title: `${r.data.title} (research)`,
+    description: r.data.fullTitle ? `${r.data.fullTitle}. ${r.data.summary}` : r.data.summary,
+    path: r.href!,
+  });
 }
 
 /*

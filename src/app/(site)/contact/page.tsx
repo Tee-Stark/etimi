@@ -1,11 +1,12 @@
 import { PageHeader } from "@/components/layout/page-header";
 import { PageSection } from "@/components/layout/page-section";
 import { getSite } from "@/content";
+import { pageCopy } from "@/config/page-copy";
 import { pageMetadata } from "@/lib/metadata";
 
 export const metadata = pageMetadata({
   title: "Contact",
-  description: "How to contact Timmy Omolana.",
+  description: pageCopy.contact.description,
   path: "/contact",
 });
 

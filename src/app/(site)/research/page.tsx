@@ -5,12 +5,13 @@ import { PageHeader } from "@/components/layout/page-header";
 import { PageSection } from "@/components/layout/page-section";
 import { getCollection } from "@/content";
 import { formatPartialDate } from "@/lib/dates";
+import { pageCopy } from "@/config/page-copy";
 import { pageMetadata } from "@/lib/metadata";
 import { byOrder } from "@/lib/order";
 
 export const metadata = pageMetadata({
   title: "Research",
-  description: "Research by Timmy Omolana: stability of a hybrid aerial–underwater vehicle, and source separation for African music.",
+  description: pageCopy.research.description,
   path: "/research",
 });
 
@@ -22,7 +23,7 @@ export default function ResearchPage() {
       <PageHeader
         section="/research"
         title="Research"
-        lede={<p>Research I&apos;m working on now, and research I&apos;ve completed.</p>}
+        lede={<p>{pageCopy.research.lede}</p>}
       />
       <PageSection id="projects" index="§1" eyebrow="Index" title="Research projects">
         <EntryList>

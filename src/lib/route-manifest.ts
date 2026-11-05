@@ -20,7 +20,9 @@ export function isUnknownDetailPath(pathname: string, manifest: RouteManifest): 
   if (parts.length < 2) return false;
   const [section, slug, ...rest] = parts;
   if (!(DETAIL_SECTIONS as readonly string[]).includes(section)) return false;
-  if (rest.length > 0) return true;
+  // Generated Open Graph / Twitter images live one level below a detail page.
+  const isImageRoute = rest.length === 1 && /^(opengraph|twitter)-image(?:-[\w-]+)?$/.test(rest[0]);
+  if (rest.length > 0 && !isImageRoute) return true;
   let decoded: string;
   try {
     decoded = decodeURIComponent(slug);

@@ -44,3 +44,6 @@ next-env.d.ts
 
 # generated at dev/build time from content
 /src/generated/
+
+# Local Netlify folder
+.netlify

@@ -8,8 +8,12 @@ import {
   type SelectedItem,
 } from "@/components/home/home-sections";
 import { ManuscriptHero } from "@/components/home/manuscript-hero";
+import { graph, JsonLd, personSchema, websiteSchema } from "@/components/seo/json-ld";
 import { getAbout, getCollection, getSite } from "@/content";
+import { pageMetadata } from "@/lib/metadata";
 import { byDateDesc, byOrder } from "@/lib/order";
+
+export const metadata = pageMetadata({ description: getSite().positioning, path: "/" });
 
 /*
  * Home (IMPLEMENTATION_SPEC.md §8.1). What appears is decided by content:
@@ -51,6 +55,7 @@ export default function HomePage() {
 
   return (
     <>
+      <JsonLd data={graph(websiteSchema(site), personSchema(site, about))} />
       <ManuscriptHero
         name={site.name}
         title={site.title}

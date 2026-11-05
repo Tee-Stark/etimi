@@ -4,12 +4,14 @@ import { PreviewBanner, TableOfContents } from "@/components/content/article-par
 import { MetaRail } from "@/components/content/meta-rail";
 import { Prose } from "@/components/content/prose";
 import { Container } from "@/components/layout/container";
+import { graph, JsonLd, PERSON_ID } from "@/components/seo/json-ld";
 import { PageHeader } from "@/components/layout/page-header";
 import { getEntry, getRouteParams } from "@/content";
 import { formatPartialDate } from "@/lib/dates";
 import { extractHeadings } from "@/lib/headings";
 import { pageMetadata } from "@/lib/metadata";
 import { readingTime } from "@/lib/reading-time";
+import { absoluteUrl } from "@/lib/site-url";
 
 /*
  * Note template (IMPLEMENTATION_SPEC.md §8.11). Built before any note exists:
@@ -31,9 +33,10 @@ export async function generateMetadata({ params }: PageProps<"/writing/[slug]">)
   const { slug } = await params;
   const note = getEntry("notes", slug);
   if (!note) return {};
+  const base = pageMetadata({ title: note.data.title, description: note.data.summary, path: note.href!, type: "article" });
   return {
-    ...pageMetadata({ title: note.data.title, description: note.data.summary, path: note.href! }),
-    openGraph: { type: "article", title: note.data.title, description: note.data.summary, url: note.href, publishedTime: note.data.date, modifiedTime: note.data.updated },
+    ...base,
+    openGraph: { ...base.openGraph, type: "article", publishedTime: note.data.date, modifiedTime: note.data.updated, tags: note.data.tags },
   };
 }
 
@@ -48,6 +51,22 @@ export default async function NotePage({ params }: PageProps<"/writing/[slug]">)
 
   return (
     <article>
+      {note.preview ? null : (
+        <JsonLd
+          data={graph({
+            "@type": "BlogPosting",
+            "@id": absoluteUrl(note.href!),
+            url: absoluteUrl(note.href!),
+            headline: d.title,
+            description: d.summary,
+            datePublished: d.date,
+            dateModified: d.updated,
+            inLanguage: "en-GB",
+            keywords: d.tags,
+            author: { "@id": absoluteUrl(PERSON_ID) },
+          })}
+        />
+      )}
       <PreviewBanner preview={note.preview} />
       <PageHeader
         section="/writing"

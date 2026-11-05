@@ -3,13 +3,14 @@ import { PageHeader } from "@/components/layout/page-header";
 import { PageSection } from "@/components/layout/page-section";
 import { getCollection } from "@/content";
 import { formatPartialDate } from "@/lib/dates";
+import { pageCopy } from "@/config/page-copy";
 import { pageMetadata } from "@/lib/metadata";
 import { byDateDesc } from "@/lib/order";
 import { readingTime } from "@/lib/reading-time";
 
 export const metadata = pageMetadata({
   title: "Writing",
-  description: "Notes and essays by Timmy Omolana.",
+  description: pageCopy.writing.description,
   path: "/writing",
 });
 
@@ -19,7 +20,7 @@ export default function WritingPage() {
 
   return (
     <>
-      <PageHeader section="/writing" title="Writing" />
+      <PageHeader section="/writing" title="Writing" lede={<p>{pageCopy.writing.lede}</p>} />
 
       <PageSection id="notes" index="§1" eyebrow="Notes" title="Notes and essays">
         {notes.length === 0 ? (

@@ -6,12 +6,13 @@ import { PageHeader } from "@/components/layout/page-header";
 import { PageSection } from "@/components/layout/page-section";
 import { getCollection } from "@/content";
 import { formatDateRange } from "@/lib/dates";
+import { pageCopy } from "@/config/page-copy";
 import { pageMetadata } from "@/lib/metadata";
 import { byOrder } from "@/lib/order";
 
 export const metadata = pageMetadata({
   title: "Work",
-  description: "Engineering work by Timmy Omolana: backend systems for fintech, cloud infrastructure, and software for unmanned aerial vehicles.",
+  description: pageCopy.work.description,
   path: "/work",
 });
 
@@ -30,10 +31,7 @@ export default function WorkPage() {
         section="/work"
         title="Work"
         lede={
-          <p>
-            Engineering I&apos;ve done professionally: backend systems for fintech, cloud infrastructure, and software for
-            unmanned aerial vehicles (UAVs).
-          </p>
+<p>{pageCopy.work.lede}</p>
         }
       />
 

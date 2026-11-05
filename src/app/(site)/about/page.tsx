@@ -3,9 +3,11 @@ import { GroupLabel } from "@/components/content/article-parts";
 import { Prose } from "@/components/content/prose";
 import { PageHeader } from "@/components/layout/page-header";
 import { PageSection } from "@/components/layout/page-section";
+import { graph, JsonLd, personSchema } from "@/components/seo/json-ld";
 import { getAbout, getCollection, getSite } from "@/content";
 import { formatPartialDate } from "@/lib/dates";
 import { pageMetadata } from "@/lib/metadata";
+import { absoluteUrl } from "@/lib/site-url";
 import { byOrder } from "@/lib/order";
 
 export const metadata = pageMetadata({
@@ -13,6 +15,7 @@ export const metadata = pageMetadata({
   description:
     "About Timmy Omolana (Timilehin Omolana): software engineer and researcher in Lagos, graduate of Industrial Mathematics at the University of Lagos.",
   path: "/about",
+  type: "profile",
 });
 
 function Bullets({ items }: { items: string[] }) {
@@ -40,6 +43,15 @@ export default function AboutPage() {
 
   return (
     <>
+      <JsonLd
+        data={graph({
+          "@type": "ProfilePage",
+          "@id": absoluteUrl("/about"),
+          url: absoluteUrl("/about"),
+          name: `About ${site.name}`,
+          mainEntity: personSchema(site, about),
+        })}
+      />
       <PageHeader
         section="/about"
         title="About"

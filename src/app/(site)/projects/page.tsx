@@ -5,12 +5,13 @@ import { StatusLabel } from "@/components/content/status-label";
 import { PageHeader } from "@/components/layout/page-header";
 import { PageSection } from "@/components/layout/page-section";
 import { getCollection } from "@/content";
+import { pageCopy } from "@/config/page-copy";
 import { pageMetadata } from "@/lib/metadata";
 import { byOrder } from "@/lib/order";
 
 export const metadata = pageMetadata({
   title: "Projects",
-  description: "Personal projects and technical explorations by Timmy Omolana.",
+  description: pageCopy.projects.description,
   path: "/projects",
 });
 
@@ -19,7 +20,7 @@ export default function ProjectsPage() {
 
   return (
     <>
-      <PageHeader section="/projects" title="Projects" lede={<p>Personal projects and technical explorations.</p>} />
+      <PageHeader section="/projects" title="Projects" lede={<p>{pageCopy.projects.lede}</p>} />
       <PageSection id="index" index="§1" eyebrow="Index" title="Projects and explorations">
         {projects.length === 0 ? (
           <p className="text-muted-foreground">Projects will appear here.</p>

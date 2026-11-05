@@ -5,12 +5,13 @@ import { PageHeader } from "@/components/layout/page-header";
 import { PageSection } from "@/components/layout/page-section";
 import { getAbout, getCollection } from "@/content";
 import { formatPartialDate } from "@/lib/dates";
+import { pageCopy } from "@/config/page-copy";
 import { pageMetadata } from "@/lib/metadata";
 import { byDateDesc } from "@/lib/order";
 
 export const metadata = pageMetadata({
   title: "Speaking",
-  description: "Talks and posters by Timmy Omolana, including GopherCon Africa 2026 and DevFest Lagos 2024.",
+  description: pageCopy.speaking.description,
   path: "/speaking",
 });
 
@@ -29,7 +30,7 @@ export default function SpeakingPage() {
 
   return (
     <>
-      <PageHeader section="/speaking" title="Speaking" lede={<p>Talks and posters, most recent first.</p>} />
+      <PageHeader section="/speaking" title="Speaking" lede={<p>{pageCopy.speaking.lede}</p>} />
 
       <PageSection id="talks" index="§1" eyebrow="Talks and posters" title="Appearances">
         <EntryList>

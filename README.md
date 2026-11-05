@@ -6,7 +6,7 @@ Personal website and long-term digital home of Timmy (Timilehin) Omolana.
 - **How it is built:** [`IMPLEMENTATION_SPEC.md`](./IMPLEMENTATION_SPEC.md)
 - **Background brief:** [`ABOUT_TIM.md`](./ABOUT_TIM.md)
 
-> Status: **Phase 4 — all public pages render from content.** The content engine,
+> Status: **Phase 5 — SEO, structured data, feeds and social previews.** The content engine,
 > guardrails, pages, SEO and full documentation arrive in later phases
 > (see `IMPLEMENTATION_SPEC.md` §15).
 
@@ -39,13 +39,31 @@ pnpm check            # lint + typecheck + test + build
 pnpm content:validate      # schemas and cross-entry rules only
 pnpm content:check-banned  # removed items / FairMoney wording in content, src, public
 pnpm content:check-output  # scan .next for anything withheld (after next build)
+pnpm content:check-site-url # canonical origin rules (runs first in build)
+pnpm content:routes        # regenerate the detail-route manifest used by the Proxy
 ```
 
-## Environment
+## Environment and hosting
 
-| Variable               | Purpose                                                    |
-| ---------------------- | ---------------------------------------------------------- |
-| `NEXT_PUBLIC_SITE_URL` | Canonical origin for metadata. Falls back to localhost in development. The real domain is not chosen yet; do not guess it. |
+Hosted on **Netlify** (`@netlify/plugin-nextjs`), building with `pnpm run build`.
+
+| Variable               | Purpose |
+| ---------------------- | ------- |
+| `NEXT_PUBLIC_SITE_URL` | Canonical origin for metadata, sitemap, RSS, Open Graph and JSON-LD. Optional on Netlify: if unset, the platform's own `URL` variable is used (the custom domain once attached, otherwise `*.netlify.app`). Locally it defaults to `http://localhost:3000`. |
+
+Netlify production deploys (`CONTEXT=production`) fail if no real https origin is available. Set `REQUIRE_SITE_URL=1` to enforce the same rule anywhere else.
+
+## SEO and feeds
+
+- **Metadata:** every route has a unique title, a description, a canonical URL, Open Graph and Twitter fields, and an RSS link. It's built by `pageMetadata()` in `src/lib/metadata.ts`.
+- **Social images:** generated at build time by the `opengraph-image.tsx` file beside each route, all using `src/lib/og-image.tsx`. Fonts come from `assets/og/` as woff, since Satori can't read woff2.
+- **Structured data:**
+  - Home: `WebSite` and `Person` ("Timmy Omolana", alternate name "Timilehin Omolana")
+  - About: `ProfilePage`
+  - Notes: `BlogPosting`
+  - `sameAs` lists confirmed profiles only.
+- **Sitemap and robots:** `/sitemap.xml` lists published pages only. `/robots.txt` allows everything; nothing is hidden through robots.
+- **RSS:** `/feed.xml` is RSS 2.0 of published notes. An empty channel is valid.
 
 ## Content system
 

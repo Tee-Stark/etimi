@@ -16,6 +16,13 @@ describe("isUnknownDetailPath", () => {
     expect(isUnknownDetailPath("/work/%E0%A4%A", manifest)).toBe(true);
   });
 
+  it("allows generated images under published slugs only", () => {
+    expect(isUnknownDetailPath("/work/loan-details-api/opengraph-image-1a2b3c", manifest)).toBe(false);
+    expect(isUnknownDetailPath("/research/hauv/opengraph-image", manifest)).toBe(false);
+    expect(isUnknownDetailPath("/work/nope/opengraph-image-1a2b3c", manifest)).toBe(true);
+    expect(isUnknownDetailPath("/work/loan-details-api/other", manifest)).toBe(true);
+  });
+
   it("never flags index pages or other sections", () => {
     expect(isUnknownDetailPath("/work", manifest)).toBe(false);
     expect(isUnknownDetailPath("/about", manifest)).toBe(false);

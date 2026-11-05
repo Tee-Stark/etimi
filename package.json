@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "pnpm content:routes && next dev",
     "dev:preview": "pnpm content:routes && CONTENT_PREVIEW=1 next dev",
-    "build": "pnpm content:validate && pnpm content:check-banned && pnpm content:routes && next build && pnpm content:check-output",
+    "build": "pnpm content:check-site-url && pnpm content:validate && pnpm content:check-banned && pnpm content:routes && next build && pnpm content:check-output",
     "build:next": "next build",
     "start": "next start",
     "lint": "eslint .",
@@ -16,7 +16,8 @@
     "content:check-banned": "tsx scripts/check-banned-content.ts",
     "content:check-output": "tsx scripts/check-build-output.ts",
     "check": "pnpm lint && pnpm typecheck && pnpm test && pnpm build",
-    "content:routes": "tsx scripts/generate-route-manifest.ts"
+    "content:routes": "tsx scripts/generate-route-manifest.ts",
+    "content:check-site-url": "tsx scripts/check-site-url.ts"
   },
   "dependencies": {
     "@mdx-js/mdx": "^3.1.1",

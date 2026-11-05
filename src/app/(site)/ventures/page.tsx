@@ -6,12 +6,13 @@ import { PageHeader } from "@/components/layout/page-header";
 import { PageSection } from "@/components/layout/page-section";
 import { getCollection } from "@/content";
 import { formatPartialDate } from "@/lib/dates";
+import { pageCopy } from "@/config/page-copy";
 import { pageMetadata } from "@/lib/metadata";
 import { byOrder } from "@/lib/order";
 
 export const metadata = pageMetadata({
   title: "Ventures",
-  description: "Products Timmy Omolana is building, including Xealtha, healthcare triage over WhatsApp for Nigeria.",
+  description: pageCopy.ventures.description,
   path: "/ventures",
 });
 
@@ -20,7 +21,7 @@ export default function VenturesPage() {
 
   return (
     <>
-      <PageHeader section="/ventures" title="Ventures" lede={<p>Products I&apos;m building for real problems.</p>} />
+      <PageHeader section="/ventures" title="Ventures" lede={<p>{pageCopy.ventures.lede}</p>} />
       <PageSection id="index" index="§1" eyebrow="Index" title="Ventures">
         <EntryList>
           {ventures.map((v, i) => (

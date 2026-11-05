@@ -71,6 +71,7 @@ The brief's alternative ("Building systems, exploring ideas, and finding connect
 | Q25 | Ventures | **Only Xealtha** may appear publicly. |
 | Q26 | Name (5 Nov 2026) | **"Timmy Omolana"** is the display name everywhere; **"Timilehin Omolana"** is the only alternate (metadata, JSON-LD `alternateName`). **"Tim" is never used** on the site. This supersedes `IMPLEMENTATION_SPEC.md` §9.5/§9.6, which say "Tim Omolana". |
 | Q27 | MIRG-ICAIR poster (5 Nov 2026) | The poster **was presented** on 4 Nov 2026. Show "poster presented". The PDF and the full conference name are still to come. |
+| Q28 | Hosting and domain (5 Nov 2026) | Hosted on **Netlify** (supersedes the spec's Vercel default). Canonical origin: `NEXT_PUBLIC_SITE_URL` if set, otherwise **Netlify's own `URL`** (the custom domain once attached, else the `.netlify.app` address). Netlify production deploys fail without a real https origin. |
 
 ---
 

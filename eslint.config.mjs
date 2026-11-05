@@ -42,6 +42,9 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Local platform and generated output
+    ".netlify/**",
+    "src/generated/**",
   ]),
 ]);
 
