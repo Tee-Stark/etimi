@@ -198,6 +198,221 @@
 }
 
 /* ------------------------------------------------------------------ */
+/* Prose: rendered Markdown/MDX in the manuscript style                */
+/* ------------------------------------------------------------------ */
+
+@layer components {
+  .prose {
+    max-width: var(--container-measure);
+    counter-reset: section;
+    font-size: var(--text-body);
+    line-height: var(--text-body--line-height);
+  }
+
+  .prose > * + * {
+    margin-top: 1.25em;
+  }
+
+  /* Numbered sections, as in a paper: §1, §2 … with a hairline above. */
+  .prose h2 {
+    counter-increment: section;
+    margin-top: 3.5rem;
+    padding-top: 0.875rem;
+    border-top: 1px solid var(--border);
+    font-size: var(--text-h3);
+    line-height: var(--text-h3--line-height);
+    font-weight: 500;
+    scroll-margin-top: 1.5rem;
+  }
+
+  .prose h2::before {
+    content: "§" counter(section);
+    display: block;
+    margin-bottom: 0.75rem;
+    font-family: var(--font-mono);
+    font-size: var(--text-label);
+    letter-spacing: var(--text-label--letter-spacing);
+    color: var(--muted-foreground);
+  }
+
+  .prose > h2:first-child {
+    margin-top: 0;
+  }
+
+  .prose h3 {
+    margin-top: 2.25rem;
+    font-size: 1.0625rem;
+    font-weight: 600;
+    scroll-margin-top: 1.5rem;
+  }
+
+  .prose p,
+  .prose li {
+    text-wrap: pretty;
+  }
+
+  .prose strong {
+    font-weight: 600;
+  }
+
+  .prose a {
+    text-decoration-line: underline;
+    text-decoration-color: var(--accent);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.24em;
+  }
+
+  .prose a:hover {
+    color: var(--accent);
+  }
+
+  .prose ul,
+  .prose ol {
+    padding-left: 1.5rem;
+  }
+
+  .prose ul > li {
+    list-style: none;
+    position: relative;
+  }
+
+  .prose ul > li::before {
+    content: "–";
+    position: absolute;
+    left: -1.25rem;
+    color: var(--muted-foreground);
+  }
+
+  .prose ol > li {
+    list-style: decimal;
+  }
+
+  .prose ol > li::marker {
+    font-family: var(--font-mono);
+    font-size: 0.8em;
+    color: var(--muted-foreground);
+  }
+
+  .prose li + li {
+    margin-top: 0.5em;
+  }
+
+  .prose blockquote {
+    border-left: 1px solid var(--border-strong);
+    padding-left: 1.25rem;
+    color: var(--muted-foreground);
+  }
+
+  .prose hr {
+    border: 0;
+    border-top: 1px solid var(--border);
+    margin: 3rem 0;
+  }
+
+  .prose :not(pre) > code {
+    font-family: var(--font-mono);
+    font-size: 0.875em;
+    padding: 0.1em 0.35em;
+    background: var(--muted);
+    border: 1px solid var(--border);
+  }
+
+  /* Wide blocks scroll on their own (keyboard-focusable via the components map). */
+  .prose pre,
+  .prose .table-scroll,
+  .prose .katex-display {
+    max-width: 100%;
+    overflow-x: auto;
+  }
+
+  .prose pre {
+    padding: 1rem 1.125rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    line-height: 1.6;
+  }
+
+  .prose .katex-display {
+    margin: 1.75em 0;
+    padding: 0.5rem 0;
+    overflow-y: hidden;
+  }
+
+  .prose .katex {
+    font-size: 1.08em;
+  }
+
+  .prose table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--text-small);
+  }
+
+  .prose th,
+  .prose td {
+    text-align: left;
+    padding: 0.5rem 0.75rem 0.5rem 0;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+
+  .prose th {
+    font-family: var(--font-mono);
+    font-size: var(--text-label);
+    letter-spacing: var(--text-label--letter-spacing);
+    text-transform: uppercase;
+    font-weight: 400;
+    color: var(--muted-foreground);
+  }
+
+  .prose figure figcaption {
+    margin-top: 0.75rem;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--muted-foreground);
+  }
+
+  .prose img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* GFM footnotes */
+  .prose .footnotes {
+    margin-top: 3.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+    font-size: var(--text-small);
+    color: var(--muted-foreground);
+  }
+
+  .prose .footnotes h2 {
+    counter-increment: none;
+    margin: 0 0 1rem;
+    padding: 0;
+    border: 0;
+    font-family: var(--font-mono);
+    font-size: var(--text-label);
+    letter-spacing: var(--text-label--letter-spacing);
+    text-transform: uppercase;
+    font-weight: 400;
+  }
+
+  .prose .footnotes h2::before {
+    content: none;
+  }
+
+  .prose [data-footnote-ref] {
+    font-family: var(--font-mono);
+    font-size: 0.75em;
+    text-decoration: none;
+    color: var(--accent);
+  }
+}
+
+/* ------------------------------------------------------------------ */
 /* Motion                                                              */
 /* ------------------------------------------------------------------ */
 

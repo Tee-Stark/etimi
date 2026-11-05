@@ -3,19 +3,20 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "dev:preview": "CONTENT_PREVIEW=1 next dev",
-    "build": "pnpm content:validate && pnpm content:check-banned && next build && pnpm content:check-output",
+    "dev": "pnpm content:routes && next dev",
+    "dev:preview": "pnpm content:routes && CONTENT_PREVIEW=1 next dev",
+    "build": "pnpm content:validate && pnpm content:check-banned && pnpm content:routes && next build && pnpm content:check-output",
     "build:next": "next build",
     "start": "next start",
     "lint": "eslint .",
-    "typecheck": "next typegen && tsc --noEmit",
+    "typecheck": "pnpm content:routes && next typegen && tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
     "content:validate": "tsx scripts/validate-content.ts",
     "content:check-banned": "tsx scripts/check-banned-content.ts",
     "content:check-output": "tsx scripts/check-build-output.ts",
-    "check": "pnpm lint && pnpm typecheck && pnpm test && pnpm build"
+    "check": "pnpm lint && pnpm typecheck && pnpm test && pnpm build",
+    "content:routes": "tsx scripts/generate-route-manifest.ts"
   },
   "dependencies": {
     "@mdx-js/mdx": "^3.1.1",

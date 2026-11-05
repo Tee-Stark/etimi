@@ -34,6 +34,12 @@ interests:
   - Financial technology
   - Quantum computing
 learningStyle: I learn best by building things and working from first principles.
+# Assembled verbatim from sentences in the biography below.
+speakerBio: >-
+  I'm Timmy Omolana, a software engineer and researcher based in Lagos. At
+  FairMoney, I write Go for backend systems in a high-throughput, event-driven
+  fintech environment. My current research is on HAUV, a hybrid aerial–underwater
+  vehicle for autonomous hull inspection.
 philosophy:
   statement: >-
     I enjoy exploring problems that sit at the boundaries of disciplines: where

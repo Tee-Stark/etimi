@@ -6,7 +6,7 @@ Personal website and long-term digital home of Timmy (Timilehin) Omolana.
 - **How it is built:** [`IMPLEMENTATION_SPEC.md`](./IMPLEMENTATION_SPEC.md)
 - **Background brief:** [`ABOUT_TIM.md`](./ABOUT_TIM.md)
 
-> Status: **Phase 3 — content entered** (pages render it from Phase 4). The content engine,
+> Status: **Phase 4 — all public pages render from content.** The content engine,
 > guardrails, pages, SEO and full documentation arrive in later phases
 > (see `IMPLEMENTATION_SPEC.md` §15).
 

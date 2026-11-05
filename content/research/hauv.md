@@ -18,6 +18,7 @@ featured: true
 order: 1
 updated: 2026-11-05
 affiliation: University of Lagos
+notice: These results come from simulation. They have not been validated on a physical prototype or in the field.
 publications:
   - title: "Autonomous Hull Screening for Nigerian Ports: Stable Air–Water Transition for a Hybrid Aerial-Underwater Vehicle"
     kind: poster

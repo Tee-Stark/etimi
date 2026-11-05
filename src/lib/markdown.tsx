@@ -23,6 +23,25 @@ import type { ContentFormat } from "@/content/loader";
  * Pages that render maths import "katex/dist/katex.min.css".
  */
 
+type HastNode = { type: string; tagName?: string; properties?: Record<string, unknown>; children?: HastNode[] };
+
+/**
+ * Display equations scroll sideways on narrow screens, so they must be
+ * reachable by keyboard: give each one a tab stop and an accessible name.
+ */
+function rehypeFocusableMath() {
+  return (tree: HastNode) => {
+    const walk = (node: HastNode) => {
+      const cls = node.properties?.className;
+      if (node.type === "element" && Array.isArray(cls) && cls.includes("katex-display")) {
+        node.properties = { ...node.properties, tabIndex: 0, role: "group", ariaLabel: "Equation (scrolls horizontally)" };
+      }
+      node.children?.forEach(walk);
+    };
+    walk(tree);
+  };
+}
+
 export async function renderMarkdown(
   source: string,
   { format, components = {} }: { format: ContentFormat; components?: MDXComponents },
@@ -32,7 +51,7 @@ export async function renderMarkdown(
     format,
     development: false,
     remarkPlugins: [remarkGfm, remarkMath],
-    rehypePlugins: [rehypeSlug, [rehypeKatex, { output: "htmlAndMathml", throwOnError: true }]],
+    rehypePlugins: [rehypeSlug, [rehypeKatex, { output: "htmlAndMathml", throwOnError: true }], rehypeFocusableMath],
   });
   return <Content components={components} />;
 }

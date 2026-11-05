@@ -1,4 +1,7 @@
 import type { Metadata, Viewport } from "next";
+import { SiteFooter } from "@/components/layout/site-footer";
+import { SiteHeader } from "@/components/layout/site-header";
+import { SkipLink } from "@/components/layout/skip-link";
 import { ThemeScript } from "@/components/theme/theme-script";
 import { getSite } from "@/content";
 import { fontVariables } from "@/fonts";
@@ -30,6 +33,10 @@ export const viewport: Viewport = {
   colorScheme: "dark light",
 };
 
+/*
+ * The site frame lives in the root layout so every route, including the 404
+ * page, shares the same header, footer and skip link.
+ */
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     // data-theme is set before paint by ThemeScript, hence suppressHydrationWarning.
@@ -37,7 +44,20 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <head>
         <ThemeScript />
       </head>
-      <body className="flex min-h-dvh flex-col">{children}</body>
+      <body className="flex min-h-dvh flex-col">
+        <SkipLink />
+        <SiteHeader name={site.name} />
+        <main id="content" tabIndex={-1} className="flex-1 outline-none">
+          {children}
+        </main>
+        <SiteFooter
+          name={site.name}
+          positioning={site.positioning}
+          location={site.location}
+          coordinates={site.coordinates}
+          profiles={site.profiles}
+        />
+      </body>
     </html>
   );
 }

@@ -15,7 +15,8 @@ import { isPreviewEnabled, type PublicAbout, type PublicEntry, type PublicSite }
  *   getEntry(name, slug)      one entry for a detail page, or undefined
  *   getPublicCollection(name) published entries only, never preview; use for
  *                             sitemap, RSS, metadata, JSON-LD, OG images
- *   getStaticSlugs(name)      slugs for generateStaticParams (published only)
+ *   getStaticSlugs(name)      published slugs (sitemap and similar)
+ *   getRouteParams(name)      params for generateStaticParams on detail routes
  *
  * Content is validated on first use; invalid public content throws with a
  * list of every problem and the file/field it is in.
@@ -52,6 +53,18 @@ export function getEntry<N extends CollectionName>(name: N, slug: string): Publi
 
 export function getStaticSlugs(name: CollectionName): Array<{ slug: string }> {
   return getPublicCollection(name).map((entry) => ({ slug: entry.slug }));
+}
+
+/**
+ * Params for a detail route's generateStaticParams. Published slugs, plus
+ * flagged preview slugs in development preview. With Cache Components the
+ * list may not be empty, so an empty collection yields a sentinel that is
+ * not a valid slug (slugs cannot contain "_") and therefore always 404s.
+ */
+export const NO_ENTRIES_SENTINEL = "_";
+export function getRouteParams(name: CollectionName): Array<{ slug: string }> {
+  const slugs = getCollection(name).map((entry) => ({ slug: entry.slug }));
+  return slugs.length > 0 ? slugs : [{ slug: NO_ENTRIES_SENTINEL }];
 }
 
 export type { CollectionName } from "./collections";

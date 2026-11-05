@@ -94,6 +94,8 @@ export const aboutSchema = z
     academicInterests: z.array(nonEmpty("academic interest")).default([]),
     interests: z.array(nonEmpty("interest")).default([]),
     learningStyle: z.string().trim().optional(),
+    /** Short biography for event organisers (Speaking page press kit). */
+    speakerBio: z.string().trim().optional(),
     philosophy: z
       .object({
         statement: nonEmpty("statement"),
@@ -201,6 +203,8 @@ export const researchSchema = z
     status: statusSchema,
     /** Long title as used on the poster/paper. */
     fullTitle: z.string().trim().optional(),
+    /** A short caveat shown prominently (e.g. "simulation-based, not field-validated"). */
+    notice: z.string().trim().optional(),
     affiliation: z.string().trim().optional(),
     collaborators: z.array(collaboratorSchema).default([]),
     publications: z.array(publicationRefSchema).default([]),

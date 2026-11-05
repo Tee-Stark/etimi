@@ -1,15 +1,53 @@
-import { PendingSection } from "@/components/dev/pending-section";
+import {
+  CurrentResearch,
+  ExperienceGlance,
+  Introduction,
+  ProfileLinks,
+  SelectedWork,
+  SpeakingHighlight,
+  type SelectedItem,
+} from "@/components/home/home-sections";
 import { ManuscriptHero } from "@/components/home/manuscript-hero";
-import { getSite } from "@/content";
+import { getAbout, getCollection, getSite } from "@/content";
+import { byDateDesc, byOrder } from "@/lib/order";
 
 /*
- * Home (IMPLEMENTATION_SPEC.md §8.1). The hero carries the identity, the
- * positioning line and the three threads. Remaining sections are
- * development-only markers until the content engine (Phase 2) and pages
- * (Phase 4) supply them.
+ * Home (IMPLEMENTATION_SPEC.md §8.1). What appears is decided by content:
+ *   current research   first active research entry by `order`
+ *   selected work      two featured case studies, one other featured research
+ *                      entry, one project, each by `order`
+ *   experience         engineering roles by `order`
+ *   speaking           most recent featured talk
  */
+
+/** First paragraph of a Markdown body as plain text (links reduced to their text). */
+function firstParagraph(markdown: string): string {
+  const para = markdown.trim().split(/\n\s*\n/)[0] ?? "";
+  return para.replace(/\[([^\]]+)\]\([^)]*\)/g, "$1").replace(/[*_`]/g, "").replace(/\s+/g, " ").trim();
+}
+
 export default function HomePage() {
   const site = getSite();
+  const about = getAbout();
+
+  const research = [...getCollection("research")].sort(byOrder);
+  const current = research.find((r) => r.data.status === "active");
+  const poster = current
+    ? [...getCollection("talks")].filter((t) => t.data.research === current.slug && t.data.format === "poster").sort(byDateDesc((t) => t.data.date))[0]
+    : undefined;
+
+  const studies = [...getCollection("caseStudies")].filter((s) => s.data.featured).sort(byOrder).slice(0, 2);
+  const otherResearch = research.filter((r) => r.data.featured && r.slug !== current?.slug).slice(0, 1);
+  const projects = [...getCollection("projects")].sort(byOrder).slice(0, 1);
+
+  const selected: SelectedItem[] = [
+    ...studies.map((s) => ({ kind: "Case study", title: s.data.title, summary: s.data.summary, href: s.href!, status: s.data.status })),
+    ...otherResearch.map((r) => ({ kind: "Research", title: r.data.title, summary: r.data.summary, href: r.href!, status: r.data.status })),
+    ...projects.map((p) => ({ kind: "Project", title: p.data.title, summary: p.data.summary, href: `/projects#${p.slug}`, status: p.data.status })),
+  ];
+
+  const roles = [...getCollection("roles")].filter((r) => r.data.category === "engineering").sort(byOrder);
+  const talk = [...getCollection("talks")].filter((t) => t.data.featured).sort(byDateDesc((t) => t.data.date))[0];
 
   return (
     <>
@@ -22,12 +60,12 @@ export default function HomePage() {
         intro={site.heroIntro}
         threads={site.threads}
       />
-      <PendingSection title="Current research" note="HAUV highlight with poster status (Phase 4)." />
-      <PendingSection title="Selected work" note="3–4 items across engineering, research and projects (Phase 4)." />
-      <PendingSection title="Experience at a glance" note="FairMoney → Analytics Intelligence Africa → Naerospace (Phase 4)." />
-      <PendingSection title="Short introduction" note="First-person excerpt linking to About (Phase 4)." />
-      <PendingSection title="Speaking highlight" note="The Gopher's Trident, GopherCon Africa 2026 (Phase 4)." />
-      <PendingSection title="Profile links" note="Render only once URLs are confirmed (open item O11)." />
+      {current ? <CurrentResearch research={current} poster={poster} /> : null}
+      {selected.length > 0 ? <SelectedWork items={selected} /> : null}
+      {roles.length > 0 ? <ExperienceGlance roles={roles} /> : null}
+      <Introduction excerpt={firstParagraph(about.body)} />
+      {talk ? <SpeakingHighlight talk={talk} /> : null}
+      <ProfileLinks profiles={site.profiles} />
     </>
   );
 }
