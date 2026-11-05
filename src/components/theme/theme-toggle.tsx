@@ -6,36 +6,17 @@ import { THEME_STORAGE_KEY } from "./theme-script";
 
 type Theme = "light" | "dark";
 
-const DARK_QUERY = "(prefers-color-scheme: dark)";
-
-function readStoredTheme(): Theme | null {
-  try {
-    const value = localStorage.getItem(THEME_STORAGE_KEY);
-    return value === "light" || value === "dark" ? value : null;
-  } catch {
-    return null;
-  }
-}
-
-/** The theme actually in effect: explicit choice, else system preference. */
+/** Dark is the default identity; light only when explicitly chosen. */
 function resolveTheme(): Theme {
-  const explicit = document.documentElement.getAttribute("data-theme");
-  if (explicit === "light" || explicit === "dark") return explicit;
-  return window.matchMedia(DARK_QUERY).matches ? "dark" : "light";
+  return document.documentElement.getAttribute("data-theme") === "light" ? "light" : "dark";
 }
 
 function subscribe(onChange: () => void) {
-  const media = window.matchMedia(DARK_QUERY);
   const observer = new MutationObserver(onChange);
   observer.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
-  media.addEventListener("change", onChange);
-  return () => {
-    observer.disconnect();
-    media.removeEventListener("change", onChange);
-  };
+  return () => observer.disconnect();
 }
 
-/** Unknown on the server; resolved on the client after hydration. */
 const getServerSnapshot = (): Theme | null => null;
 
 export function ThemeToggle({ className }: { className?: string }) {
@@ -44,8 +25,12 @@ export function ThemeToggle({ className }: { className?: string }) {
   // React's dev-only Strict Mode remount resets <html> attributes; re-apply the
   // stored choice. A no-op in production, where the inline script already ran.
   useLayoutEffect(() => {
-    const stored = readStoredTheme();
-    if (stored) document.documentElement.setAttribute("data-theme", stored);
+    try {
+      const stored = localStorage.getItem(THEME_STORAGE_KEY);
+      if (stored === "light" || stored === "dark") document.documentElement.setAttribute("data-theme", stored);
+    } catch {
+      // Storage unavailable: keep the default.
+    }
   }, []);
 
   function toggle() {
@@ -54,7 +39,7 @@ export function ThemeToggle({ className }: { className?: string }) {
     try {
       localStorage.setItem(THEME_STORAGE_KEY, next);
     } catch {
-      // Storage unavailable (private mode, disabled): the choice lasts for this page view.
+      // Storage unavailable: the choice lasts for this page view.
     }
   }
 
@@ -68,21 +53,16 @@ export function ThemeToggle({ className }: { className?: string }) {
       aria-label={label}
       title={label}
       className={cn(
-        "inline-flex size-11 items-center justify-center text-foreground transition-colors duration-150 hover:text-accent",
+        "label inline-flex min-h-11 items-center gap-2 px-2 text-muted-foreground transition-colors duration-150 hover:text-foreground",
         className,
       )}
     >
-      {/* Half-filled disc: one symbol for both states, rotated in dark mode. */}
-      <svg
-        viewBox="0 0 20 20"
-        width="18"
-        height="18"
-        aria-hidden="true"
-        className={cn("transition-transform duration-300 ease-out-quiet", theme === "dark" && "rotate-180")}
-      >
-        <circle cx="10" cy="10" r="8.25" fill="none" stroke="currentColor" strokeWidth="1.5" />
-        <path d="M10 1.75a8.25 8.25 0 0 1 0 16.5z" fill="currentColor" />
-      </svg>
+      {/* Two-state indicator: filled square marks the active mode. */}
+      <span aria-hidden="true" className="inline-flex items-center gap-1">
+        <span className={cn("size-2 border border-current", theme !== "light" && "bg-accent border-accent")} />
+        <span className={cn("size-2 border border-current", theme === "light" && "bg-accent border-accent")} />
+      </span>
+      <span aria-hidden="true">{theme === "light" ? "Paper" : "Dark"}</span>
     </button>
   );
 }

@@ -1,51 +1,60 @@
 import localFont from "next/font/local";
 
 /*
- * Self-hosted fonts (SIL Open Font License 1.1; licences alongside the files).
- * Latin subset, variable weight axis. Only upright faces are preloaded; italic
- * faces share the same family name and load on demand when italics are used.
+ * Type system (self-hosted, SIL Open Font License 1.1; licences alongside).
+ *
+ *   Instrument Sans   contemporary grotesk: interface and all reading text
+ *   Instrument Serif  editorial display: used selectively, large sizes only
+ *   IBM Plex Mono     technical voice: labels, coordinates, data, notation
+ *
+ * Sans and Serif are one designed family (shared proportions and rhythm), so
+ * the display face can sit inside a line of text without clashing. Plex Mono
+ * comes from engineering documentation and reads as annotation, not terminal.
+ *
+ * Upright faces are preloaded; italic faces share each family name and load
+ * only when italics are actually used.
  */
 
-export const newsreader = localFont({
-  src: "./newsreader-latin-wght-normal.woff2",
-  weight: "200 800",
+export const instrumentSans = localFont({
+  src: "./instrument-sans-latin-wght-normal.woff2",
+  weight: "400 700",
   style: "normal",
   display: "swap",
-  variable: "--font-newsreader",
-  adjustFontFallback: "Times New Roman",
-  declarations: [{ prop: "font-family", value: "newsreader" }],
-});
-
-export const newsreaderItalic = localFont({
-  src: "./newsreader-latin-wght-italic.woff2",
-  weight: "200 800",
-  style: "italic",
-  display: "swap",
-  preload: false,
-  adjustFontFallback: false,
-  declarations: [{ prop: "font-family", value: "newsreader" }],
-  variable: "--font-newsreader-italic",
-});
-
-export const plexSans = localFont({
-  src: "./ibm-plex-sans-latin-wght-normal.woff2",
-  weight: "100 700",
-  style: "normal",
-  display: "swap",
-  variable: "--font-plex-sans",
+  variable: "--font-instrument-sans",
   adjustFontFallback: "Arial",
-  declarations: [{ prop: "font-family", value: "plexSans" }],
+  declarations: [{ prop: "font-family", value: "instrumentSans" }],
 });
 
-export const plexSansItalic = localFont({
-  src: "./ibm-plex-sans-latin-wght-italic.woff2",
-  weight: "100 700",
+export const instrumentSansItalic = localFont({
+  src: "./instrument-sans-latin-wght-italic.woff2",
+  weight: "400 700",
   style: "italic",
   display: "swap",
   preload: false,
   adjustFontFallback: false,
-  declarations: [{ prop: "font-family", value: "plexSans" }],
-  variable: "--font-plex-sans-italic",
+  variable: "--font-instrument-sans-italic",
+  declarations: [{ prop: "font-family", value: "instrumentSans" }],
+});
+
+export const instrumentSerif = localFont({
+  src: "./instrument-serif-latin-400-normal.woff2",
+  weight: "400",
+  style: "normal",
+  display: "swap",
+  variable: "--font-instrument-serif",
+  adjustFontFallback: "Times New Roman",
+  declarations: [{ prop: "font-family", value: "instrumentSerif" }],
+});
+
+export const instrumentSerifItalic = localFont({
+  src: "./instrument-serif-latin-400-italic.woff2",
+  weight: "400",
+  style: "italic",
+  display: "swap",
+  preload: false,
+  adjustFontFallback: false,
+  variable: "--font-instrument-serif-italic",
+  declarations: [{ prop: "font-family", value: "instrumentSerif" }],
 });
 
 export const plexMono = localFont({
@@ -59,11 +68,11 @@ export const plexMono = localFont({
   declarations: [{ prop: "font-family", value: "plexMono" }],
 });
 
-/** Class names to place on <html>. Italic loaders are included so their @font-face rules ship (their variables are unused). */
+/** Class names for <html>. Italic loaders are included so their @font-face rules ship. */
 export const fontVariables = [
-  newsreader.variable,
-  newsreaderItalic.variable,
-  plexSans.variable,
-  plexSansItalic.variable,
+  instrumentSans.variable,
+  instrumentSansItalic.variable,
+  instrumentSerif.variable,
+  instrumentSerifItalic.variable,
   plexMono.variable,
 ].join(" ");

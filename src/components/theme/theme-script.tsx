@@ -1,6 +1,7 @@
 /*
  * Applies a stored theme choice before first paint (no flash).
- * With no stored choice, CSS follows the system `prefers-color-scheme`.
+ * The default theme is dark (the site's identity); light "paper" is an
+ * explicit choice made with the toggle and remembered here.
  * Static string, no interpolation: nothing user-controlled reaches the page.
  */
 

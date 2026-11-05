@@ -1,100 +1,96 @@
 @import "tailwindcss";
 
 /*
- * Design tokens
+ * Design tokens: "instrument" palette
  * ------------------------------------------------------------------
- * Semantic tokens only. Components never use literal colours.
- * Palette: charcoal on warm off-white, one accent (oxide red).
- * Contrast (WCAG 2.2):
- *   light  foreground/background 16.6:1 · muted-fg 6.2:1 · accent 5.9:1
- *   dark   foreground/background 14.8:1 · muted-fg 6.8:1 · accent 6.2:1
+ * The default theme is dark: a near-black with a green/graphite undertone,
+ * like an oscilloscope screen or a darkened lab bench. One signal colour,
+ * chartreuse, is reserved for data, the current position and interaction.
+ * Nothing else is coloured.
+ *
+ * A light "paper" theme is available through the toggle (a printed-
+ * proceedings feel). In light mode the signal colour shifts to a deep olive
+ * so it stays readable as text.
+ *
+ * Contrast against background (WCAG 2.2):
+ *   dark   foreground 16.0 · muted-foreground 6.4 · accent 15.3
+ *   light  foreground 16.7 · muted-foreground 6.2 · accent 5.7
+ *   `faint` is for decorative, aria-hidden annotation only (≥ 3:1).
  */
 
 :root {
-  color-scheme: light;
-  --background: #f5f3ee;
-  --foreground: #141414;
-  --surface: #edeae3;
-  --muted: #e6e2da;
-  --muted-foreground: #5c5a55;
-  --border: #d6d1c7;
-  --border-strong: #141414;
-  --accent: #a23b1e;
-  --accent-foreground: #f5f3ee;
-  --focus-ring: #a23b1e;
-}
-
-/* Dark: explicit choice, or system preference when no choice stored. */
-:root[data-theme="dark"] {
   color-scheme: dark;
-  --background: #141414;
-  --foreground: #edeae3;
-  --surface: #1c1c1b;
-  --muted: #232321;
-  --muted-foreground: #a19d95;
-  --border: #34332f;
-  --border-strong: #edeae3;
-  --accent: #e07a55;
-  --accent-foreground: #141414;
-  --focus-ring: #e07a55;
+  --background: #080b09;
+  --surface: #0d110e;
+  --muted: #121813;
+  --foreground: #e4e9e1;
+  --muted-foreground: #8a958c;
+  --faint: #647066;
+  --grid: #131a15;
+  --border: #222b24;
+  --border-strong: #3a463c;
+  --accent: #c9f24b;
+  --accent-foreground: #080b09;
+  --focus-ring: #c9f24b;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    color-scheme: dark;
-    --background: #141414;
-    --foreground: #edeae3;
-    --surface: #1c1c1b;
-    --muted: #232321;
-    --muted-foreground: #a19d95;
-    --border: #34332f;
-    --border-strong: #edeae3;
-    --accent: #e07a55;
-    --accent-foreground: #141414;
-    --focus-ring: #e07a55;
-  }
+:root[data-theme="light"] {
+  color-scheme: light;
+  --background: #eceee8;
+  --surface: #e4e7df;
+  --muted: #dde1d7;
+  --foreground: #0a0e0b;
+  --muted-foreground: #4f5a51;
+  --faint: #6f7a70;
+  --grid: #dde1d8;
+  --border: #c5ccc2;
+  --border-strong: #8d978c;
+  --accent: #4a6600;
+  --accent-foreground: #eceee8;
+  --focus-ring: #4a6600;
 }
 
 @theme inline {
   --color-background: var(--background);
-  --color-foreground: var(--foreground);
   --color-surface: var(--surface);
   --color-muted: var(--muted);
+  --color-foreground: var(--foreground);
   --color-muted-foreground: var(--muted-foreground);
+  --color-faint: var(--faint);
+  --color-grid: var(--grid);
   --color-border: var(--border);
   --color-border-strong: var(--border-strong);
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
   --color-focus-ring: var(--focus-ring);
 
-  --font-serif: var(--font-newsreader), "Iowan Old Style", "Palatino Linotype", Georgia, serif;
-  --font-sans: var(--font-plex-sans), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-sans: var(--font-instrument-sans), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: var(--font-instrument-serif), "Iowan Old Style", Georgia, serif;
   --font-mono: var(--font-plex-mono), ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 }
 
 @theme {
-  /* Fluid editorial type scale (320px → 1440px). */
-  --text-meta: 0.75rem;
-  --text-meta--line-height: 1.5;
-  --text-meta--letter-spacing: 0.06em;
+  /* Type scale. Display sizes are fluid; reading sizes are fixed. */
+  --text-label: 0.6875rem;
+  --text-label--line-height: 1.45;
+  --text-label--letter-spacing: 0.08em;
   --text-small: 0.875rem;
   --text-small--line-height: 1.55;
   --text-body: 1.0625rem;
   --text-body--line-height: 1.65;
-  --text-lede: clamp(1.1875rem, 1.05rem + 0.6vw, 1.4375rem);
-  --text-lede--line-height: 1.5;
-  --text-h3: clamp(1.25rem, 1.15rem + 0.45vw, 1.5rem);
-  --text-h3--line-height: 1.3;
-  --text-h2: clamp(1.625rem, 1.4rem + 1vw, 2.25rem);
-  --text-h2--line-height: 1.18;
-  --text-h1: clamp(2.125rem, 1.6rem + 2.4vw, 3.75rem);
-  --text-h1--line-height: 1.06;
-  --text-display: clamp(2.5rem, 1.7rem + 3.9vw, 5.25rem);
-  --text-display--line-height: 1;
+  --text-lede: clamp(1.125rem, 1.02rem + 0.45vw, 1.3125rem);
+  --text-lede--line-height: 1.55;
+  --text-h3: clamp(1.25rem, 1.15rem + 0.4vw, 1.5rem);
+  --text-h3--line-height: 1.25;
+  --text-h2: clamp(1.75rem, 1.4rem + 1.4vw, 2.75rem);
+  --text-h2--line-height: 1.08;
+  --text-h1: clamp(2.5rem, 1.7rem + 3.4vw, 4.75rem);
+  --text-h1--line-height: 1;
+  --text-display: clamp(3.25rem, 1.6rem + 7.4vw, 9.5rem);
+  --text-display--line-height: 0.9;
 
-  /* Content measures. */
-  --container-measure: 40rem; /* ≈ 68 characters of body copy */
-  --container-content: 72rem;
+  --container-measure: 38rem; /* ≈ 68 characters of body copy */
+  --container-content: 88rem;
 
   --ease-out-quiet: cubic-bezier(0.2, 0.7, 0.2, 1);
 }
@@ -117,7 +113,6 @@
     font-size: var(--text-body);
     line-height: var(--text-body--line-height);
     font-feature-settings: "kern", "liga";
-    text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-wrap: break-word;
@@ -127,10 +122,9 @@
   h2,
   h3,
   h4 {
-    font-family: var(--font-serif);
-    font-weight: 450;
+    font-weight: 500;
     text-wrap: balance;
-    letter-spacing: -0.012em;
+    letter-spacing: -0.01em;
   }
 
   p {
@@ -142,11 +136,9 @@
     color: var(--accent-foreground);
   }
 
-  /* One consistent, visible focus indicator. */
   :focus-visible {
-    outline: 2px solid var(--focus-ring);
+    outline: 1.5px solid var(--focus-ring);
     outline-offset: 3px;
-    border-radius: 1px;
   }
 
   hr {
@@ -155,36 +147,56 @@
 }
 
 /* ------------------------------------------------------------------ */
-/* Link treatment: quiet accent underline that thickens on hover.      */
+/* Utilities                                                           */
 /* ------------------------------------------------------------------ */
 
+/* Technical label: small uppercase monospace. */
+@utility label {
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  line-height: var(--text-label--line-height);
+  letter-spacing: var(--text-label--letter-spacing);
+  text-transform: uppercase;
+}
+
+/* Annotation: monospace at reading-adjacent size, sentence case (coordinates, notation). */
+@utility annot {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  line-height: 1.5;
+  letter-spacing: 0.01em;
+}
+
+/* Editorial display: Instrument Serif, tight, used sparingly at large sizes. */
+@utility display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+}
+
+/* Inline text link: hairline underline in the signal colour. */
 @utility link {
   color: inherit;
   text-decoration-line: underline;
   text-decoration-color: var(--accent);
   text-decoration-thickness: 1px;
-  text-underline-offset: 0.22em;
-  transition:
-    text-decoration-thickness 160ms var(--ease-out-quiet),
-    color 160ms var(--ease-out-quiet);
+  text-underline-offset: 0.24em;
+  transition: color 140ms var(--ease-out-quiet);
 
   &:hover {
-    text-decoration-thickness: 2px;
     color: var(--accent);
   }
 }
 
-/* Small-caps monospace for metadata, dates and status labels. */
-@utility meta {
-  font-family: var(--font-mono);
-  font-size: var(--text-meta);
-  line-height: var(--text-meta--line-height);
-  letter-spacing: var(--text-meta--letter-spacing);
-  text-transform: uppercase;
+/* Mathematical variables: italic display serif, as in typeset notation. */
+@utility math {
+  font-family: var(--font-display);
+  font-style: italic;
+  letter-spacing: 0;
 }
 
 /* ------------------------------------------------------------------ */
-/* Motion: subtle by default, none when the user asks for none.        */
+/* Motion                                                              */
 /* ------------------------------------------------------------------ */
 
 @media (prefers-reduced-motion: reduce) {
