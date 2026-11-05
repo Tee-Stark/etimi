@@ -6,7 +6,7 @@ Personal website and long-term digital home of Timmy (Timilehin) Omolana.
 - **How it is built:** [`IMPLEMENTATION_SPEC.md`](./IMPLEMENTATION_SPEC.md)
 - **Background brief:** [`ABOUT_TIM.md`](./ABOUT_TIM.md)
 
-> Status: **Phase 1 — foundation and design system (visual identity reset).** The content engine,
+> Status: **Phase 2 — typed content engine and guardrails.** The content engine,
 > guardrails, pages, SEO and full documentation arrive in later phases
 > (see `IMPLEMENTATION_SPEC.md` §15).
 
@@ -28,10 +28,17 @@ pnpm install          # install from the lockfile
 cp .env.example .env.local   # optional locally; required values for production
 
 pnpm dev              # development server on http://localhost:3000
-pnpm build            # production build (static prerender)
+pnpm dev:preview      # same, but also shows hidden/draft entries (flagged)
+pnpm build            # validate → banned scan → next build → output scan
 pnpm start            # serve the production build
 pnpm lint             # ESLint
 pnpm typecheck        # generate route types, then tsc --noEmit
+pnpm test             # unit tests (Vitest)
+pnpm check            # lint + typecheck + test + build
+
+pnpm content:validate      # schemas and cross-entry rules only
+pnpm content:check-banned  # removed items / FairMoney wording in content, src, public
+pnpm content:check-output  # scan .next for anything withheld (after next build)
 ```
 
 ## Environment
@@ -39,6 +46,43 @@ pnpm typecheck        # generate route types, then tsc --noEmit
 | Variable               | Purpose                                                    |
 | ---------------------- | ---------------------------------------------------------- |
 | `NEXT_PUBLIC_SITE_URL` | Canonical origin for metadata. Falls back to localhost in development. The real domain is not chosen yet; do not guess it. |
+
+## Content system
+
+Every role, case study, research project, project, venture, talk, note,
+publication and community entry is one Markdown/MDX file under `content/`
+with YAML frontmatter, validated by a Zod schema
+(`src/content/schemas/`). Adding an entry is a content change only.
+
+- **Publication is opt-in.** `visibility: public | hidden` is required on
+  every entry. Notes also need an explicit `draft: true | false`.
+- **Hidden parts are filtered separately.** Links, metrics, collaborators,
+  milestones, embeds, publications, research updates and talk links each
+  carry their own visibility (or `cleared` / `consent`). They are removed
+  before data reaches a page, so they cannot be serialised.
+- **Metrics:** only `cleared: true` metrics publish. `kind: expected`
+  always carries the label "Expected impact".
+- **Collaborators:** named only with `consent: true`.
+- **Pages** read content only through `@/content`, which is server-only
+  (`getSite`, `getCollection`, `getEntry`, `getPublicCollection`,
+  `getStaticSlugs`). An ESLint rule blocks direct loader or filesystem
+  imports from routes and components.
+- **Preview:** `pnpm dev:preview` shows hidden and draft entries, flagged,
+  in development only. Production builds ignore it.
+- **Guardrails (fail the build):**
+  - schema errors, with file and field
+  - file name ≠ slug
+  - duplicate slugs
+  - broken references
+  - internal links to missing or hidden pages
+  - `[CONFIRM]` or `TODO` in public content
+  - non-https or unsafe URLs
+  - hidden URLs reused publicly
+  - unsafe iframe sandboxes
+  - items removed in PLAN.md
+  - "microservice" or percentage cost claims in FairMoney content
+  - after the build, any withheld text, URL, uncleared metric value or
+    unconsented name found in the HTML, RSC payloads or client chunks
 
 ## Layout
 
@@ -50,9 +94,12 @@ src/
   components/       Reusable presentation (layout, navigation, typography,
                     content primitives, theme, vinculum motif, home sections)
   config/           Navigation / information architecture
-  content/          Content loading and validation (server-only)
+  content/          Content engine: schemas, loader, visibility policy,
+                    validation, banned rules; index.ts is the server-only API
   fonts/            Self-hosted font files (SIL OFL 1.1) and loaders
-  lib/              Small utilities
+  lib/              Markdown/MDX rendering, headings, dates, signals, utilities
+scripts/            Build-time guardrails (validate, banned scan, output scan)
+tests/              Vitest unit tests; fixtures are generated in temp dirs
   styles/           globals.css — design tokens and base styles
 ```
 

@@ -1,6 +1,6 @@
 import { PendingSection } from "@/components/dev/pending-section";
 import { ManuscriptHero } from "@/components/home/manuscript-hero";
-import { getSite } from "@/content/site";
+import { getSite } from "@/content";
 
 /*
  * Home (IMPLEMENTATION_SPEC.md §8.1). The hero carries the identity, the

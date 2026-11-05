@@ -3,7 +3,7 @@ import { ButtonLink } from "@/components/content/button-link";
 import { SignalTrace } from "@/components/figures/signal-trace";
 import { ColumnGuides } from "@/components/layout/column-guides";
 import { Container } from "@/components/layout/container";
-import type { Thread } from "@/content/site";
+import type { Thread } from "@/content/types";
 import { cn } from "@/lib/utils";
 import { mixturePath, threadSignals } from "./thread-signals";
 

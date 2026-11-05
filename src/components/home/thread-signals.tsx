@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import type { Thread } from "@/content/site";
+import type { Thread } from "@/content/types";
 import { frequencyModulation, mix, signalPath, squarePartialSum, wavePacket } from "@/lib/signals";
 import { TRACE_WIDTH } from "@/components/figures/signal-trace";
 

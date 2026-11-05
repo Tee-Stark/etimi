@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { ThemeScript } from "@/components/theme/theme-script";
-import { getSite } from "@/content/site";
+import { getSite } from "@/content";
 import { fontVariables } from "@/fonts";
 import { getSiteUrl } from "@/lib/site-url";
 import "@/styles/globals.css";

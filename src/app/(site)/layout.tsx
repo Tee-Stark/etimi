@@ -1,7 +1,7 @@
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SkipLink } from "@/components/layout/skip-link";
-import { getSite } from "@/content/site";
+import { getSite } from "@/content";
 
 export default function SiteLayout({ children }: LayoutProps<"/">) {
   const site = getSite();

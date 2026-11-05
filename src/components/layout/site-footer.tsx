@@ -1,7 +1,7 @@
 import { cacheLife } from "next/cache";
 import Link from "next/link";
 import { primaryNav } from "@/config/navigation";
-import type { PublicProfile } from "@/content/site";
+import type { PublicLink } from "@/content/types";
 import { Container } from "./container";
 
 type SiteFooterProps = {
@@ -10,7 +10,7 @@ type SiteFooterProps = {
   location: string;
   coordinates: string;
   /** Confirmed, public profiles only. Empty means nothing is rendered. */
-  profiles: PublicProfile[];
+  profiles: PublicLink[];
 };
 
 /** Copyright year, refreshed daily rather than frozen at build time. */
