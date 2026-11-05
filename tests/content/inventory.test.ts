@@ -48,6 +48,7 @@ describe("public inventory matches PLAN.md", () => {
   it("projects: DEX indexing public as an exploration; Document Intelligence Platform withheld", () => {
     expect(slugs("projects")).toEqual(["multi-chain-dex-indexing"]);
     expect(repo.published.projects[0].data.status).toBe("exploration");
+    expect(repo.published.projects[0].data.stack).toEqual(["Go", "Docker", "AWS"]);
     expect(raw.entries.projects.find((e) => e.data.slug === "document-intelligence-platform")?.data.visibility).toBe("hidden");
   });
 
@@ -72,7 +73,7 @@ describe("public inventory matches PLAN.md", () => {
   });
 
   it("community and music", () => {
-    expect(slugs("community")).toEqual(["backend-buildathon", "cacyof-skill-up-2026", "fulfilled-minstrels", "graphic-design-class"]);
+    expect(slugs("community")).toEqual(["backend-buildathon", "cacyof-skill-up-2026", "fulfilled-minstrels", "technical-writing-mentorship"]);
   });
 });
 
@@ -122,6 +123,12 @@ describe("facts that must hold exactly", () => {
     expect(repo.site.fullName).toBe("Timilehin Omolana");
     expect(repo.site.email).toBeNull();
     expect(repo.site.profiles).toEqual([]);
+  });
+
+  it("the biography opens with the full name and puts the choir in the past (Q29)", () => {
+    expect(repo.about.body.startsWith("I'm Timilehin Omolana")).toBe(true);
+    expect(repo.about.body).toContain("until August 2026 I led a university choir");
+    expect(repo.about.body).not.toMatch(/\blead a university choir\b/);
   });
 
   it("the home Research thread points at the HAUV case study", () => {

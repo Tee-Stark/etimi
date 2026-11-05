@@ -3,6 +3,7 @@ import "server-only";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { ImageResponse } from "next/og";
+import { MARK } from "@/components/brand/mark-data";
 import { mixturePath } from "@/components/home/thread-signals";
 import { primaryNav } from "@/config/navigation";
 import { getSite } from "@/content";
@@ -96,7 +97,12 @@ export async function ogImage({ section, eyebrow, title, subtitle }: OgInput) {
 
         <div style={{ display: "flex", justifyContent: "space-between", fontFamily: "IBM Plex Mono", fontSize: 18, letterSpacing: 1.5, textTransform: "uppercase", color: COLOURS.muted }}>
           <span>{label}</span>
-          <span style={{ color: COLOURS.foreground }}>{site.name}</span>
+          <span style={{ display: "flex", alignItems: "center", gap: 14, color: COLOURS.foreground }}>
+            <svg width={44} height={(44 * MARK.height) / MARK.width} viewBox={MARK.viewBox}>
+              <path d={MARK.d} fill={COLOURS.accent} />
+            </svg>
+            {site.name}
+          </span>
         </div>
 
         <div style={{ display: "flex", flexDirection: "column", maxWidth: 1000 }}>

@@ -1,5 +1,6 @@
 import { cacheLife } from "next/cache";
 import Link from "next/link";
+import { Mark, Wordmark } from "@/components/brand/mark";
 import { primaryNav } from "@/config/navigation";
 import type { PublicLink } from "@/content/types";
 import { Container } from "./container";
@@ -26,7 +27,11 @@ export function SiteFooter({ name, positioning, location, coordinates, profiles 
     <footer className="mt-auto border-t border-border">
       <Container className="grid gap-x-6 gap-y-12 py-14 sm:py-16 lg:grid-cols-12">
         <div className="lg:col-span-5">
-          <p className="display text-h2">{name}</p>
+          <p className="flex items-end gap-3 text-foreground">
+            <Mark className="h-9" />
+            <Wordmark className="mb-0.5 h-[1.05rem] text-muted-foreground" title="eTimi" />
+          </p>
+          <p className="display mt-6 text-h2">{name}</p>
           <p className="mt-4 max-w-sm text-small text-muted-foreground">{positioning}</p>
           <p className="label mt-6 text-muted-foreground">
             {location} <span className="text-faint">·</span> {coordinates}

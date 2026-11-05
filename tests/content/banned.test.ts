@@ -30,6 +30,7 @@ describe("removed items", () => {
     "matric number",
     "I write for MakeUseOf",
     "Tim Omolana",
+    "a graphic design class",
   ])("flags %s", (text) => {
     expect(findRemovedTerms(text).length).toBeGreaterThan(0);
   });

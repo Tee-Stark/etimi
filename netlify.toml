@@ -1,0 +1,14 @@
+# Netlify build configuration (PLAN.md Q28, Q29). File-based settings take
+# precedence over the Netlify UI, so a deploy is repeatable from the repo.
+[build]
+  command = "pnpm run build"
+  publish = ".next"
+
+[build.environment]
+  # Canonical origin for metadata, sitemap, RSS, Open Graph and JSON-LD.
+  # Set for every context, so deploy previews also point canonical URLs at
+  # production rather than competing with it in search results.
+  NEXT_PUBLIC_SITE_URL = "https://etimi.me"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"

@@ -45,7 +45,7 @@ pnpm content:routes        # regenerate the detail-route manifest used by the Pr
 
 ## Environment and hosting
 
-Hosted on **Netlify** (`@netlify/plugin-nextjs`), building with `pnpm run build`.
+Production: **https://etimi.me**, hosted on **Netlify** (`@netlify/plugin-nextjs`). Build settings live in `netlify.toml` (`pnpm run build`, publish `.next`, `NEXT_PUBLIC_SITE_URL=https://etimi.me`).
 
 | Variable               | Purpose |
 | ---------------------- | ------- |

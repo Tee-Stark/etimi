@@ -1,7 +1,8 @@
 ---
 # About page facts. Sources: PLAN.md §3.3 (education), §3.10 (interests),
-# §3.11 (skills), §5.2 (philosophy, biography). The biography below is the
-# PLAN.md draft and is still awaiting Timmy's approval (open item O16).
+# §3.11 (skills), §5.2 (philosophy, biography). Biography updated by Timmy on
+# 5 Nov 2026 (full name in the opening line, choir tenure ended August 2026,
+# technical writing mentorship, anime, chess and gaming).
 education:
   - institution: University of Lagos
     qualification: B.Sc. Industrial Mathematics (Computer Option)
@@ -33,6 +34,9 @@ interests:
   - Cryptography and security, including zero-knowledge proofs
   - Financial technology
   - Quantum computing
+  - Anime
+  - Chess
+  - Gaming
 learningStyle: I learn best by building things and working from first principles.
 # Assembled verbatim from sentences in the biography below.
 speakerBio: >-
@@ -125,9 +129,8 @@ skills:
     items:
       - Technical writing
       - Typst
-      - Graphic design
 ---
-I'm Timmy Omolana, a software engineer and researcher based in Lagos. I'm interested in how complex systems actually work, and in using mathematics and software to build things that hold up in the real world.
+I'm Timilehin Omolana, a software engineer and researcher based in Lagos. I'm interested in how complex systems actually work, and in using mathematics and software to build things that hold up in the real world.
 
 At FairMoney, I write Go for backend systems in a high-throughput, event-driven fintech environment. Most of my work involves durable workflows with Temporal, reliable distributed processes using the Saga pattern, and performance and data work that makes systems faster and cheaper to run.
 
@@ -135,4 +138,4 @@ I studied Industrial Mathematics (Computer Option) at the University of Lagos an
 
 My current research is on [HAUV](/research/hauv), a hybrid aerial–underwater vehicle for autonomous hull inspection. I'm studying how to keep it stable as it crosses the boundary between air and water.
 
-Away from engineering, I play the piano, lead a university choir as Music Director, and teach and mentor through community programmes. I've spoken at GopherCon Africa and DevFest Lagos.
+Away from engineering, I play the piano, and until August 2026 I led a university choir as Music Director. I mentor people in technical writing, and I've spoken at GopherCon Africa and DevFest Lagos. I also love anime, chess and gaming in general.

@@ -34,6 +34,10 @@
   --accent: #6f91ff;
   --accent-foreground: #080b12;
   --focus-ring: #6f91ff;
+  /* eTimi mark plate (About): cobalt, very faint body, crisp outline */
+  --mark-fill: rgb(111 145 255 / 0.06);
+  --mark-stroke: rgb(111 145 255 / 0.5);
+  --mark-guide: rgb(111 145 255 / 0.22);
 }
 
 :root[data-theme="light"] {
@@ -50,6 +54,10 @@
   --accent: #2a4bd0;
   --accent-foreground: #edeff4;
   --focus-ring: #2a4bd0;
+  /* eTimi mark plate (About): graphite on paper */
+  --mark-fill: rgb(78 86 104 / 0.06);
+  --mark-stroke: rgb(78 86 104 / 0.42);
+  --mark-guide: rgb(78 86 104 / 0.2);
 }
 
 @theme inline {

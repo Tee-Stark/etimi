@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { MarkFigure } from "@/components/brand/mark-figure";
 import { GroupLabel } from "@/components/content/article-parts";
 import { Prose } from "@/components/content/prose";
 import { PageHeader } from "@/components/layout/page-header";
@@ -52,23 +53,36 @@ export default function AboutPage() {
           mainEntity: personSchema(site, about),
         })}
       />
-      <PageHeader
-        section="/about"
-        title="About"
-        subtitle={`${site.name} (${site.fullName}) · ${site.title} · ${site.location}`}
-        lede={<p>{about.philosophy.statement}</p>}
-      />
+      {/* The eTimi mark as a large plate behind the header and biography, in its own layer below the text. */}
+      <div className="relative isolate overflow-x-clip">
+        {/* Large screens: behind the header, beside the text. */}
+        <MarkFigure className="absolute top-28 right-[3vw] -z-10 hidden w-[min(55vw,880px)] lg:block" />
+        <PageHeader
+          section="/about"
+          title="About"
+          subtitle={
+            <>
+              {site.name} ({site.fullName})
+              <br />
+              {site.title} · {site.location}
+            </>
+          }
+          lede={<p>{about.philosophy.statement}</p>}
+        />
+        {/* Small screens: a full-width plate of its own, never behind text. */}
+        <MarkFigure className="mx-auto w-full max-w-xl px-5 pt-10 sm:px-8 lg:hidden" />
 
-      <PageSection id="biography" index="§1" eyebrow="Biography" title="In brief">
-        <Prose source={about.body} format={about.format} />
-        {site.cv ? (
-          <p className="mt-8">
-            <a href={site.cv} className="link">
-              Download my CV (PDF)
-            </a>
-          </p>
-        ) : null}
-      </PageSection>
+        <PageSection id="biography" index="§1" eyebrow="Biography" title="In brief">
+          <Prose source={about.body} format={about.format} />
+          {site.cv ? (
+            <p className="mt-8">
+              <a href={site.cv} className="link">
+                Download my CV (PDF)
+              </a>
+            </p>
+          ) : null}
+        </PageSection>
+      </div>
 
       <PageSection id="education" index="§2" eyebrow="Education" title="Education">
         <ul className="grid gap-8 lg:grid-cols-12">

@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { BrandSprite } from "@/components/brand/mark";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SkipLink } from "@/components/layout/skip-link";
@@ -45,6 +46,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <ThemeScript />
       </head>
       <body className="flex min-h-dvh flex-col">
+        <BrandSprite />
         <SkipLink />
         <SiteHeader name={site.name} />
         <main id="content" tabIndex={-1} className="flex-1 outline-none">

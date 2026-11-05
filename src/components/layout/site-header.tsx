@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Suspense } from "react";
+import { Mark } from "@/components/brand/mark";
 import { MobileMenu } from "@/components/navigation/mobile-menu";
 import { PrimaryNav, PrimaryNavFallback } from "@/components/navigation/primary-nav";
 import { ThemeToggle } from "@/components/theme/theme-toggle";
@@ -12,7 +13,8 @@ export function SiteHeader({ name }: SiteHeaderProps) {
   return (
     <header className="border-b border-border">
       <Container className="flex flex-wrap items-center gap-x-3 py-2">
-        <Link href="/" className="mr-auto inline-flex min-h-11 items-center text-small font-medium tracking-tight">
+        <Link href="/" className="group mr-auto inline-flex min-h-11 items-center gap-2.5 text-small font-medium tracking-tight">
+          <Mark className="h-3.5 text-foreground transition-colors duration-150 group-hover:text-accent" />
           {name}
         </Link>
         <Suspense fallback={<PrimaryNavFallback />}>

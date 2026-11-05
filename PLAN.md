@@ -72,6 +72,7 @@ The brief's alternative ("Building systems, exploring ideas, and finding connect
 | Q26 | Name (5 Nov 2026) | **"Timmy Omolana"** is the display name everywhere; **"Timilehin Omolana"** is the only alternate (metadata, JSON-LD `alternateName`). **"Tim" is never used** on the site. This supersedes `IMPLEMENTATION_SPEC.md` §9.5/§9.6, which say "Tim Omolana". |
 | Q27 | MIRG-ICAIR poster (5 Nov 2026) | The poster **was presented** on 4 Nov 2026. Show "poster presented". The PDF and the full conference name are still to come. |
 | Q28 | Hosting and domain (5 Nov 2026) | Hosted on **Netlify** (supersedes the spec's Vercel default). Canonical origin: `NEXT_PUBLIC_SITE_URL` if set, otherwise **Netlify's own `URL`** (the custom domain once attached, else the `.netlify.app` address). Netlify production deploys fail without a real https origin. |
+| Q29 | Content edits (5 Nov 2026) | **Domain: https://etimi.me** (production). Biography opens "I'm **Timilehin** Omolana". **Choir:** Music Director tenure **ended August 2026**; use past tense. **Remove graphic design** everywhere (no class, not a skill). **Add:** technical writing mentorship; love of **anime, chess and gaming**. **CSU 2.0:** Timmy **led the organising committee** (a team effort). **Multi-chain DEX indexing:** mostly **Go, Docker and AWS**, not Rust. **Logo:** the eTimi mark (loop resolving into a T) is used across the site. |
 
 ---
 
@@ -219,7 +220,7 @@ Bees Foraging Algorithm, AMR modelling, and eBPF anomaly detection are all REMOV
 | Item | Status | Content |
 |---|---|---|
 | **Document Intelligence Platform** | PUBLISH (card), link HIDDEN | Personal project. Go, Domain-Driven Design, pgx, asynq, Redis-backed job queue. The user-facing description is pending (O6). |
-| **Multi-chain DEX indexing** | PUBLISH as *exploration* | Blockchain data indexing across EVM-compatible networks using Rust, indexing protocols directly instead of relying on subgraphs/substreams. Label it as an exploration. Whether code exists is pending (O7). |
+| **Multi-chain DEX indexing** | PUBLISH as *exploration* | Blockchain data indexing across EVM-compatible networks, mostly in Go with Docker on AWS (Q29), indexing protocols directly instead of relying on subgraphs/substreams. Label it as an exploration. Whether code exists is pending (O7). |
 | **Numerical methods in financial systems** | Folded into FairMoney | Newton–Raphson interest-rate tooling (see 3.2). |
 | Agentic financial infrastructure | REMOVED (as an exploration) | This is Enquoir's concept, and Enquoir is not public (Q9). "Agentic systems" may stay as a general skill. |
 
@@ -251,7 +252,7 @@ Bees Foraging Algorithm, AMR modelling, and eBPF anomaly detection are all REMOV
 | Pianist | PUBLISH | |
 | **CACYOF Skill-Up 2026 (CSU 2.0)** | PUBLISH | Organised a three-week mentorship programme with 15 skill tracks, and taught technical writing in it. *What "CACYOF" stands for is pending (O9). Until then, use the acronym only.* |
 | **10-day Backend Buildathon** (IEEE Computer Society × GitHub Campus Experts) | PUBLISH | Designed the track structure and reviewed participant pull requests across Node.js, TypeScript/Hono, and Python/FastAPI. |
-| Graphic design class | PUBLISH (generic) | "I teach a graphic design class." Where and for whom is pending (O10). |
+| Graphic design class | REMOVED | Q29 |
 | The song "Revealers of God's Glory" | REMOVED | Q12 |
 | Music ↔ engineering bridge | PUBLISH | Interest in audio signal processing connects music to Dechorder. This is a natural cross-link. |
 
