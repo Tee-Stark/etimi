@@ -39,19 +39,23 @@ pnpm check            # lint + typecheck + test + build
 pnpm content:validate      # schemas and cross-entry rules only
 pnpm content:check-banned  # removed items / FairMoney wording in content, src, public
 pnpm content:check-output  # scan .next for anything withheld (after next build)
-pnpm content:check-site-url # canonical origin rules (runs first in build)
 pnpm content:routes        # regenerate the detail-route manifest used by the Proxy
 ```
 
 ## Environment and hosting
 
-Production: **https://etimi.me**, hosted on **Netlify** (`@netlify/plugin-nextjs`). Build settings live in `netlify.toml` (`pnpm run build`, publish `.next`, `NEXT_PUBLIC_SITE_URL=https://etimi.me`).
+Production: **https://etimi.me**, hosted on **Vercel** (imported from the
+GitHub repo `Tee-Stark/etimi`). `vercel.json` pins the install and build to
+pnpm 12.16.1 (`pnpm run build`). DNS is managed on Cloudflare, which also
+handles email forwarding for the domain.
 
 | Variable               | Purpose |
 | ---------------------- | ------- |
-| `NEXT_PUBLIC_SITE_URL` | Canonical origin for metadata, sitemap, RSS, Open Graph and JSON-LD. Optional on Netlify: if unset, the platform's own `URL` variable is used (the custom domain once attached, otherwise `*.netlify.app`). Locally it defaults to `http://localhost:3000`. |
+| `NEXT_PUBLIC_SITE_URL` | Optional override for the canonical origin (metadata, sitemap, RSS, Open Graph, JSON-LD). On Vercel, production and previews default to `https://etimi.me`, so previews never compete with production in search. Locally it defaults to `http://localhost:3000`. |
 
-Netlify production deploys (`CONTEXT=production`) fail if no real https origin is available. Set `REQUIRE_SITE_URL=1` to enforce the same rule anywhere else.
+Vercel production deploys (`VERCEL_ENV=production`) fail if no real https
+origin is available. Set `REQUIRE_SITE_URL=1` to enforce the same rule
+anywhere else.
 
 ## SEO and feeds
 

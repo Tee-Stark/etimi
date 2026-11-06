@@ -1,12 +1,16 @@
 /*
- * Canonical origin (IMPLEMENTATION_SPEC.md §9.2; PLAN.md Q28). Never guessed:
- *   1. NEXT_PUBLIC_SITE_URL, if set;
- *   2. on Netlify, the platform's own `URL` variable: the site's main
- *      address (the custom domain once attached, otherwise *.netlify.app);
+ * Canonical origin (IMPLEMENTATION_SPEC.md §9.2; PLAN.md Q29, Q30). Never guessed:
+ *   1. NEXT_PUBLIC_SITE_URL, if set (override for any environment);
+ *   2. on Vercel (production and previews), the confirmed production domain,
+ *      so preview deployments point canonical URLs at production rather than
+ *      competing with it in search results;
  *   3. locally, http://localhost:3000.
- * Netlify production deploys fail if neither 1 nor 2 yields a real https
- * origin (scripts/check-site-url.ts).
+ * Vercel production deploys fail without a real https origin
+ * (scripts/check-site-url.ts).
  */
+
+/** The owner-confirmed production domain (PLAN.md Q29). */
+export const PRODUCTION_ORIGIN = "https://etimi.me";
 
 const DEV_FALLBACK = "http://localhost:3000";
 
@@ -16,8 +20,8 @@ type Env = Record<string, string | undefined>;
 export function configuredSiteUrl(env: Env = process.env): string | undefined {
   const explicit = env.NEXT_PUBLIC_SITE_URL?.trim();
   if (explicit) return explicit;
-  const netlify = env.NETLIFY === "true" ? env.URL?.trim() : undefined;
-  return netlify || undefined;
+  if (env.VERCEL === "1") return PRODUCTION_ORIGIN;
+  return undefined;
 }
 
 export function getSiteUrl(): URL {
@@ -32,7 +36,7 @@ export function absoluteUrl(path: string): string {
 /** Why a value can't be used as the production origin, or null if it can. */
 export function siteUrlProblem(raw: string | undefined): string | null {
   const value = raw?.trim();
-  if (!value) return "No site URL: NEXT_PUBLIC_SITE_URL is not set (and Netlify's URL is not available)";
+  if (!value) return "No site URL: NEXT_PUBLIC_SITE_URL is not set and this is not a Vercel build";
   let url: URL;
   try {
     url = new URL(value);

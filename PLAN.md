@@ -73,6 +73,7 @@ The brief's alternative ("Building systems, exploring ideas, and finding connect
 | Q27 | MIRG-ICAIR poster (5 Nov 2026) | The poster **was presented** on 4 Nov 2026. Show "poster presented". The PDF and the full conference name are still to come. |
 | Q28 | Hosting and domain (5 Nov 2026) | Hosted on **Netlify** (supersedes the spec's Vercel default). Canonical origin: `NEXT_PUBLIC_SITE_URL` if set, otherwise **Netlify's own `URL`** (the custom domain once attached, else the `.netlify.app` address). Netlify production deploys fail without a real https origin. |
 | Q29 | Content edits (5 Nov 2026) | **Domain: https://etimi.me** (production). Biography opens "I'm **Timilehin** Omolana". **Choir:** Music Director tenure **ended August 2026**; use past tense. **Remove graphic design** everywhere (no class, not a skill). **Add:** technical writing mentorship; love of **anime, chess and gaming**. **CSU 2.0:** Timmy **led the organising committee** (a team effort). **Multi-chain DEX indexing:** mostly **Go, Docker and AWS**, not Rust. **Logo:** the eTimi mark (loop resolving into a T) is used across the site. |
+| Q30 | Hosting move (5 Nov 2026) | **Move hosting from Netlify to Vercel**: the Netlify free plan injects a "Powered by Netlify" badge that can't be hidden. **DNS moves to Cloudflare** so Cloudflare Email Routing can forward a custom @etimi.me address. Canonical origin: `NEXT_PUBLIC_SITE_URL` if set, otherwise `https://etimi.me` on every Vercel build (supersedes the Netlify part of Q28). |
 
 ---
 
