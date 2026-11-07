@@ -17,9 +17,11 @@ certifications:
   - name: AWS Certified Solutions Architect – Associate
     issuer: Amazon Web Services
     abbreviation: SAA
+    url: https://www.credly.com/badges/d66fb486-ce95-4a0a-8495-6bb084d6c7d5/public_url
   - name: AWS Certified Cloud Practitioner
     issuer: Amazon Web Services
     abbreviation: CCP
+    url: https://www.credly.com/badges/d9b8e8cd-a113-4e84-a0aa-2f59e99d7eef/public_url
 academicInterests:
   - Numerical analysis
   - Functional analysis

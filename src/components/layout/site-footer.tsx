@@ -1,6 +1,7 @@
 import { cacheLife } from "next/cache";
 import Link from "next/link";
 import { Mark, Wordmark } from "@/components/brand/mark";
+import { channelsFor, ContactList } from "@/components/content/contact-list";
 import { primaryNav } from "@/config/navigation";
 import type { PublicLink } from "@/content/types";
 import { Container } from "./container";
@@ -10,7 +11,8 @@ type SiteFooterProps = {
   positioning: string;
   location: string;
   coordinates: string;
-  /** Confirmed, public profiles only. Empty means nothing is rendered. */
+  /** Confirmed, public contact details only. Empty means nothing is rendered. */
+  email: string | null;
   profiles: PublicLink[];
 };
 
@@ -22,7 +24,7 @@ async function CurrentYear() {
 }
 
 /** Footer as a colophon: identity, contents, and how the pages are made. */
-export function SiteFooter({ name, positioning, location, coordinates, profiles }: SiteFooterProps) {
+export function SiteFooter({ name, positioning, location, coordinates, email, profiles }: SiteFooterProps) {
   return (
     <footer className="mt-auto border-t border-border">
       <Container className="grid gap-x-6 gap-y-12 py-14 sm:py-16 lg:grid-cols-12">
@@ -58,22 +60,10 @@ export function SiteFooter({ name, positioning, location, coordinates, profiles 
         </nav>
 
         <div className="space-y-8 lg:col-span-3 lg:col-start-10">
-          {profiles.length > 0 ? (
+          {email || profiles.length > 0 ? (
             <div>
               <p className="label mb-3 text-muted-foreground">Elsewhere</p>
-              <ul>
-                {profiles.map((profile) => (
-                  <li key={profile.url}>
-                    <a
-                      href={profile.url}
-                      rel="me noopener noreferrer"
-                      className="inline-flex min-h-9 items-center text-small text-foreground hover:text-accent"
-                    >
-                      {profile.label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
+              <ContactList channels={channelsFor(email, profiles)} variant="compact" />
             </div>
           ) : null}
           <div>

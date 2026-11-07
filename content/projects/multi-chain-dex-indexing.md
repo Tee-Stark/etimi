@@ -10,7 +10,8 @@ summary: >-
 visibility: public
 status: exploration
 threads: [engineering, research]
+featured: true
 order: 2
-updated: 2026-11-05
+updated: 2026-11-07
 stack: [Go, Docker, AWS]
 ---

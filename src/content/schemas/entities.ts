@@ -101,6 +101,8 @@ export const aboutSchema = z
             issuer: nonEmpty("issuer"),
             /** Short form used in compact lists, e.g. "SAA". */
             abbreviation: z.string().trim().optional(),
+            /** Public verification page (e.g. Credly). */
+            url: z.string().trim().optional(),
           })
           .strict(),
       )
@@ -236,6 +238,10 @@ export const projectSchema = z
   .object({
     ...baseShape,
     status: statusSchema,
+    /** My part in it, e.g. "Backend engineer" or "Project lead". */
+    role: z.string().trim().optional(),
+    /** Slug of a related research entry with a full write-up. */
+    research: slugSchema.optional(),
     repo: optionalUrlSchema.optional(),
     stack: z.array(nonEmpty("stack item")).default([]),
     links: z.array(linkSchema).default([]),

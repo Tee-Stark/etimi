@@ -1,3 +1,4 @@
+import { channelsFor, ContactList } from "@/components/content/contact-list";
 import { PageHeader } from "@/components/layout/page-header";
 import { PageSection } from "@/components/layout/page-section";
 import { getSite } from "@/content";
@@ -29,26 +30,16 @@ export default function ContactPage() {
               <div className="lg:col-span-7">
                 <p className="label text-muted-foreground">Email</p>
                 <p className="mt-3">
-                  <a href={`mailto:${site.email}`} className="link display text-h2 break-all">
+                  <a href={`mailto:${site.email}`} className="link display text-h1 break-all">
                     {site.email}
                   </a>
                 </p>
               </div>
             ) : null}
-            {site.profiles.length > 0 ? (
-              <div className="lg:col-span-4 lg:col-start-9">
-                <p className="label text-muted-foreground">Elsewhere</p>
-                <ul className="mt-3 space-y-2">
-                  {site.profiles.map((p) => (
-                    <li key={p.url}>
-                      <a href={p.url} rel="me noopener noreferrer" className="link">
-                        {p.label}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ) : null}
+            <div className="lg:col-span-4 lg:col-start-9">
+              <p className="label mb-3 text-muted-foreground">Channels</p>
+              <ContactList channels={channelsFor(site.email, site.profiles)} />
+            </div>
           </div>
         ) : (
           <p className="max-w-measure border-t border-border pt-6 text-lede text-muted-foreground">

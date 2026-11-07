@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
+import { channelsFor, ContactList } from "@/components/content/contact-list";
 import { StatusLabel, type StatusKey } from "@/components/content/status-label";
 import { PageSection } from "@/components/layout/page-section";
 import type { PublicEntry, PublicLink } from "@/content/types";
@@ -69,7 +70,7 @@ export type SelectedItem = {
 
 export function SelectedWork({ items }: { items: SelectedItem[] }) {
   return (
-    <PageSection id="selected-work" index="§2" eyebrow="Selected work" title="Things I've built and studied" aside={<More href="/work">All work</More>}>
+    <PageSection id="selected-work" index="§2" eyebrow="Selected work" title="Things I've built" aside={<More href="/projects">All projects</More>}>
       <ol className="grid border-t border-l border-border md:grid-cols-2">
         {items.map((item, i) => (
           <li key={item.href} className="group relative flex flex-col border-r border-b border-border p-6 transition-colors duration-150 hover:bg-surface sm:p-8">
@@ -162,21 +163,14 @@ export function SpeakingHighlight({ talk }: { talk: PublicEntry<"talks"> }) {
   );
 }
 
-// ── Profile links (only once confirmed) ─────────────────────────────────
+// ── Contact (only confirmed channels) ───────────────────────────────────
 
-export function ProfileLinks({ profiles }: { profiles: PublicLink[] }) {
-  if (profiles.length === 0) return null;
+export function ProfileLinks({ email, profiles }: { email: string | null; profiles: PublicLink[] }) {
+  const channels = channelsFor(email, profiles);
+  if (channels.length === 0) return null;
   return (
-    <PageSection id="elsewhere" eyebrow="Elsewhere" title="Find me online">
-      <ul className="flex flex-wrap gap-x-8 gap-y-3">
-        {profiles.map((p) => (
-          <li key={p.url}>
-            <a href={p.url} rel="me noopener noreferrer" className="link">
-              {p.label}
-            </a>
-          </li>
-        ))}
-      </ul>
+    <PageSection id="elsewhere" index="§6" eyebrow="Contact" title="Get in touch" aside={<More href="/contact">Contact</More>}>
+      <ContactList channels={channels} className="grid gap-x-6 sm:grid-cols-2 lg:grid-cols-4 lg:divide-y-0" />
     </PageSection>
   );
 }

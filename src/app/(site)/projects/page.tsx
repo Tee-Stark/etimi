@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { FactList, StackList } from "@/components/content/article-parts";
 import { EntryList, EntryRow } from "@/components/content/entry-list";
 import { Prose } from "@/components/content/prose";
@@ -37,6 +38,7 @@ export default function ProjectsPage() {
                 aside={
                   <FactList
                     items={[
+                      { label: "My role", value: p.data.role },
                       { label: "Stack", value: p.data.stack.length ? <StackList items={p.data.stack} /> : null },
                       { label: "Code", value: p.data.repo ? <a href={p.data.repo} className="link">Repository</a> : null },
                       ...p.data.links.map((l) => ({ label: l.label, value: <a href={l.url} className="link">{l.url.replace(/^https:\/\//, "")}</a> })),
@@ -45,6 +47,13 @@ export default function ProjectsPage() {
                 }
               >
                 {p.body.trim() ? <Prose source={p.body} format={p.format} /> : null}
+                {p.data.research ? (
+                  <p className="mt-4 text-small">
+                    <Link href={`/research/${p.data.research}`} className="link">
+                      Read the full write-up
+                    </Link>
+                  </p>
+                ) : null}
               </EntryRow>
             ))}
           </EntryList>

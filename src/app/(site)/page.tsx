@@ -18,8 +18,8 @@ export const metadata = pageMetadata({ description: getSite().positioning, path:
 /*
  * Home (IMPLEMENTATION_SPEC.md §8.1). What appears is decided by content:
  *   current research   first active research entry by `order`
- *   selected work      two featured case studies, one other featured research
- *                      entry, one project, each by `order`
+ *   selected work      featured projects by `order` (PLAN.md Q32: projects
+ *                      lead; FairMoney case studies live on /work)
  *   experience         engineering roles by `order`
  *   speaking           most recent featured talk
  */
@@ -40,15 +40,17 @@ export default function HomePage() {
     ? [...getCollection("talks")].filter((t) => t.data.research === current.slug && t.data.format === "poster").sort(byDateDesc((t) => t.data.date))[0]
     : undefined;
 
-  const studies = [...getCollection("caseStudies")].filter((s) => s.data.featured).sort(byOrder).slice(0, 2);
-  const otherResearch = research.filter((r) => r.data.featured && r.slug !== current?.slug).slice(0, 1);
-  const projects = [...getCollection("projects")].sort(byOrder).slice(0, 1);
-
-  const selected: SelectedItem[] = [
-    ...studies.map((s) => ({ kind: "Case study", title: s.data.title, summary: s.data.summary, href: s.href!, status: s.data.status })),
-    ...otherResearch.map((r) => ({ kind: "Research", title: r.data.title, summary: r.data.summary, href: r.href!, status: r.data.status })),
-    ...projects.map((p) => ({ kind: "Project", title: p.data.title, summary: p.data.summary, href: `/projects#${p.slug}`, status: p.data.status })),
-  ];
+  const selected: SelectedItem[] = [...getCollection("projects")]
+    .filter((p) => p.data.featured)
+    .sort(byOrder)
+    .slice(0, 4)
+    .map((p) => ({
+      kind: p.data.role ?? "Project",
+      title: p.data.title,
+      summary: p.data.summary,
+      href: p.data.research ? `/research/${p.data.research}` : `/projects#${p.slug}`,
+      status: p.data.status,
+    }));
 
   const roles = [...getCollection("roles")].filter((r) => r.data.category === "engineering").sort(byOrder).slice(0, 3);
   const talk = [...getCollection("talks")].filter((t) => t.data.featured).sort(byDateDesc((t) => t.data.date))[0];
@@ -70,7 +72,7 @@ export default function HomePage() {
       {roles.length > 0 ? <ExperienceGlance roles={roles} /> : null}
       <Introduction excerpt={firstParagraph(about.body)} />
       {talk ? <SpeakingHighlight talk={talk} /> : null}
-      <ProfileLinks profiles={site.profiles} />
+      <ProfileLinks email={site.email} profiles={site.profiles} />
     </>
   );
 }

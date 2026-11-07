@@ -57,6 +57,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           positioning={site.positioning}
           location={site.location}
           coordinates={site.coordinates}
+          email={site.email}
           profiles={site.profiles}
         />
       </body>

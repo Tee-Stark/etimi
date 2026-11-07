@@ -179,6 +179,11 @@ export default function AboutPage() {
                   {c.abbreviation ? <p className="label text-muted-foreground">{c.abbreviation}</p> : null}
                   <p className="mt-2 font-medium">{c.name}</p>
                   <p className="text-small text-muted-foreground">{c.issuer}</p>
+                  {c.url ? (
+                    <a href={c.url} className="link mt-3 inline-block text-small">
+                      Verify credential<span className="sr-only">: {c.name}</span>
+                    </a>
+                  ) : null}
                 </li>
               ))}
             </ul>

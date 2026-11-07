@@ -61,7 +61,7 @@ export type PublicResearch = Omit<Base<ResearchData>, "collaborators" | "publica
   embeds: Array<Omit<ResearchData["embeds"][number], "visibility">>;
   links: PublicLink[];
 };
-export type PublicProject = Omit<Base<ProjectData>, "repo" | "links"> & { repo?: string; links: PublicLink[] };
+export type PublicProject = Omit<Base<ProjectData>, "repo" | "links" | "research"> & { repo?: string; links: PublicLink[]; research?: string };
 export type PublicVenture = Omit<Base<VentureData>, "milestones" | "links"> & {
   milestones: Array<Omit<VentureData["milestones"][number], "visibility">>;
   links: PublicLink[];
@@ -143,9 +143,9 @@ const projectors: { [N in CollectionName]: (data: Entry<N>["data"], ctx: Project
     embeds: d.embeds.filter((e) => e.visibility === "public" && e.url).map(stripVisibility),
     links: publicLinks(d.links),
   }),
-  projects: (d) => {
+  projects: (d, ctx) => {
     const repo = publicUrl(d.repo);
-    return { ...stripVisibility(d), repo, links: publicLinks(d.links) };
+    return { ...stripVisibility(d), repo, links: publicLinks(d.links), research: ref("research", d.research, ctx) };
   },
   ventures: (d) => ({
     ...stripVisibility(d),

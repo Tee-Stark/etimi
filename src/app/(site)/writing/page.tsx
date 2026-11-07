@@ -5,7 +5,7 @@ import { getCollection } from "@/content";
 import { formatPartialDate } from "@/lib/dates";
 import { pageCopy } from "@/config/page-copy";
 import { pageMetadata } from "@/lib/metadata";
-import { byDateDesc } from "@/lib/order";
+import { byDateDesc, byOrder } from "@/lib/order";
 import { readingTime } from "@/lib/reading-time";
 
 export const metadata = pageMetadata({
@@ -16,7 +16,7 @@ export const metadata = pageMetadata({
 
 export default function WritingPage() {
   const notes = [...getCollection("notes")].sort(byDateDesc((n) => n.data.date));
-  const publications = getCollection("publications");
+  const publications = [...getCollection("publications")].sort(byOrder);
 
   return (
     <>
@@ -50,21 +50,31 @@ export default function WritingPage() {
       </PageSection>
 
       {publications.length > 0 ? (
-        <PageSection id="previously" index="§2" eyebrow="Elsewhere" title="Previously">
+        <PageSection id="previously" index="§2" eyebrow="Elsewhere" title="Writing elsewhere">
           <ul className="divide-y divide-border border-y border-border">
             {publications.map((p) => (
               <li key={p.slug} className="grid gap-x-6 gap-y-1 py-5 lg:grid-cols-12">
                 <span className="annot text-muted-foreground lg:col-span-2">{p.data.period}</span>
-                <span className="font-medium lg:col-span-3">
-                  {p.data.url ? (
-                    <a href={p.data.url} className="link">
-                      {p.data.outlet}
+                <span className="font-medium lg:col-span-3">{p.data.outlet}</span>
+                <span className="lg:col-span-7">
+                  {p.data.title !== p.data.outlet ? (
+                    <span className="block">
+                      {p.data.url ? (
+                        <a href={p.data.url} className="link">
+                          {p.data.title}
+                        </a>
+                      ) : (
+                        p.data.title
+                      )}
+                    </span>
+                  ) : null}
+                  <span className="block text-muted-foreground">{p.data.summary}</span>
+                  {p.data.url && p.data.title === p.data.outlet ? (
+                    <a href={p.data.url} className="link mt-1 inline-block text-small">
+                      Author page
                     </a>
-                  ) : (
-                    p.data.outlet
-                  )}
+                  ) : null}
                 </span>
-                <span className="text-muted-foreground lg:col-span-7">{p.data.summary}</span>
               </li>
             ))}
           </ul>

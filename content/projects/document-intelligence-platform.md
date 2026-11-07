@@ -7,6 +7,7 @@ summary: "[CONFIRM] One-sentence, plain-English description of what it does for 
 visibility: hidden
 status: active
 threads: [engineering]
+order: 5
 updated: 2026-11-05
 stack: [Go, Domain-Driven Design, pgx, asynq, Redis]
 repo:

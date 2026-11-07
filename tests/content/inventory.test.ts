@@ -50,10 +50,14 @@ describe("public inventory matches PLAN.md", () => {
     expect(status).toEqual({ hauv: "active", dechorder: "completed" });
   });
 
-  it("projects: DEX indexing public as an exploration; Document Intelligence Platform withheld", () => {
-    expect(slugs("projects")).toEqual(["multi-chain-dex-indexing"]);
-    expect(repo.published.projects[0].data.status).toBe("exploration");
-    expect(repo.published.projects[0].data.stack).toEqual(["Go", "Docker", "AWS"]);
+  it("projects: Dechorder and DEX lead the featured four (Q32); Document Intelligence Platform withheld", () => {
+    expect(slugs("projects")).toEqual(["cacyof-attendance-platform", "dechorder", "multi-chain-dex-indexing", "waliyy-app"]);
+    const featured = repo.published.projects.filter((p) => p.data.featured).sort((a, b) => a.data.order - b.data.order);
+    expect(featured.map((p) => p.slug)).toEqual(["dechorder", "multi-chain-dex-indexing", "waliyy-app", "cacyof-attendance-platform"]);
+    const dex = repo.published.projects.find((p) => p.slug === "multi-chain-dex-indexing")!;
+    expect(dex.data.status).toBe("exploration");
+    expect(dex.data.stack).toEqual(["Go", "Docker", "AWS"]);
+    expect(repo.published.projects.find((p) => p.slug === "dechorder")!.data.research).toBe("dechorder");
     expect(raw.entries.projects.find((e) => e.data.slug === "document-intelligence-platform")?.data.visibility).toBe("hidden");
   });
 
@@ -73,8 +77,8 @@ describe("public inventory matches PLAN.md", () => {
 
   it("writing: no notes; MakeUseOf as a past publication", () => {
     expect(slugs("notes")).toEqual([]);
-    expect(slugs("publications")).toEqual(["makeuseof"]);
-    expect(repo.published.publications[0].data.period).toBe("until 2023");
+    expect(slugs("publications")).toEqual(["earthly-image-upload-golang", "makeuseof"]);
+    expect(repo.published.publications.find((p) => p.slug === "makeuseof")!.data.period).toBe("until 2023");
   });
 
   it("community and music", () => {
@@ -154,6 +158,7 @@ describe("facts that must hold exactly", () => {
     expect(repo.site.profiles).toEqual([
       { label: "LinkedIn", url: "https://linkedin.com/in/timmyomolana" },
       { label: "X", url: "https://x.com/t_starkx" },
+      { label: "GitHub", url: "https://github.com/tee-stark" },
     ]);
   });
 

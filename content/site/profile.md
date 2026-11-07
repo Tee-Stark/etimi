@@ -32,7 +32,7 @@ threads:
     note: "Xealtha: healthcare triage over WhatsApp for Nigeria, in development."
     href: /ventures
 # Contact and profiles. Confirmed by Timmy on 5 Nov 2026 (PLAN.md Q31).
-# GitHub's URL hasn't been supplied; Substack and Instagram may come later.
+# GitHub from Timmy's Linktree (7 Nov 2026). Substack and Instagram may come later.
 email:
   address: hi@etimi.me
   visibility: public
@@ -47,8 +47,8 @@ profiles:
     url: https://x.com/t_starkx
     visibility: public
   - label: GitHub
-    url: ""
-    visibility: hidden
+    url: https://github.com/tee-stark
+    visibility: public
   - label: Substack
     url: ""
     visibility: hidden

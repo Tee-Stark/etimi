@@ -103,6 +103,11 @@ function checkReferences(entries: AllEntries): ContentIssue[] {
       issues.push({ file: cs.sourcePath, field: "role", rule: "reference", message: `No role with slug "${cs.data.role}" exists in content/roles/` });
     }
   }
+  for (const project of entries.projects) {
+    if (project.data.research && !researchSlugs.has(project.data.research)) {
+      issues.push({ file: project.sourcePath, field: "research", rule: "reference", message: `No research entry with slug "${project.data.research}" exists in content/research/` });
+    }
+  }
   for (const talk of entries.talks) {
     if (talk.data.research && !researchSlugs.has(talk.data.research)) {
       issues.push({ file: talk.sourcePath, field: "research", rule: "reference", message: `No research entry with slug "${talk.data.research}" exists in content/research/` });
@@ -187,6 +192,9 @@ function checkPublicSurface(content: LoadedContent, site: SiteData | null): Cont
     const file = about.sourcePath;
     issues.push(...checkPlaceholders(JSON.stringify(about.data), { file, raw: about.raw }));
     issues.push(...checkPlaceholders(about.body, { file, raw: about.raw, field: "body" }));
+    for (const url of extractDataUrls(about.data)) {
+      issues.push(...checkUrl(url, { file, line: lineOf(about.raw, url) }, urlCtx));
+    }
     for (const url of extractBodyLinks(about.body)) {
       issues.push(...checkUrl(url, { file, field: "body", line: lineOf(about.raw, url) }, urlCtx));
     }
