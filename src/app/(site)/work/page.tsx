@@ -53,7 +53,10 @@ export default function WorkPage() {
                   items={[
                     { label: "Role", value: role.data.role },
                     { label: "About", value: role.data.orgNote },
-                    { label: "Mode", value: role.data.mode ? role.data.mode[0].toUpperCase() + role.data.mode.slice(1) : null },
+                    {
+                      label: "Where",
+                      value: [role.data.location, role.data.mode ? role.data.mode[0].toUpperCase() + role.data.mode.slice(1) : null].filter(Boolean).join(" · ") || null,
+                    },
                   ]}
                 />
               }
@@ -117,6 +120,10 @@ export default function WorkPage() {
                   <FactList
                     items={[
                       { label: "Organisation", value: role?.data.organisation },
+                      {
+                        label: study.data.metrics[0]?.kind === "expected" ? "Expected impact" : "Result",
+                        value: study.data.metrics[0] ? `${study.data.metrics[0].value} · ${study.data.metrics[0].label.toLowerCase()}` : null,
+                      },
                       { label: "Stack", value: study.data.stack.length ? <StackList items={study.data.stack} /> : null },
                     ]}
                   />

@@ -8,7 +8,7 @@ import { PageSection } from "@/components/layout/page-section";
 import { graph, JsonLd, personSchema } from "@/components/seo/json-ld";
 import { SectionHeading } from "@/components/typography/section-heading";
 import { getAbout, getCollection, getSite } from "@/content";
-import { formatPartialDate } from "@/lib/dates";
+import { formatDateRange, formatPartialDate } from "@/lib/dates";
 import { pageMetadata } from "@/lib/metadata";
 import { absoluteUrl } from "@/lib/site-url";
 import { byDateDesc, byOrder } from "@/lib/order";
@@ -65,6 +65,10 @@ export default function AboutPage() {
       value: degree
         ? `${degree.qualification}, ${degree.institution}${degree.completed ? ` (${formatPartialDate(degree.completed)})` : ""}`
         : null,
+    },
+    {
+      label: "Certified",
+      value: about.certifications.length ? about.certifications.map((c) => c.name.replace(/^AWS Certified /, "AWS ")).join("; ") : null,
     },
     {
       label: "Last spoke at",
@@ -139,7 +143,7 @@ export default function AboutPage() {
         </section>
       </div>
 
-      <PageSection id="education" index="§2" eyebrow="Education" title="Education">
+      <PageSection id="education" index="§2" eyebrow="Education" title="Education and certifications">
         <ul className="grid gap-8 lg:grid-cols-12">
           {about.education.map((edu) => {
             const thesis = edu.thesis ? research.get(edu.thesis) : undefined;
@@ -148,7 +152,11 @@ export default function AboutPage() {
                 <p className="text-h3 font-medium tracking-tight">{edu.qualification}</p>
                 <p className="mt-1 text-muted-foreground">
                   {edu.institution}
-                  {edu.completed ? ` · graduated ${formatPartialDate(edu.completed, { long: true })}` : ""}
+                  {edu.start
+                    ? ` · ${formatDateRange(edu.start, edu.completed ?? null)}`
+                    : edu.completed
+                      ? ` · graduated ${formatPartialDate(edu.completed, { long: true })}`
+                      : ""}
                 </p>
                 {thesis ? (
                   <p className="mt-3">
@@ -162,6 +170,20 @@ export default function AboutPage() {
             );
           })}
         </ul>
+        {about.certifications.length > 0 ? (
+          <div className="mt-12">
+            <GroupLabel as="h3">Certifications</GroupLabel>
+            <ul className="mt-4 grid border-t border-l border-border sm:grid-cols-2 lg:w-2/3">
+              {about.certifications.map((c) => (
+                <li key={c.name} className="border-r border-b border-border p-5">
+                  {c.abbreviation ? <p className="label text-muted-foreground">{c.abbreviation}</p> : null}
+                  <p className="mt-2 font-medium">{c.name}</p>
+                  <p className="text-small text-muted-foreground">{c.issuer}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ) : null}
         {about.academicInterests.length > 0 ? (
           <div className="mt-12 max-w-3xl">
             <GroupLabel as="h3">Academic interests</GroupLabel>

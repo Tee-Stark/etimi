@@ -50,7 +50,7 @@ export default function HomePage() {
     ...projects.map((p) => ({ kind: "Project", title: p.data.title, summary: p.data.summary, href: `/projects#${p.slug}`, status: p.data.status })),
   ];
 
-  const roles = [...getCollection("roles")].filter((r) => r.data.category === "engineering").sort(byOrder);
+  const roles = [...getCollection("roles")].filter((r) => r.data.category === "engineering").sort(byOrder).slice(0, 3);
   const talk = [...getCollection("talks")].filter((t) => t.data.featured).sort(byDateDesc((t) => t.data.date))[0];
 
   return (

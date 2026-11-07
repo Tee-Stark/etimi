@@ -82,10 +82,25 @@ export const aboutSchema = z
           .object({
             institution: nonEmpty("institution"),
             qualification: nonEmpty("qualification"),
+            /** Start date at the precision known, if recorded. */
+            start: partialDateSchema.optional(),
             /** Completion date at the precision known (e.g. 2026-08). */
             completed: partialDateSchema.optional(),
             /** Slug of the thesis in content/research/. */
             thesis: slugSchema.optional(),
+          })
+          .strict(),
+      )
+      .default([]),
+    /** Professional certifications, exactly as held. */
+    certifications: z
+      .array(
+        z
+          .object({
+            name: nonEmpty("name"),
+            issuer: nonEmpty("issuer"),
+            /** Short form used in compact lists, e.g. "SAA". */
+            abbreviation: z.string().trim().optional(),
           })
           .strict(),
       )

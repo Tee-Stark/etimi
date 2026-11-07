@@ -1,7 +1,7 @@
 ---
-# Source: PLAN.md §3.4B, Q3. Thesis completed and defended (2026). Libraries,
-# build tooling, separated stems, results, data provenance and links are
-# still open (O4), so none of them is stated here.
+# Sources: PLAN.md §3.4B, Q3; resume (5 Nov 2026): STFT and the three NMF
+# variants were implemented from scratch in C++. Results, data provenance and
+# links are still open (O4).
 title: Dechorder
 slug: dechorder
 summary: >-
@@ -15,7 +15,7 @@ featured: true
 order: 2
 updated: 2026-11-05
 affiliation: University of Lagos
-stack: [C++20]
+stack: [C++20, Linear algebra, Digital signal processing]
 publications:
   - title: Dechorder
     kind: thesis
@@ -65,7 +65,7 @@ I used NMF-based source separation and compared the Euclidean, KL and IS diverge
 
 ## Implementation
 
-The implementation is written in C++20.
+I wrote Dechorder in C++20 and implemented the signal processing from scratch, including the Short-Time Fourier Transform and all three NMF variants (Euclidean, Kullback–Leibler and Itakura–Saito). The tool separates individual instruments from mixed recordings.
 
 ## Results and findings
 

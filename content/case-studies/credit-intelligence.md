@@ -6,8 +6,7 @@ summary: I brought credit-registry smart-score data into loan offer generation, 
 visibility: public
 status: completed
 threads: [engineering]
-featured: true
-order: 5
+order: 8
 updated: 2026-11-05
 role: fairmoney
 approach: >-

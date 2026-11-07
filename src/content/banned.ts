@@ -61,20 +61,13 @@ export function findRemovedTerms(text: string): TextMatch[] {
   return scan(text, REMOVED_TERMS);
 }
 
-// ── FairMoney rules ─────────────────────────────────────────────────────
-
-const MICROSERVICE: BannedTerm = {
-  id: "fairmoney-microservice",
-  pattern: /micro-?services?/i,
-  reason: 'Never describe FairMoney\'s architecture as "microservices" (PLAN.md §9.4)',
-};
+// ── FairMoney rules ─────
+// (The former ban on "microservices" was retired in PLAN.md Q31: the platform is
+// distributed, event-driven and service-oriented, and may be described as such.)
+//────────────────────────────────────────────────
 
 export function mentionsFairMoney(text: string): boolean {
   return /\bfair\s?money\b/i.test(text);
-}
-
-export function findMicroservice(text: string): TextMatch[] {
-  return scan(text, [MICROSERVICE]);
 }
 
 const PERCENT = /(?:\d+(?:[.,]\d+)?\s*(?:[-–—]|to)\s*)?\d+(?:[.,]\d+)?\s*(?:%|per\s?cent\b)/i;

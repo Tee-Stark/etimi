@@ -31,21 +31,28 @@ threads:
     description: Turning ideas into products, experiments, and tangible things.
     note: "Xealtha: healthcare triage over WhatsApp for Nigeria, in development."
     href: /ventures
-# Contact and profiles: hidden until Timmy supplies the real values (open item O11).
+# Contact and profiles. Confirmed by Timmy on 5 Nov 2026 (PLAN.md Q31).
+# GitHub's URL hasn't been supplied; Substack and Instagram may come later.
 email:
-  address: ""
-  visibility: hidden
+  address: hi@etimi.me
+  visibility: public
 cv:
   path: ""
   visibility: hidden
 profiles:
+  - label: LinkedIn
+    url: https://linkedin.com/in/timmyomolana
+    visibility: public
+  - label: X
+    url: https://x.com/t_starkx
+    visibility: public
   - label: GitHub
     url: ""
     visibility: hidden
-  - label: LinkedIn
+  - label: Substack
     url: ""
     visibility: hidden
-  - label: X
+  - label: Instagram
     url: ""
     visibility: hidden
 ---

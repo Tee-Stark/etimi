@@ -6,7 +6,7 @@ summary: I worked on reducing latency spikes in loan scoring by introducing new 
 visibility: public
 status: completed
 threads: [engineering]
-order: 6
+order: 10
 updated: 2026-11-05
 role: fairmoney
 approach: >-

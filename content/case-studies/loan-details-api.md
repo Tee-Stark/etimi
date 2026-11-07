@@ -6,8 +6,7 @@ summary: I traced a slow loan details endpoint to an N+1 query problem and fixed
 visibility: public
 status: completed
 threads: [engineering]
-featured: true
-order: 1
+order: 7
 updated: 2026-11-05
 role: fairmoney
 context: An API endpoint that returns loan details.

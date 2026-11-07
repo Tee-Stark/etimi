@@ -3,7 +3,7 @@
  * scanner by path (see BANNED_DEFINITION_PATHS).
  */
 import { describe, expect, it } from "vitest";
-import { findCostPercentageClaims, findMicroservice, findRemovedTerms, mentionsFairMoney } from "@/content/banned";
+import { findCostPercentageClaims, findRemovedTerms, mentionsFairMoney } from "@/content/banned";
 import { loadAllContent } from "@/content/loader";
 import { validateContent } from "@/content/validation";
 import { base, fm, makeTree } from "../support/content-tree";
@@ -66,10 +66,6 @@ describe("FairMoney rules", () => {
     expect(mentionsFairMoney("fair pricing")).toBe(false);
   });
 
-  it("flags microservice wording", () => {
-    for (const t of ["microservices", "a microservice", "Micro-services architecture"]) expect(findMicroservice(t).length, t).toBe(1);
-  });
-
   it.each([
     "Cut infrastructure costs by 30%.",
     "Reduced the storage bill by 25 percent.",
@@ -90,14 +86,14 @@ describe("FairMoney rules", () => {
   it("applies to FairMoney roles and case studies that reference them", () => {
     const root = makeTree({
       "roles/fm.md": fm({ ...base("fm"), organisation: "FairMoney", role: "Software Engineer" }),
-      "case-studies/cleanup.md": fm({ ...base("cleanup"), status: "completed", role: "fm" }, "We cut storage costs by 35% across the microservice fleet."),
+      "case-studies/cleanup.md": fm({ ...base("cleanup"), status: "completed", role: "fm" }, "We cut storage costs by 35% across the service fleet."),
     });
     const ruleIds = validateContent(loadAllContent(root)).map((i) => i.rule);
-    expect(ruleIds).toEqual(expect.arrayContaining(["fairmoney-microservice", "fairmoney-cost-percentage"]));
+    expect(ruleIds).toEqual(expect.arrayContaining(["fairmoney-cost-percentage"]));
   });
 
   it("does not apply FairMoney rules to unrelated content", () => {
-    const root = makeTree({ "projects/p.md": fm({ ...base("p"), status: "active" }, "Event-driven microservice experiment.") });
+    const root = makeTree({ "projects/p.md": fm({ ...base("p"), status: "active" }, "Cut hosting costs by 40% in a side project.") });
     expect(validateContent(loadAllContent(root))).toEqual([]);
   });
 });

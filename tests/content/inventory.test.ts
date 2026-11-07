@@ -16,13 +16,17 @@ const slugs = (name: keyof typeof repo.published) => repo.published[name].map((e
 
 describe("public inventory matches PLAN.md", () => {
   it("roles", () => {
-    expect(slugs("roles")).toEqual(["analytics-intelligence-africa", "fairmoney", "makeuseof", "naerospace"]);
+    expect(slugs("roles")).toEqual(["analytics-intelligence-africa", "fairmoney", "makeuseof", "naerospace", "scrim", "stacklent-network"]);
   });
 
-  it("engineering case studies, with the selected five featured in order", () => {
+  it("engineering case studies, with the selected six featured in order (Q31)", () => {
     expect(slugs("caseStudies")).toEqual([
       "bank-statement-processing",
+      "batch-processing-go",
       "credit-intelligence",
+      "distributed-tracing",
+      "home-screen-latency",
+      "instalment-schedule-engine",
       "loan-details-api",
       "loan-offer-generation",
       "scoring-latency",
@@ -31,11 +35,12 @@ describe("public inventory matches PLAN.md", () => {
     ]);
     const featured = repo.published.caseStudies.filter((e) => e.data.featured).sort((a, b) => a.data.order - b.data.order);
     expect(featured.map((e) => e.slug)).toEqual([
-      "loan-details-api",
+      "batch-processing-go",
+      "home-screen-latency",
       "stale-data-cleanup",
       "bank-statement-processing",
+      "instalment-schedule-engine",
       "uav-video-streaming",
-      "credit-intelligence",
     ]);
   });
 
@@ -82,14 +87,17 @@ describe("facts that must hold exactly", () => {
     const role = (slug: string) => repo.published.roles.find((r) => r.slug === slug)!.data;
     expect([role("fairmoney").start, role("fairmoney").end]).toEqual(["2024-11", null]);
     expect([role("analytics-intelligence-africa").start, role("analytics-intelligence-africa").end]).toEqual(["2024-09", "2024-10"]);
-    expect([role("naerospace").start, role("naerospace").end]).toEqual([undefined, undefined]);
+    expect([role("naerospace").start, role("naerospace").end]).toEqual(["2022-11", "2024-10"]);
     expect([role("makeuseof").start, role("makeuseof").end]).toEqual([undefined, "2023"]);
   });
 
   it("education: graduated August 2026, thesis linked", () => {
-    expect(repo.about.education).toEqual([
-      { institution: "University of Lagos", qualification: "B.Sc. Industrial Mathematics (Computer Option)", completed: "2026-08", thesis: "dechorder" },
-    ]);
+    expect(repo.about.education[0]).toEqual({
+      institution: "University of Lagos",
+      qualification: "B.Sc. Industrial Mathematics (Computer Option)",
+      completed: "2026-08",
+      thesis: "dechorder",
+    });
   });
 
   it("skills: Go primary, Rust learning, no other markers", () => {
@@ -100,14 +108,35 @@ describe("facts that must hold exactly", () => {
     ]);
   });
 
-  it("every FairMoney and UAV metric is withheld until cleared", () => {
-    for (const study of raw.entries.caseStudies) for (const m of study.data.metrics) expect(m.cleared, `${study.data.slug}: ${m.label}`).toBe(false);
-    for (const study of repo.published.caseStudies) expect(study.data.metrics).toEqual([]);
+  it("only figures cleared in Q31 are published; the rest stay withheld", () => {
+    const withheld = raw.entries.caseStudies.flatMap((e) => e.data.metrics.filter((m) => !m.cleared).map((m) => `${e.data.slug}: ${m.value}`));
+    expect(withheld).toEqual(["credit-intelligence: 15–20%", "loan-details-api: >12 s → <100 ms"]);
+    const published = repo.published.caseStudies.flatMap((e) => e.data.metrics.map((m) => m.value));
+    expect(published).not.toContain("15–20%");
+    expect(published).not.toContain(">12 s → <100 ms");
+    const labels = raw.entries.caseStudies.flatMap((e) => e.data.metrics.map((m) => m.label));
+    expect(labels.join(" ")).not.toMatch(/landing precision/i);
+    expect(repo.published.roles.flatMap((r) => r.data.highlights).join(" ")).not.toMatch(/precision by/i);
   });
 
   it("the First Payment Default figure is recorded as expected, never measured", () => {
     const study = raw.entries.caseStudies.find((e) => e.data.slug === "credit-intelligence")!;
     expect(study.data.metrics.map((m) => m.kind)).toEqual(["expected"]);
+  });
+
+  it("the estimated approvals figure carries the expected-impact label", () => {
+    const study = repo.published.caseStudies.find((e) => e.slug === "bank-statement-processing")!;
+    expect(study.data.metrics).toEqual([expect.objectContaining({ value: "~30%", qualifier: "Expected impact" })]);
+  });
+
+  it("Stacklent shows no figures, and Scrim omits the engagement figure (Q31)", () => {
+    const role = (slug: string) => repo.published.roles.find((r) => r.slug === slug)!.data;
+    expect(role("stacklent-network").highlights.join(" ")).not.toMatch(/\d+%/);
+    expect(role("scrim").highlights.join(" ")).not.toMatch(/30%|engagement/);
+  });
+
+  it("AWS certifications are listed", () => {
+    expect(repo.about.certifications.map((c) => c.abbreviation)).toEqual(["SAA", "CCP"]);
   });
 
   it("the HAUV explainer embed is withheld (open item O1)", () => {
@@ -121,8 +150,11 @@ describe("facts that must hold exactly", () => {
   it("the site name follows Q26", () => {
     expect(repo.site.name).toBe("Timmy Omolana");
     expect(repo.site.fullName).toBe("Timilehin Omolana");
-    expect(repo.site.email).toBeNull();
-    expect(repo.site.profiles).toEqual([]);
+    expect(repo.site.email).toBe("hi@etimi.me");
+    expect(repo.site.profiles).toEqual([
+      { label: "LinkedIn", url: "https://linkedin.com/in/timmyomolana" },
+      { label: "X", url: "https://x.com/t_starkx" },
+    ]);
   });
 
   it("the biography opens with the full name and puts the choir in the past (Q29)", () => {

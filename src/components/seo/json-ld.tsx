@@ -30,6 +30,16 @@ export function personSchema(site: PublicSite, about: PublicAbout, profiles: Pub
     url: absoluteUrl("/"),
     address: { "@type": "PostalAddress", addressLocality: locality, ...(country ? { addressCountry: country } : {}) },
     ...(institutions.length ? { alumniOf: institutions.map((name) => ({ "@type": "CollegeOrUniversity", name })) } : {}),
+    ...(about.certifications.length
+      ? {
+          hasCredential: about.certifications.map((c) => ({
+            "@type": "EducationalOccupationalCredential",
+            name: c.name,
+            credentialCategory: "certification",
+            recognizedBy: { "@type": "Organization", name: c.issuer },
+          })),
+        }
+      : {}),
     ...(profiles.length ? { sameAs: profiles.map((p) => p.url) } : {}),
   };
 }

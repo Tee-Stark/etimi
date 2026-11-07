@@ -8,6 +8,18 @@ education:
     qualification: B.Sc. Industrial Mathematics (Computer Option)
     completed: 2026-08
     thesis: dechorder
+  - institution: ALX Africa
+    qualification: AWS Cloud Computing programme
+    start: 2023-05
+    completed: 2024-02
+# Confirmed by Timmy (resume, 5 Nov 2026).
+certifications:
+  - name: AWS Certified Solutions Architect – Associate
+    issuer: Amazon Web Services
+    abbreviation: SAA
+  - name: AWS Certified Cloud Practitioner
+    issuer: Amazon Web Services
+    abbreviation: CCP
 academicInterests:
   - Numerical analysis
   - Functional analysis
@@ -67,7 +79,12 @@ skills:
       - Java
       - JavaScript
       - TypeScript
+      - Node.js
+      - SQL
       - Python
+      - Bash
+      - Ruby
+      - C
       - Octave
       - name: Rust
         note: learning
@@ -76,6 +93,8 @@ skills:
       - API design
       - Event-driven systems
       - Distributed systems
+      - Service-oriented and microservice architectures
+      - Software architecture
       - Workflow orchestration (Temporal)
       - Saga pattern
       - Idempotent design
@@ -84,9 +103,12 @@ skills:
       - Chi
       - asynq
       - Financial systems
+      - WebSockets
+      - Test-driven development
   - domain: Databases and data
     items:
       - PostgreSQL (pgx, database/sql)
+      - MySQL
       - MongoDB
       - Redis
       - Amazon Redshift
@@ -95,24 +117,31 @@ skills:
       - SQL and query optimisation
   - domain: Infrastructure and cloud
     items:
-      - AWS
+      - AWS (S3, SNS/SQS, RDS)
+      - Google Cloud
       - Docker
       - Kubernetes (Amazon EKS)
       - Amazon ECR
       - Helm
       - Terraform
       - GitHub Actions
+      - CI/CD
+      - Linux
+      - Nginx
+      - Git
   - domain: Observability and reliability
     items:
+      - OpenTelemetry
       - Grafana
       - PromQL
       - StatsD
+      - Sentry
       - Performance analysis
       - Workflow reliability
   - domain: AI
     items:
       - Large language model (LLM) integration (Llama 3.3 via Groq)
-      - Agentic systems
+      - Agentic systems and AI agents
   - domain: Mathematics and computation
     items:
       - Linear algebra

@@ -8,13 +8,12 @@
  *     uncleared metric values, unconsented collaborator names
  *   - items REMOVED in PLAN.md
  *   - placeholders ([CONFIRM], TODO) and development-only markers
- *   - "microservice" wording
  *   - JSON-LD sameAs URLs that are not confirmed public profiles
  * The decisive surface is the built output, not the source.
  */
 import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
 import path from "node:path";
-import { findMicroservice, findRemovedTerms } from "../src/content/banned";
+import { findRemovedTerms } from "../src/content/banned";
 import { loadAllContent } from "../src/content/loader";
 import { projectSite } from "../src/content/visibility";
 import { collectWithheld } from "../src/content/withheld";
@@ -67,7 +66,6 @@ for (const file of [...rendered, ...client]) {
 for (const file of rendered) {
   const text = readFileSync(file, "utf8");
   for (const m of findRemovedTerms(text)) problems.push(`${rel(file)}  removed:${m.id} — "${m.text}"`);
-  for (const m of findMicroservice(text)) problems.push(`${rel(file)}  "${m.text}" must not appear`);
   for (const p of PLACEHOLDERS) if (p.test(text)) problems.push(`${rel(file)}  placeholder ${p.source}`);
   for (const marker of DEV_MARKERS) if (text.includes(marker)) problems.push(`${rel(file)}  development-only marker "${marker}"`);
 

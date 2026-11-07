@@ -1,30 +1,32 @@
 ---
-# Source: PLAN.md §3.2 item 2. Metrics uncleared (Q14). Never state a percentage cost reduction.
+# Sources: PLAN.md §3.2; resume (5 Nov 2026). Figures cleared (Q31). The cost
+# percentage stays off the site (PLAN.md §3.2 rule, still in force).
 title: Stale data cleanup
 slug: stale-data-cleanup
-summary: I cleaned up stale database records at large scale, freeing storage and helping reduce database infrastructure costs.
+summary: I led a cost-optimisation initiative that cleaned stale data out of a very large database table, freeing storage and cutting monthly database costs.
 visibility: public
 status: completed
 threads: [engineering]
 featured: true
-order: 2
+order: 3
 updated: 2026-11-05
 role: fairmoney
-problem: Stale records had accumulated in the database and were taking up storage.
-approach: I worked on cleaning up the stale records.
-outcome: Storage was freed, contributing to lower database infrastructure costs.
+problem: A MySQL table had accumulated a large volume of stale records that were taking up storage.
+approach: I led a cost-optimisation initiative to clean up the stale data.
+outcome: Storage was freed and monthly Amazon RDS costs came down.
+stack: [MySQL, Amazon RDS]
 metrics:
-  - label: Stale records affected
-    value: approximately 200 million records
-    kind: measured
-    cleared: false
-  - label: Data affected
-    value: approximately 3 TB
-    kind: measured
-    cleared: false
   - label: Storage freed
-    value: approximately 800 GB
+    value: ~800 GB
     kind: measured
-    cleared: false
+    cleared: true
+  - label: Records in the table
+    value: ~200 million
+    kind: measured
+    cleared: true
+  - label: Data in the table
+    value: ~3 TB
+    kind: measured
+    cleared: true
 confidentialityNote: Described at a high level. No internal code, architecture or customer data is shown.
 ---

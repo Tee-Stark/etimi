@@ -1,5 +1,5 @@
 import { collections, staticRoutes, type CollectionName } from "./collections";
-import { findCostPercentageClaims, findMicroservice, findRemovedTerms, lineAt, mentionsFairMoney } from "./banned";
+import { findCostPercentageClaims, findRemovedTerms, lineAt, mentionsFairMoney } from "./banned";
 import type { ContentIssue } from "./issues";
 import { isInternalPath, urlProblem } from "./links";
 import { SITE_SOURCE_PATH, type Entry, type LoadedContent } from "./loader";
@@ -249,9 +249,6 @@ function checkBannedText(content: LoadedContent): ContentIssue[] {
     const isFairMoney =
       mentionsFairMoney(raw) || (entry?.collection === "caseStudies" && fairMoneyRoles.has((entry.data as { role?: string }).role ?? ""));
     if (!isFairMoney) continue;
-    for (const m of findMicroservice(raw)) {
-      issues.push({ file, line: m.line, rule: m.id, message: `${m.reason}: "${m.text}"` });
-    }
     for (const m of findCostPercentageClaims(raw)) {
       issues.push({ file, line: m.line, rule: m.id, message: `${m.reason}: "${m.text}"` });
     }

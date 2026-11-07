@@ -6,7 +6,7 @@ summary: I worked on Management Fee V2 deductions in the loan disbursement flow 
 visibility: public
 status: completed
 threads: [engineering]
-order: 7
+order: 11
 updated: 2026-11-05
 role: fairmoney
 confidentialityNote: Described at a high level. No internal code, architecture or customer data is shown.
