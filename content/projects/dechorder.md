@@ -15,5 +15,9 @@ updated: 2026-11-07
 role: Sole author (B.Sc. thesis)
 research: dechorder
 stack: [C++20, Linear algebra, Digital signal processing]
+# Repository link to come from Timmy; hidden until supplied.
+repo:
+  url: ""
+  visibility: hidden
 ---
 I implemented the Short-Time Fourier Transform and three Non-negative Matrix Factorisation (NMF) variants (Euclidean, Kullback–Leibler and Itakura–Saito) from scratch, and tuned the work towards African music.
