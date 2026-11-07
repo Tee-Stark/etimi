@@ -53,7 +53,7 @@ export function ThemeToggle({ className }: { className?: string }) {
       aria-label={label}
       title={label}
       className={cn(
-        "label inline-flex min-h-11 items-center gap-2 px-2 text-muted-foreground transition-colors duration-150 hover:text-foreground",
+        "label inline-flex min-h-11 items-center gap-1.5 px-1.5 text-muted-foreground sm:gap-2 sm:px-2 transition-colors duration-150 hover:text-foreground",
         className,
       )}
     >
@@ -62,7 +62,7 @@ export function ThemeToggle({ className }: { className?: string }) {
         <span className={cn("size-2 border border-current", theme !== "light" && "bg-current")} />
         <span className={cn("size-2 border border-current", theme === "light" && "bg-current")} />
       </span>
-      <span aria-hidden="true" className="hidden sm:inline">
+      <span aria-hidden="true">
         {theme === "light" ? "Paper" : "Dark"}
       </span>
     </button>

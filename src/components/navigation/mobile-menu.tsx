@@ -39,9 +39,10 @@ export function MobileMenu() {
         aria-expanded={open}
         aria-controls={panelId}
         onClick={() => setOpen((value) => !value)}
-        className="label inline-flex min-h-11 items-center gap-2 px-2 text-foreground hover:text-accent"
+        className="label -mr-1.5 inline-flex min-h-11 items-center gap-1.5 px-1.5 text-foreground hover:text-accent sm:mr-0 sm:gap-2 sm:px-2"
       >
-        <span>{open ? "Close" : "Menu"}</span>
+        {/* Icon-only below 360px, where the theme label needs the room; the text stays for screen readers. */}
+        <span className="sr-only min-[360px]:not-sr-only">{open ? "Close" : "Menu"}</span>
         <span aria-hidden="true" className="relative block size-3.5">
           <span
             className={cn(
